@@ -1,14 +1,29 @@
 .header {
   border-bottom: 1px solid hsla(0, 0%, 33%, 0.7);
   box-sizing: border-box;
+  width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+  .header {
+    width: 100vw;
+    margin-left: -19px;
+  }
 }
 
 .header__title {
   font-size: 30px;
   font-weight: normal;
   color: white;
-
 }
+
+@media screen and (min-width: 376px) and (max-width: 767px) {
+  .header__title {
+    font-size: 22px;
+    margin-left: 19px;
+  }
+}
+
 
 .header__title_type_super {
   vertical-align: top;
@@ -16,4 +31,10 @@
   color: white;
   font-weight: 100;
   font-size: 10px;
+}
+
+@media screen and (max-width: 767px) {
+  .header__title_type_super {
+    font-size: 7px;
+  }
 }

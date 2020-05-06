@@ -1,5 +1,16 @@
 .page {
   background-color: black;
   font-family: "Inter", "Arial", sans-serif;
-  margin: 45px 202px 0 202px;
+  /* Fractions: 45/1280, 202/1280 */
+  margin: 3.516vw 15.78125vw 0 15.78125vw;
+}
+
+@media screen and (max-width: 767px) {
+  .page {
+    margin: 28px 19px 0 19px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+
 }

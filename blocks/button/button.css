@@ -9,19 +9,37 @@
 }
 
 .button_action_edit {
-  width: 24px;
-  height: 24px;
-  background-image: url('../../images/edit-rectangle.svg');
-  margin: 33px 0 0 24px;
+  width: 1.875vw;
+  height: 1.875vw;
+  border: 1px solid white;
+  /* calc: 33/1280 */
+  margin: -1.17vw 0 0 1.875vw;
+  background-image: url('../../images/edit-pen.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50% 50%;
 }
 
+
 .button_action_add {
-  width: 150px;
-  height: 50px;
+  width: 11.71875vw; /* 150/1280 */
+  height: 3.90625vw;   /* 50/1280 */
   border: 2px solid white;
   box-sizing: border-box;
   border-radius: 2px;
-  margin: 33px 0 0 auto;
+  margin: 2.578vw 0 0 auto; /* 33/1280 */
+  background-image: url('../../images/plus.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20% 50%;
+}
+
+@media screen and (max-width: 375px) {
+  .button_action_add {
+    width: 26vw;   /* 200/768 */
+    height: 5.2vw; /* 40/768 */
+    margin-left: 0;
+  }
 }
 
 .button_action_like {

@@ -20,9 +20,17 @@
   background-size: 50% 50%;
 }
 
+@media screen and (max-width: 375px) {
+  .button_action_edit {
+    height: 18px;
+    width: 18px;
+    margin: -16px 0 0 12px;
+  }
+}
+
 
 .button_action_add {
-  width: 11.71875vw; /* 150/1280 */
+  width: 11.71875vw;   /* 150/1280 */
   height: 3.90625vw;   /* 50/1280 */
   border: 2px solid white;
   box-sizing: border-box;
@@ -36,9 +44,10 @@
 
 @media screen and (max-width: 375px) {
   .button_action_add {
-    width: 26vw;   /* 200/768 */
-    height: 5.2vw; /* 40/768 */
-    margin-left: 0;
+    width: 88.125vw;  /* 282/319 */
+    height: 15.67vw;  /* 50/319 */
+    margin: 36px 0 0 0;
+    background-size: 16px 16px;
   }
 }
 

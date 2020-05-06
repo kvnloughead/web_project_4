@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="blocks/index.css" />
   </head>
   <body class="page">
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2020 Around The U.S.</p>
+    </footer>
     <header class="header">
       <!-- I realized that there was an image file for the title after I already had it looking pretty decent
     Let me know if I should change it! -->
@@ -126,11 +129,20 @@
           </li>
         </ul>
       </section>
-      <footer class="footer">
-        <p class="footer__copyright">&copy; 2020 Around The U.S.</p>
-      </footer>
+      <section class="popup">
+        <div class="popup__container">
+          <h2 class="popup__title">Edit profile</h2>
+          <form action="#">
+            <input class="popup__input" type="text" id="name" name="name" placeholder="Name">
+            <input class="popup__input" type="text" id="about" name="about" placeholder="About me">
+            <input class="button button_action_submit" type="submit" value="Save">
+          </form>        
+        </div>
+      </section>
     </main>
-
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2020 Around The U.S.</p>
+    </footer>
     <script type="text/javascript" src="scripts/script.js"></script>
   </body>
 </html>

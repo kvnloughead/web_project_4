@@ -24,3 +24,14 @@
   margin: 0 21px 0 auto;
   display: inline;
 }
+
+.button_action_submit {
+  margin-top: 18px;
+  width: 100%;
+  height: 50px;
+  background-color: black;
+  border-radius: 2px;
+  color: white;
+  font-size: 18px;
+  line-height: 22px;
+}

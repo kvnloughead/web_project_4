@@ -1,13 +1,14 @@
 .place {
-  border-radius: 10px;
+  border-radius: 0.78125vw;  
   background-color: white;
-  height: 361px;
+  height: 28.2vw;  /* 361/1280 */
 }
 
 .place__image {
-  width: 100%;
-  height: 282px;
-  border-radius: 10px;
+  width: 22.031vw;    /* 282/1280 */
+  height: 22.031vw;   /* 282/1280 */
+  border-top-left-radius: 0.78125vw;  
+  border-top-right-radius: 0.78125vw;  
 }
 
 .place__footer {
@@ -17,8 +18,14 @@
 
 .place__name {
   font-weight: 900;
-  font-style: 24px;
-  line-height: 29px;
-  margin-left: 21px;
+  font-size: 1.875vw;     /* 24/1280 */
+  line-height: 1.208;
+  margin-left: 1.6506vw;   /* 21/1280 */
+}
+
+@media screen and (max-width: 1279px) {
+  .place__name {
+    font-size: 1.6vw;
+  }
 }
 

@@ -2,8 +2,21 @@
   margin-bottom: 60px;
 }
 
+@media screen and (max-width: 375px) {
+  .footer {
+    margin-bottom: 36px;
+  }
+}
+
 .footer__copyright {
   font-size: 18px;
   line-height: 18px;
   color: #545454;
+}
+
+@media screen and (max-width: 375px) {
+  .footer__copyright {
+    font-size: 14px;
+    line-height: 17px;
+  }
 }

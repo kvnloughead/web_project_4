@@ -1,0 +1,9 @@
+.footer {
+  margin-bottom: 60px;
+}
+
+.footer__copyright {
+  font-size: 18px;
+  line-height: 18px;
+  color: #545454;
+}

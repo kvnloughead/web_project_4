@@ -1,0 +1,21 @@
+.button_action_edit {
+  width: 24px;
+  height: 24px;
+  background-image: url('../../images/edit-rectangle.svg');
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 33px 0 0 24px;
+}
+
+.button_action_add {
+  width: 150px;
+  height: 50px;
+  border: 2px solid white;
+  box-sizing: border-box;
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 33px 0 0 auto;
+}

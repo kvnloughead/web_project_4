@@ -1,19 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Around the U.S.</title>
-  <link rel="stylesheet" href="vendor/normalize.css">
-  <link rel="stylesheet" href="blocks/index.css">
-</head>
-<body class="page">
-  <header class="header">
-    <!-- I realized that there was an image file for the title after I already had it looking pretty decent
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Around the U.S.</title>
+    <link rel="stylesheet" href="vendor/normalize.css" />
+    <link rel="stylesheet" href="blocks/index.css" />
+  </head>
+  <body class="page">
+    <header class="header">
+      <!-- I realized that there was an image file for the title after I already had it looking pretty decent
     Let me know if I should change it! -->
-    <h1 class="header__title">Around<span class="header__title_type_super">The U.S.</span></h1>
-  </header>
+      <h1 class="header__title">
+        Around<span class="header__title_type_super">The U.S.</span>
+      </h1>
+    </header>
+    <main>
+      <div class="profile">
+        <div class="profile__image-container">
+          
+        </div>
+        <img
+          src="./images/cousteau.jpg"
+          alt="Portrait of Jacques Cousteau"
+          class="profile__image"
+        />
+        <div class="profile__info">
+          <h2 class="profile__name">Jacques Cousteau</h2>
+          <p class="profile__about">Explorer</p>
+        </div>
+        <div href="#" class="button_action_edit"><img src="./images/edit-pen.svg" alt="Edit icon (pen)."></div>
+        <div class="button_action_add"><img src="./images/plus.svg" alt="Add icon."></div>
+      </div>
+    </main>
 
-  <script type="text/javascript" src="scripts/script.js"></script>
-</body>
+    <script type="text/javascript" src="scripts/script.js"></script>
+  </body>
 </html>

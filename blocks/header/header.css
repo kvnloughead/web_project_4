@@ -1,0 +1,19 @@
+.header {
+  border-bottom: 1px solid hsla(0, 0%, 33%, 0.7);
+  box-sizing: border-box;
+}
+
+.header__title {
+  font-size: 30px;
+  font-weight: normal;
+  color: white;
+
+}
+
+.header__title_type_super {
+  vertical-align: top;
+  font-style: normal;
+  color: lightgray;
+  font-weight: 100;
+  font-size: 10px;
+}

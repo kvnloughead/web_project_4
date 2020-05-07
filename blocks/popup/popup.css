@@ -31,24 +31,6 @@
   margin-top: -165px;
   margin-left: -215px;
 }
-/* 
-.popup__container {
-  position: fixed;
-  width: 33.59375vw;  
-  height: 25.78125vw; 
-  background-color: white;
-  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
-  border-radius: 10px;  
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  padding: 2.6525vw 2.8125vw 2.8125vw 2.8125vw;
-  box-sizing: border-box;
-  top: 50%;
-  left: 50%;
-  margin-top: -12.89vw; 
-  margin-left: -16.797vw; 
-} */
 
 @media screen and (max-width: 768px) {
   .popup__container {

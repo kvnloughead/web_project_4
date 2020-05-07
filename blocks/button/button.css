@@ -52,7 +52,7 @@
 
 @media screen and (max-width: 767px) {
   .button_action_add {
-    margin-top: 48px;  
+    margin-top: 36px;  
   }
 }
 
@@ -88,6 +88,7 @@
   color: white;
   font-size: 18px;
   line-height: 1.22;
+  font-weight: normal;
   border:  none;
   border-radius: 2px;
 }

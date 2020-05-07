@@ -20,3 +20,12 @@
     height: 30px;   
   }
 }
+
+@media screen and (min-width: 2000px) {
+  .button_action_close {
+    margin-left: 16.8vw;
+    margin-top: -9.2vw;
+    width: 2.34vw;  
+    height: 2.34vw;   
+  }
+}

@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Around the U.S.</title>
     <link rel="stylesheet" href="pages/index.css" />
-    <!-- Notes.   
-         1. Although the instructions tell us to work at resolutions 300 and 1200,
-            the specs are at 319 and 1280, so that is what I started with. -->
   </head>
   <body class="page">
     <header class="header">
@@ -28,9 +25,9 @@
             <h2 class="profile__name">Jacques Cousteau</h2>
             <p class="profile__job">Explorer</p>
           </div>
-          <div href="#" class="button button_action_edit"></div>
+          <button class="button button_action_edit"></button>
         </div>
-        <div class="button button_action_add"></div>
+        <button class="button button_action_add"></button>
       </section>
       <section class="places">
         <ul class="places__grid">
@@ -42,11 +39,7 @@
             />
             <div class="place__footer">
               <h2 class="place__name">Yosemite Valley</h2>
-              <img
-                src="./images/heart.svg"
-                alt="Like buttton"
-                class="button button_action_like"
-              />
+              <button class="button button_action_like"></button>
             </div>
           </li>
           <li class="place">
@@ -57,11 +50,7 @@
             />
             <div class="place__footer">
               <h2 class="place__name">Lake Louise</h2>
-              <img
-                src="./images/heart.svg"
-                alt="Like buttton"
-                class="button_action_like"
-              />
+              <button class="button button_action_like"></button>
             </div>
           </li>
           <li class="place">
@@ -72,11 +61,7 @@
             />
             <div class="place__footer">
               <h2 class="place__name">Bald Mountains</h2>
-              <img
-                src="./images/heart.svg"
-                alt="Like buttton"
-                class="button_action_like"
-              />
+              <button class="button button_action_like"></button>
             </div>
           </li>
           <li class="place">
@@ -87,11 +72,7 @@
             />
             <div class="place__footer">
               <h2 class="place__name">Latemar</h2>
-              <img
-                src="./images/heart.svg"
-                alt="Like buttton"
-                class="button_action_like"
-              />
+              <button class="button button_action_like"></button>
             </div>
           </li>
           <li class="place">
@@ -102,11 +83,7 @@
             />
             <div class="place__footer">
               <h2 class="place__name">Vanois National...</h2>
-              <img
-                src="./images/heart.svg"
-                alt="Like buttton"
-                class="button_action_like"
-              />
+              <button class="button button_action_like"></button>
             </div>
           </li>
           <li class="place">
@@ -117,11 +94,7 @@
             />
             <div class="place__footer">
               <h2 class="place__name">Lago di Braies</h2>
-              <img
-                src="./images/heart.svg"
-                alt="Like buttton"
-                class="button_action_like"
-              />
+              <button class="button button_action_like"></button>
             </div>
           </li>
         </ul>
@@ -145,11 +118,11 @@
               name="job"
               placeholder="About me"
             />
-            <input
+            <button
               class="button button_action_submit"
               type="submit"
               value="Save"
-            />
+            >Save</button>
           </form>
         </div>
       </section>
@@ -157,6 +130,6 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Around The U.S.</p>
     </footer>
-    <script type="text/javascript" src="scripts/script.js"></script>
+    <script src="scripts/script.js"></script>
   </body>
 </html>

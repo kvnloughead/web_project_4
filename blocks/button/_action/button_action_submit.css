@@ -1,0 +1,25 @@
+.button_action_submit {
+  margin-top: 18px; 
+  width: 100%;
+  height: 50px;
+  color: white;
+  font-size: 18px;
+  line-height: 1.22;
+  border:  none;
+  border-radius: 2px;
+}
+
+@media screen and (max-width: 768px) {
+  .button_action_submit {
+    height: 20px;
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width: 1281px) {
+  .button_action_submit {
+    height: 1.56vw;
+    font-size: 0.94vw;
+    margin-top: 1.41vw;
+  }
+}

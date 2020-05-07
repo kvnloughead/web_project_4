@@ -7,10 +7,12 @@
 
 @media screen and (max-width: 767px) {
   .page {
-    margin: 28px 19px 0 19px;
+    margin: 28px 2.5vw 0 2.5vw;  /* 10/768 */
   }
 }
 
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-
+@media screen and (max-width: 375px) {
+  .page {
+    margin: 28px 0 0 0;  /* 10/768 */
+  }
 }

@@ -24,6 +24,12 @@
   }
 }
 
+@media screen and (max-width: 375px) {
+  .header__title {
+    margin-left: 38px;
+  }
+}
+
 
 .header__title_type_super {
   vertical-align: top;

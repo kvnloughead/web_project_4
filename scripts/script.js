@@ -1,16 +1,15 @@
-let editBtn = document.querySelector('.button_action_edit');
-let editPopup = document.querySelector('.popup');
-let closeBtn = editPopup.querySelector('.button_action_close');
-let saveBtn = editPopup.querySelector('.button_action_submit');
+const editBtn = document.querySelector('.button_action_edit');
+const editPopup = document.querySelector('.popup');
+const closeBtn = editPopup.querySelector('.button_action_close');
+const saveBtn = editPopup.querySelector('.button_action_submit');
 
-let profile = document.querySelector('.profile');
-let profileName = profile.querySelector('.profile__name');
-let profileJob = profile.querySelector('.profile__job');
+const profile = document.querySelector('.profile');
+const profileName = profile.querySelector('.profile__name');
+const profileJob = profile.querySelector('.profile__job');
 
-
-let popup = document.querySelector('.popup');
-let formElement = popup.querySelector('.popup__form');
-let [name, job] = popup.querySelectorAll('.popup__input');
+const popup = document.querySelector('.popup');
+const formElement = popup.querySelector('.popup__form');
+const [name, job] = popup.querySelectorAll('.popup__input');
 
 function toggleOverlayAndEditModal() {
   name.value = profileName.textContent;

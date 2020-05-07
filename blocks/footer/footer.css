@@ -9,7 +9,7 @@
 }
 
 .footer__copyright {
-  font-size: 18px;
+  font-size: 2.798vw;  /* 18/1280 */
   line-height: 18px;
   color: #545454;
 }

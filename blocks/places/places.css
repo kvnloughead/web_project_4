@@ -1,5 +1,5 @@
 .places {
-  margin: 51px 0 66px 0;
+  margin: 51px 0 5.1625vw 0;   /* 66/1280 */
   background-color: black;
 }
 

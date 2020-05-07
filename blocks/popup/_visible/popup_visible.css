@@ -1,0 +1,5 @@
+/* Increasing specifity because block is overriding modifier */
+/* Feel free to suggest a BEM-compatible alternative! */
+.popup.popup_visible {
+  display: flex;
+}

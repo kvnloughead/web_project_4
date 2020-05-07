@@ -68,16 +68,33 @@
 }
 
 .button_action_submit {
-  margin-top: 18px;
+  margin-top: 1.40625vw; 
   width: 100%;
-  height: 50px;
+  height: 3.91vw;  /* 50/1280 */
   background-color: black;
   color: white;
-  font-size: 18px;
-  line-height: 22px;
+  font-size: 1.40625vw;  /* 18/1280 */
+  line-height: 1.22;   /* 22/1280 */
   border:  none;
   border-radius: 2px;
-} 
+}
+
+@media screen and (max-width: 1024px) {
+  .button_action_submit {
+    margin-top: 0;
+    height: 2.91vw;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .button_action_submit {
+    height: 20px;
+    font-size: 12px;
+  }
+}
+
+
+
 
 .button_action_close {
   background-color: rgba(0, 0, 0, 0);

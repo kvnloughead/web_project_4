@@ -1,0 +1,27 @@
+.button_action_add {
+  width: 11.71875vw;
+  height: 3.90625vw;
+  border: 2px solid white;
+  box-sizing: border-box;
+  border-radius: 2px;
+  margin: 2.578vw 0 0 auto;
+  background-image: url('../../../images/plus.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20% 50%;
+}
+
+@media screen and (max-width: 475px) {
+  .button_action_add {
+    width: 88.125vw;
+    height: 15.67vw;
+    margin: 36px 0 0 0;
+    background-size: 16px 16px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .button_action_add {
+    margin-top: 48px;  
+  }
+}

@@ -1,3 +1,5 @@
+@import url('./__copyright/footer__copyright.css');
+
 .footer {
   margin: 0 0 60px 0;
 }
@@ -8,16 +10,3 @@
   }
 }
 
-.footer__copyright {
-  font-size: 2.798vw;  /* 18/1280 */
-  line-height: 18px;
-  color: #545454;
-}
-
-@media screen and (max-width: 375px) {
-  .footer__copyright {
-    font-size: 14px;
-    line-height: 17px;
-    margin-left: 19px;
-  }
-}

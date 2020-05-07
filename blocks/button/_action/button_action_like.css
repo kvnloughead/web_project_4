@@ -1,0 +1,10 @@
+.button_action_like {
+  margin: 0 1.406vw 0 auto;
+  display: inline;
+}
+
+@media screen and (max-width: 375px) {
+  .button_action_like {
+    margin-right: 21px
+  }
+}

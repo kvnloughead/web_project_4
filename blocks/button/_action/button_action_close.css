@@ -1,0 +1,22 @@
+.button_action_close {
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url('../../../images/close-icon.svg');
+  background-size: contain;
+  border: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-left: 204px;  
+  margin-top: -207px;  
+  width: 58px;
+  height: 58px;
+}
+
+@media screen and (max-width: 768px) {
+  .button_action_close {
+    margin-left: 115px;
+    margin-top: -115px;
+    width: 30px;  
+    height: 30px;   
+  }
+}

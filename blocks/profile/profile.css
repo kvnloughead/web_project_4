@@ -1,5 +1,11 @@
+@import url('./__text/profile__text.css');
+@import url('./__info/profile__info.css');
+@import url('./__name/profile__name.css');
+@import url('./__job/profile__job.css');
+@import url('./__image/profile__image.css');
+
 .profile {
-  margin: 2.832vw 0 3.6914vw 0; /* 36.25/1280, 47.25/1280 */
+  margin: 2.832vw 0 3.6914vw 0;
   display: flex;
   
 }
@@ -11,6 +17,7 @@
     align-items: center;
     margin: 38px 0 36px 0;
   }
+<<<<<<< HEAD
 }
 
 @media screen and (max-width: 475px) {
@@ -80,4 +87,6 @@
     margin: 0 0 10px 0;
 
   }
+=======
+>>>>>>> refactor-and-cleanup
 }

@@ -1,5 +1,4 @@
 @import url('./__logo/header__logo.css');
-@import url('./__title/header__title.css');
 
 .header {
   border-bottom: 1px solid hsla(0, 0%, 33%, .7);

@@ -3,7 +3,7 @@
 @import url('./__name/place__name.css');
 
 .place {
-  border-radius: 0.78125vw;  
+  border-radius: .78125vw;  
   background-color: white;
   height: 28.2vw;
 }

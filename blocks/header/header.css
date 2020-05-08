@@ -2,14 +2,14 @@
 @import url('./__title/header__title.css');
 
 .header {
-  border-bottom: 1px solid hsla(0, 0%, 33%, 0.7);
+  border-bottom: 1px solid hsla(0, 0%, 33%, .7);
   box-sizing: border-box;
   width: 100%;
 }
 
 @media screen and (min-width: 1281px) {
   .header {
-    border-bottom: 0.078125vw solid hsla(0, 0%, 33%, 0.7);
+    border-bottom: .078125vw solid hsla(0, 0%, 33%, .7);
   }
 }
 

@@ -1,8 +1,8 @@
 .place__image {
   width: 22.031vw;
   height: 22.031vw;
-  border-top-left-radius: 0.78125vw;  
-  border-top-right-radius: 0.78125vw;  
+  border-top-left-radius: .78125vw;  
+  border-top-right-radius: .78125vw;  
 }
 
 @media screen and (max-width: 767px) {

@@ -19,7 +19,7 @@
 @media screen and (min-width: 1281px) {
   .button_action_submit {
     height: 1.56vw;
-    font-size: 0.94vw;
+    font-size: .94vw;
     margin-top: 1.41vw;
   }
 }

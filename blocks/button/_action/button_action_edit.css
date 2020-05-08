@@ -10,7 +10,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .button_action_edit {
+  .button.button_action_edit {
     height: 18px;
     width: 18px;
     margin: -16px 0 .5vw 12px;
@@ -18,7 +18,7 @@
 }
 
 @media screen and (max-width: 475px) {
-  .button_action_edit {
+  .button.button_action_edit {
     height: 18px;
     width: 18px;
     margin: -16px 0 .3vw 12px;

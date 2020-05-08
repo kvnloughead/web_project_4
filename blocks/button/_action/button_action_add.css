@@ -1,4 +1,6 @@
-.button_action_add {
+/* Technically I don't need this increased specificity,
+but it might spare me a headache later. */
+.button.button_action_add {
   width: 11.71875vw;
   height: 3.90625vw;
   border: 2px solid  #FFFFFF;
@@ -12,7 +14,7 @@
 }
 
 @media screen and (max-width: 475px) {
-  .button_action_add {
+  .button.button_action_add {
     width: 88.125vw;
     height: 15.67vw;
     margin: 36px 0 0 0;
@@ -21,7 +23,8 @@
 }
 
 @media screen and (max-width: 767px) {
-  .button_action_add {
-    margin-top: 48px;  
+  .button.button_action_add {
+    margin-top: 46px;
   }
 }
+

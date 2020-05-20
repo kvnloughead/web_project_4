@@ -2,6 +2,7 @@ const editBtn = document.querySelector('.button_action_edit');
 const editPopup = document.querySelector('.popup');
 const closeBtn = editPopup.querySelector('.button_action_close');
 const saveBtn = editPopup.querySelector('.button_action_submit');
+const addBtn = document.querySelector('.button_action_add');
 
 const profile = document.querySelector('.profile');
 const profileName = profile.querySelector('.profile__name');
@@ -17,6 +18,15 @@ function toggleOverlayAndEditModal() {
   editPopup.classList.toggle('popup_visible');
 }
 
+function toggleOverlayAndModal(evt) {
+  const btnClassList = Array.from(evt.target.classList);
+  console.log(btnClassList);
+  if (btnClassList.includes('button_action_add')) {
+    
+    editPopup.classList.toggle('popup_visible');
+  }
+}
+
 function formSubmitHandler(evt) {
   evt.preventDefault();
   profileName.textContent = name.value;
@@ -27,3 +37,4 @@ function formSubmitHandler(evt) {
 editBtn.addEventListener('click', toggleOverlayAndEditModal);
 closeBtn.addEventListener('click', toggleOverlayAndEditModal);
 formElement.addEventListener('submit', formSubmitHandler);
+addBtn.addEventListener('click', toggleOverlayAndModal);

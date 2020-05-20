@@ -1,14 +1,27 @@
 .profile__job {
-  color: white;
-  font-weight: 100;
+  color:  #FFFFFF;
+  font-weight: normal;
   font-size: 1.40625vw;
   line-height: 1.22;
   margin: 0;
+  max-width: 24.84vw;
+  margin-top: .625vw;
+  /* This magic makes the scrolling happen */
+  white-space: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+  
+.profile__job::-webkit-scrollbar {
+  display: none;
 }
 
 @media screen and (max-width: 767px) {
   .profile__job {
     font-size: 14px;
     line-height: 17px;
+    max-width: 101px;
   }
 }
+

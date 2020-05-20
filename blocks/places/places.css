@@ -1,12 +1,8 @@
 @import url('./__grid/places__grid.css');
 
 .places {
-<<<<<<< HEAD
-  margin: 47px 0 5.1625vw 0;   /* 66/1280 */
-=======
   margin: 51px 0 5.1625vw 0;
->>>>>>> refactor-and-cleanup
-  background-color: black;
+  background-color: #000000;
 }
 
 @media screen and (max-width: 375px) {

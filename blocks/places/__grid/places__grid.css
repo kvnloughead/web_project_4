@@ -1,6 +1,6 @@
 .places__grid {
   display: grid;
-  background-color: black;
+  background-color: #000000;
   grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 1.40625vw;
   grid-row-gap: 1.640625vw;

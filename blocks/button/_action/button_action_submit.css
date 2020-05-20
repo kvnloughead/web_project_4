@@ -2,7 +2,7 @@
   margin-top: 18px; 
   width: 100%;
   height: 50px;
-  color: white;
+  color:  #FFFFFF;
   font-size: 18px;
   line-height: 1.22;
   border:  none;
@@ -18,8 +18,8 @@
 
 @media screen and (min-width: 1281px) {
   .button_action_submit {
-    height: 1.56vw;
-    font-size: 0.94vw;
+    height: 3.91vw;
+    font-size: 1.41vw;
     margin-top: 1.41vw;
   }
 }

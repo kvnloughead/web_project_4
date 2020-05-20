@@ -16,6 +16,10 @@
   margin-left: -215px;
 }
 
+.popup__container_invisible {
+  display: none;
+}
+
 @media screen and (max-width: 768px) {
   .popup__container {
     width: 244px;

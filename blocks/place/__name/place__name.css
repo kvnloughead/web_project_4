@@ -3,7 +3,13 @@
   font-size: 1.875vw;    
   line-height: 1.208;
   margin-left: 1.6506vw;
+  /* This truncates the name when too long */
+  max-width: 16.5vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
 
 @media screen and (max-width: 1279px) {
   .place__name {
@@ -14,6 +20,7 @@
 @media screen and (max-width: 767px) {
   .place__name {
     font-size: 3vw;
+    max-width: 32vw;
   }
 }
 
@@ -22,5 +29,6 @@
     font-size: 24px;
     line-height: 29px;
     margin-left: 21px;
+    max-width: 65vw;
   }
 }

@@ -1,0 +1,16 @@
+(feature) place-cards
+
+place cards now seeded from seed.js at start up.
+Also made place__name elements horizontally scroll with excess length.
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Date:      Wed May 20 11:24:30 2020 -0400
+#
+# On branch js/initial-cards
+# Changes to be committed:
+#	modified:   blocks/place/__name/place__name.css
+#	modified:   index.html
+#	modified:   scripts/seed.js
+#

@@ -9,6 +9,10 @@
   border-radius: 2px;
 }
 
+.button.button_action_submit:hover {
+  opacity: .8;
+}
+
 @media screen and (max-width: 768px) {
   .button_action_submit {
     height: 20px;

@@ -16,6 +16,14 @@
   }
 }
 
+@media screen and (max-width: 425px) {
+  .button_action_submit {
+    height: 40px;
+    width: 200px;
+    font-size: 14px;
+  }
+}
+
 @media screen and (min-width: 1281px) {
   .button_action_submit {
     height: 3.91vw;

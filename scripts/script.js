@@ -32,34 +32,26 @@ function toggleOverlayAndModal(evt) {
   }
 }
 
-function formSubmitHandler(evt) {
+function editFormSubmitHandler(evt) {
   evt.preventDefault();
   profileName.textContent = name.value;
   profileJob.textContent = job.value;
   toggleOverlayAndEditModal();
 }
 
-function formSubmitHandler(evt) {
+function newFormSubmitHandler(evt) {
   evt.preventDefault();
-  
-  const listItem = document.createElement('li');
-  const image = document.createElement('div');
-  const footer = document.createElement('div');
-  const name = document.createElement('h2');
-  const btn = document.createElement('button');
+  let elements = createCardElements();
+  elements = addClassesToCardElements(elements);
+  elements = addContentToCardElements(elements, title.value,
+                                      imageUrl.value);
+  nestCardElements(elements);
 
-  listItem.classList.add('place');
-  image.classList.add('place__image');
-  footer.classList.add('place__footer');
-  name.classList.add('place__name');
-  btn.classList.add('button', 'button_action_like');
+  // const [listItem, image, footer, name, btn] = elements;
 
-  image.style.backgroundImage = `url(${imageUrl.value})`;
-  name.textContent = title.value;
-
-  footer.append(name, btn);
-  listItem.append(image, footer);
-  placesGrid.prepend(listItem);
+  // footer.append(name, btn);
+  // listItem.append(image, footer);
+  // placesGrid.prepend(listItem);
 
   toggleOverlayAndEditModal();
 }
@@ -68,5 +60,5 @@ editBtn.addEventListener('click', toggleOverlayAndModal);
 addBtn.addEventListener('click', toggleOverlayAndModal);
 closeEditBtn.addEventListener('click', toggleOverlayAndModal);
 closeNewBtn.addEventListener('click', toggleOverlayAndModal)  
-editFormElement.addEventListener('submit', formSubmitHandler);
-addFormElement.addEventListener('submit', formSubmitHandler);
+editFormElement.addEventListener('submit', editFormSubmitHandler);
+addFormElement.addEventListener('submit', newFormSubmitHandler);

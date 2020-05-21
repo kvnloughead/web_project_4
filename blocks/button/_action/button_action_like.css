@@ -3,7 +3,7 @@
   background:  #FFFFFF;
   background-image: url('../../../images/icons/heart.svg');
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: 100% 100%;
   border: none;
   height: 1.4844vw;
   width: 1.64vw;

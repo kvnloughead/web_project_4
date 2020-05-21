@@ -48,37 +48,39 @@ function createCardElements() {
   const footer = document.createElement('div');
   const name = document.createElement('h2');
   const likeBtn = document.createElement('button');
+  const deleteBtn = document.createElement('button');
   image.setAttribute('crossorigin', 'anonymous');
-  return [listItem, image, footer, name, likeBtn];
+  return [listItem, image, footer, name, likeBtn, deleteBtn];
 }
 
 function addClassesToCardElements(elements) {
-  const [listItem, image, footer, name, likeBtn] = elements;
+  const [listItem, image, footer, name, likeBtn, deleteBtn] = elements;
   listItem.classList.add('place');
   image.classList.add('place__image');
   footer.classList.add('place__footer');
   name.classList.add('place__name');
   likeBtn.classList.add('button', 'button_action_like');
-  return [listItem, image, footer, name, likeBtn];
+  deleteBtn.classList.add('button', 'button_action_delete');
+  return [listItem, image, footer, name, likeBtn, deleteBtn];
 }
 
 function addContentToCardElements(elements, cardName, link) {
-  const [listItem, image, footer, name, likeBtn] = elements;
+  const [listItem, image, footer, name, likeBtn, deleteBtn] = elements;
   image.style.backgroundImage = `url(${link})`;
   name.textContent = cardName;
-  return [listItem, image, footer, name, likeBtn];
+  return [listItem, image, footer, name, likeBtn, deleteBtn];
 }
 
 function addHandlersToButtons(elements) {
-  const [listItem, image, footer, name, likeBtn] = elements;
+  const [listItem, image, footer, name, likeBtn, deleteBtn] = elements;
   likeBtn.addEventListener('click', 
     (evt) => evt.target.classList.toggle('button_like-btn-clicked'))
 }
 
 function nestCardElements(elements) {
-  const [listItem, image, footer, name, btn] = elements;
-  footer.append(name, btn);
-  listItem.append(image, footer);
+  const [listItem, image, footer, name, likeBtn, deleteBtn] = elements;
+  footer.append(name, likeBtn);
+  listItem.append(image, deleteBtn, footer);
   placesGrid.prepend(listItem);
 }
 

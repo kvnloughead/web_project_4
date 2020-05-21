@@ -14,12 +14,6 @@ const editFormElement = popup.querySelectorAll('.popup__form')[0];
 const addFormElement = popup.querySelectorAll('.popup__form')[1];
 const [name, job] = popup.querySelectorAll('.popup__input');
 
-function toggleOverlayAndEditModal() {
-  name.value = profileName.textContent;
-  job.value = profileJob.textContent;
-  popup.classList.toggle('popup_visible');
-}
-
 function toggleOverlayAndModal(evt) {
   const btnClassList = Array.from(evt.target.classList);
   popup.classList.toggle('popup_visible');
@@ -29,6 +23,8 @@ function toggleOverlayAndModal(evt) {
   } else if (btnClassList.includes('button_action_edit')){
     addModal.classList.add('popup__container_invisible');
     editModal.classList.remove('popup__container_invisible');
+    name.value = profileName.textContent;
+    job.value = profileJob.textContent;
   }
 }
 
@@ -47,11 +43,6 @@ function newFormSubmitHandler(evt) {
                                       imageUrl.value);
   nestCardElements(elements);
 
-  // const [listItem, image, footer, name, btn] = elements;
-
-  // footer.append(name, btn);
-  // listItem.append(image, footer);
-  // placesGrid.prepend(listItem);
 
   toggleOverlayAndEditModal();
 }

@@ -1,7 +1,7 @@
-.button.button_action_like {
+  .button.button_action_like {
   margin: 0 1.406vw 0 auto;
   background:  #FFFFFF;
-  background-image: url('../../../images/heart.svg');
+  background-image: url('../../../images/icons/heart.svg');
   background-repeat: no-repeat;
   background-size: contain;
   border: none;

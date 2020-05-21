@@ -7,7 +7,7 @@ but it might spare me a headache later. */
   box-sizing: border-box;
   border-radius: 2px;
   margin: 2.578vw 0 0 auto;
-  background-image: url('../../../images/plus.svg');
+  background-image: url('../../../images/icons/plus.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: 20% 50%;

@@ -37,6 +37,7 @@ function createInitialCards() {
     let elements = createCardElements();
     elements = addClassesToCardElements(elements);
     elements = addContentToCardElements(elements, name, link);
+    addHandlersToButtons(elements);
     nestCardElements(elements); 
   }  
 }
@@ -44,28 +45,34 @@ function createInitialCards() {
 function createCardElements() {
   const listItem = document.createElement('li');
   const image = document.createElement('div');
-  image.setAttribute('crossorigin', 'anonymous');
   const footer = document.createElement('div');
   const name = document.createElement('h2');
-  const btn = document.createElement('button');
-  return [listItem, image, footer, name, btn];
+  const likeBtn = document.createElement('button');
+  image.setAttribute('crossorigin', 'anonymous');
+  return [listItem, image, footer, name, likeBtn];
 }
 
 function addClassesToCardElements(elements) {
-  const [listItem, image, footer, name, btn] = elements;
+  const [listItem, image, footer, name, likeBtn] = elements;
   listItem.classList.add('place');
   image.classList.add('place__image');
   footer.classList.add('place__footer');
   name.classList.add('place__name');
-  btn.classList.add('button', 'button_action_like');
-  return [listItem, image, footer, name, btn];
+  likeBtn.classList.add('button', 'button_action_like');
+  return [listItem, image, footer, name, likeBtn];
 }
 
 function addContentToCardElements(elements, cardName, link) {
-  const [listItem, image, footer, name, btn] = elements;
+  const [listItem, image, footer, name, likeBtn] = elements;
   image.style.backgroundImage = `url(${link})`;
   name.textContent = cardName;
-  return [listItem, image, footer, name, btn];
+  return [listItem, image, footer, name, likeBtn];
+}
+
+function addHandlersToButtons(elements) {
+  const [listItem, image, footer, name, likeBtn] = elements;
+  likeBtn.addEventListener('click', 
+    (evt) => evt.target.classList.toggle('button_like-btn-clicked'))
 }
 
 function nestCardElements(elements) {

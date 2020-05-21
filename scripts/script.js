@@ -15,16 +15,19 @@ const addFormElement = popup.querySelectorAll('.popup__form')[1];
 const [name, job] = popup.querySelectorAll('.popup__input');
 
 function toggleOverlayAndModal(evt) {
-  const btnClassList = Array.from(evt.target.classList);
+  console.log("event", evt);
   popup.classList.toggle('popup_visible');
-  if (btnClassList.includes('button_action_add')) {
-    editModal.classList.add('popup__container_invisible');
-    addModal.classList.remove('popup__container_invisible');
-  } else if (btnClassList.includes('button_action_edit')){
-    addModal.classList.add('popup__container_invisible');
-    editModal.classList.remove('popup__container_invisible');
-    name.value = profileName.textContent;
-    job.value = profileJob.textContent;
+  if (evt.type !== "submit") {
+    const btnClassList = Array.from(evt.target.classList);
+    if (btnClassList.includes('button_action_add')) {
+      editModal.classList.add('popup__container_invisible');
+      addModal.classList.remove('popup__container_invisible');
+    } else if (btnClassList.includes('button_action_edit')){
+      addModal.classList.add('popup__container_invisible');
+      editModal.classList.remove('popup__container_invisible');
+      name.value = profileName.textContent;
+      job.value = profileJob.textContent;
+    }
   }
 }
 
@@ -32,7 +35,7 @@ function editFormSubmitHandler(evt) {
   evt.preventDefault();
   profileName.textContent = name.value;
   profileJob.textContent = job.value;
-  toggleOverlayAndEditModal();
+  toggleOverlayAndModal(evt);
 }
 
 function newFormSubmitHandler(evt) {
@@ -42,9 +45,7 @@ function newFormSubmitHandler(evt) {
   elements = addContentToCardElements(elements, title.value,
                                       imageUrl.value);
   nestCardElements(elements);
-
-
-  toggleOverlayAndEditModal();
+  toggleOverlayAndModal(evt);
 }
 
 editBtn.addEventListener('click', toggleOverlayAndModal);

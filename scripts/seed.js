@@ -82,7 +82,7 @@ function addHandlersToButtons(elements, card) {
   deleteBtn.addEventListener('click', 
     () => listItem.parentNode.removeChild(listItem));
   image.addEventListener('click', 
-    openImagePopup);
+    openImagePopup, card);
 }
 
 function nestCardElements(elements) {
@@ -99,18 +99,17 @@ function openImagePopup(evt) {
   const clone = imagePopupTemplate.content.cloneNode(true);
   const imagePopup = clone.querySelector('.popup__image')
   const imagePopupContainer = clone.querySelector('.popup__image-container');
+  const closeBtn = clone.querySelector('.button_action_close');
+
   imagePopup.src = url;
-  // TODO set alt text
-  // TODO make close button work
+  imagePopup.alt = `Image of ${card.name}`;
+
   placesGrid.parentNode.appendChild(clone);
 
   imagePopupContainer.style.marginTop = `${-.5 * imagePopup.offsetHeight}px`;
   imagePopupContainer.style.marginLeft = `${-.5 * imagePopup.offsetWidth}px`;
-  console.log(imagePopup)
-  console.log(imagePopup.offsetWidth);
-  console.log(imagePopup.offsetHeight);
-  console.log(imagePopupContainer.style.marginLeft)
-  console.log(imagePopupContainer.style.marginTop)
+
+  closeBtn.addEventListener('click', () => imagePopupContainer.remove());
 }
 
 createInitialCards();

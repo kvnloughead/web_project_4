@@ -5,7 +5,6 @@ const placesGrid = document.querySelector('.places__grid');
 const initialCards = [
   {
       name: 'Yosemite Valley',
-      // link: 'https://code.s3.yandex.net/web-code/yosemite.jpg'
       link: 'https://code.s3.yandex.net/web-code/yosemite.jpg'
       
   },
@@ -74,7 +73,9 @@ function addContentToCardElements(elements, cardName, link) {
 function addHandlersToButtons(elements) {
   const [listItem, image, footer, name, likeBtn, deleteBtn] = elements;
   likeBtn.addEventListener('click', 
-    (evt) => evt.target.classList.toggle('button_like-btn-clicked'))
+    (evt) => evt.target.classList.toggle('button_like-btn-clicked'));
+  deleteBtn.addEventListener('click', 
+    () => listItem.parentNode.removeChild(listItem));
 }
 
 function nestCardElements(elements) {

@@ -6,6 +6,7 @@ const closeEditBtn = popup.querySelectorAll('.button_action_close')[0];
 const closeNewBtn = popup.querySelectorAll('.button_action_close')[1];
 const addBtn = document.querySelector('.button_action_add');
 
+
 const profile = document.querySelector('.profile');
 const profileName = profile.querySelector('.profile__name');
 const profileJob = profile.querySelector('.profile__job');
@@ -51,6 +52,6 @@ function newFormSubmitHandler(evt) {
 editBtn.addEventListener('click', toggleOverlayAndModal);
 addBtn.addEventListener('click', toggleOverlayAndModal);
 closeEditBtn.addEventListener('click', toggleOverlayAndModal);
-closeNewBtn.addEventListener('click', toggleOverlayAndModal)  
+closeNewBtn.addEventListener('click', toggleOverlayAndModal);
 editFormElement.addEventListener('submit', editFormSubmitHandler);
 addFormElement.addEventListener('submit', newFormSubmitHandler);

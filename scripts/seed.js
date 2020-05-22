@@ -4,7 +4,7 @@ const placesGrid = document.querySelector('.places__grid');
 const imagePopupTemplate = document.querySelector('#image-popup-template');
 const popup = document.querySelector('.popup');
 const editModal = popup.querySelector('.popup__container_type_edit');
-const addModal = popup.querySelector('.popup__container_type_new-place');
+const addModal = popup.querySelector('.popup__container_type_add');
 
 
 const initialCards = [
@@ -110,17 +110,14 @@ function openImagePopup(evt) {
   placesGrid.parentNode.appendChild(clone);
   popup.classList.toggle('popup_visible');
   
-
-  
   imagePopupContainer.style.marginTop = `${-.5 * imagePopup.offsetHeight}px`;
   imagePopupContainer.style.marginLeft = `${-.5 * imagePopup.offsetWidth}px`;
-  closeBtn.addEventListener('click', function() {
-    imagePopupContainer.remove();
-    editModal.classList.add('popup__container_invisible');
-    addModal.classList.add('popup__container_invisible');
-    popup.classList.toggle('popup_visible');
-  });
-    
+  closeBtn.addEventListener('click', closePopup);
+}
+
+function closePopup(evt) {
+  popup.classList.toggle('popup_visible');
+  evt.target.parentNode.remove();
 }
 
 createInitialCards();

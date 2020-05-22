@@ -1,7 +1,7 @@
 const editBtn = document.querySelector('.button_action_edit');
-const popup = document.querySelector('.popup');
-const editModal = popup.querySelector('.popup__container_type_edit');
-const addModal = popup.querySelector('.popup__container_type_new-place');
+// const popup = document.querySelector('.popup');
+// const editModal = popup.querySelector('.popup__container_type_edit');
+// const addModal = popup.querySelector('.popup__container_type_new-place');
 const closeEditBtn = popup.querySelectorAll('.button_action_close')[0];
 const closeNewBtn = popup.querySelectorAll('.button_action_close')[1];
 const newPlaceBtn = document.querySelector('.button_action_add');

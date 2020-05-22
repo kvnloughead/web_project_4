@@ -33,12 +33,16 @@ const initialCards = [
 function createInitialCards() {
   for (card of initialCards) {
     const [name, link] = Object.values(card);
-    let elements = createCardElements();
-    elements = addClassesToCardElements(elements);
-    elements = addContentToCardElements(elements, name, link);
-    addHandlersToButtons(elements);
-    nestCardElements(elements); 
+    createCard(name, link);
   }  
+}
+
+function createCard(name, link) {
+  let elements = createCardElements();
+  elements = addClassesToCardElements(elements);
+  elements = addContentToCardElements(elements, name, link);
+  addHandlersToButtons(elements);
+  nestCardElements(elements); 
 }
 
 function createCardElements() {

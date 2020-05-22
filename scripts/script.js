@@ -4,8 +4,7 @@ const editModal = popup.querySelector('.popup__container_type_edit');
 const addModal = popup.querySelector('.popup__container_type_new-place');
 const closeEditBtn = popup.querySelectorAll('.button_action_close')[0];
 const closeNewBtn = popup.querySelectorAll('.button_action_close')[1];
-const addBtn = document.querySelector('.button_action_add');
-
+const newPlaceBtn = document.querySelector('.button_action_add');
 
 const profile = document.querySelector('.profile');
 const profileName = profile.querySelector('.profile__name');
@@ -16,13 +15,17 @@ const addFormElement = popup.querySelectorAll('.popup__form')[1];
 const [name, job] = popup.querySelectorAll('.popup__input');
 
 function toggleOverlayAndModal(evt) {
-  console.log("event", evt);
+  
   popup.classList.toggle('popup_visible');
+
   if (evt.type !== "submit") {
+
     const btnClassList = Array.from(evt.target.classList);
+
     if (btnClassList.includes('button_action_add')) {
       editModal.classList.add('popup__container_invisible');
       addModal.classList.remove('popup__container_invisible');
+
     } else if (btnClassList.includes('button_action_edit')){
       addModal.classList.add('popup__container_invisible');
       editModal.classList.remove('popup__container_invisible');
@@ -41,16 +44,12 @@ function editFormSubmitHandler(evt) {
 
 function newFormSubmitHandler(evt) {
   evt.preventDefault();
-  let elements = createCardElements();
-  elements = addClassesToCardElements(elements);
-  elements = addContentToCardElements(elements, title.value,
-                                      imageUrl.value);
-  nestCardElements(elements);
+  createCard(title.value, imageUrl.value);
   toggleOverlayAndModal(evt);
 }
 
 editBtn.addEventListener('click', toggleOverlayAndModal);
-addBtn.addEventListener('click', toggleOverlayAndModal);
+newPlaceBtn.addEventListener('click', toggleOverlayAndModal);
 closeEditBtn.addEventListener('click', toggleOverlayAndModal);
 closeNewBtn.addEventListener('click', toggleOverlayAndModal);
 editFormElement.addEventListener('submit', editFormSubmitHandler);

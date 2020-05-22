@@ -32,61 +32,76 @@ const initialCards = [
 
 function createInitialCards() {
   for (card of initialCards) {
-    const [name, link] = Object.values(card);
-    createCard(name, link);
+    createCard(card);
   }  
 }
 
-function createCard(name, link) {
+function createCard(card) {
   let elements = createCardElements();
   elements = addClassesToCardElements(elements);
-  elements = addContentToCardElements(elements, name, link);
-  addHandlersToButtons(elements);
+  elements = addContentToCardElements(elements, card);
+  addHandlersToButtons(elements, card);
   nestCardElements(elements); 
 }
 
 function createCardElements() {
   const listItem = document.createElement('li');
-  const image = document.createElement('div');
+  const imageElem = document.createElement('div');
   const footer = document.createElement('div');
-  const name = document.createElement('h2');
+  const nameElem = document.createElement('h2');
   const likeBtn = document.createElement('button');
   const deleteBtn = document.createElement('button');
-  image.setAttribute('crossorigin', 'anonymous');
-  return [listItem, image, footer, name, likeBtn, deleteBtn];
+  imageElem.setAttribute('crossorigin', 'anonymous');
+  return [listItem, imageElem, footer, nameElem, likeBtn, deleteBtn];
 }
 
 function addClassesToCardElements(elements) {
-  const [listItem, image, footer, name, likeBtn, deleteBtn] = elements;
+  const [listItem, imageElem, footer, nameElem, likeBtn, deleteBtn] = elements;
   listItem.classList.add('place');
-  image.classList.add('place__image');
+  imageElem.classList.add('place__image');
   footer.classList.add('place__footer');
-  name.classList.add('place__name');
+  nameElem.classList.add('place__name');
   likeBtn.classList.add('button', 'button_action_like');
   deleteBtn.classList.add('button', 'button_action_delete');
-  return [listItem, image, footer, name, likeBtn, deleteBtn];
+  return [listItem, imageElem, footer, nameElem, likeBtn, deleteBtn];
 }
 
-function addContentToCardElements(elements, cardName, link) {
-  const [listItem, image, footer, name, likeBtn, deleteBtn] = elements;
-  image.style.backgroundImage = `url(${link})`;
-  name.textContent = cardName;
-  return [listItem, image, footer, name, likeBtn, deleteBtn];
+function addContentToCardElements(elements, card) {
+  const [listItem, imageElem, footer, nameElem, likeBtn, deleteBtn] = elements;
+  imageElem.style.backgroundImage = `url(${card.link})`;
+  nameElem.textContent = card.name;
+  return [listItem, imageElem, footer, nameElem, likeBtn, deleteBtn];
 }
 
-function addHandlersToButtons(elements) {
-  const [listItem, image, footer, name, likeBtn, deleteBtn] = elements;
+function addHandlersToButtons(elements, card) {
+  const [listItem, image, footer, nameElem, likeBtn, deleteBtn] = elements;
   likeBtn.addEventListener('click', 
     (evt) => evt.target.classList.toggle('button_like-btn-clicked'));
   deleteBtn.addEventListener('click', 
     () => listItem.parentNode.removeChild(listItem));
+  image.addEventListener('click', 
+    openImagePopup);
 }
 
 function nestCardElements(elements) {
-  const [listItem, image, footer, name, likeBtn, deleteBtn] = elements;
-  footer.append(name, likeBtn);
+  const [listItem, image, footer, nameElem, likeBtn, deleteBtn] = elements;
+  footer.append(nameElem, likeBtn);
   listItem.append(image, deleteBtn, footer);
   placesGrid.prepend(listItem);
+}
+
+function openImagePopup(evt) {
+  const image = evt.target;
+  const imageUrl = image.style
+                        .backgroundImage
+                        .split('"')[1];
+  console.log(imageUrl.length)
+  const imagePopup = document.createElement('img');
+
+  imagePopup.classList.add('popup__image');
+  imagePopup.setAttribute('src', imageUrl);
+
+  image.parentNode.appendChild(imagePopup);
 }
 
 createInitialCards();

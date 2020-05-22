@@ -44,7 +44,8 @@ function editFormSubmitHandler(evt) {
 
 function newFormSubmitHandler(evt) {
   evt.preventDefault();
-  createCard(title.value, imageUrl.value);
+  const cardVals = {name: title.value, link: imageUrl.value};
+  createCard(cardVals);
   toggleOverlayAndModal(evt);
 }
 

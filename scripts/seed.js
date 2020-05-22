@@ -1,6 +1,7 @@
 // Seeds the page with a set of starting cards
 
 const placesGrid = document.querySelector('.places__grid');
+const imagePopupTemplate = document.querySelector('#image-popup-template');
 
 const initialCards = [
   {
@@ -91,17 +92,32 @@ function nestCardElements(elements) {
 }
 
 function openImagePopup(evt) {
-  const image = evt.target;
-  const imageUrl = image.style
+  const url = evt.target.style
                         .backgroundImage
                         .split('"')[1];
-  console.log(imageUrl.length)
-  const imagePopup = document.createElement('img');
+  console.log(url);
+  
+  const clone = imagePopupTemplate.content.cloneNode(true);
+  const image = clone.querySelector('.popup__image');
+  
+  console.log(image.src)
+  image.src = url;
+  console.log(image.src)
+  
 
-  imagePopup.classList.add('popup__image');
-  imagePopup.setAttribute('src', imageUrl);
+  placesGrid.parentNode.appendChild(clone);
 
-  image.parentNode.appendChild(imagePopup);
+  // const image = evt.target;
+  // const imageUrl = image.style
+  //                       .backgroundImage
+  //                       .split('"')[1];
+  // console.log(imageUrl.length)
+  // const imagePopup = document.createElement('img');
+
+  // imagePopup.classList.add('popup__image');
+  // imagePopup.setAttribute('src', imageUrl);
+
+  // image.parentNode.appendChild(imagePopup);
 }
 
 createInitialCards();

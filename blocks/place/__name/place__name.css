@@ -3,13 +3,12 @@
   font-size: 1.875vw;    
   line-height: 1.208;
   margin-left: 1.6506vw;
-  max-width: 16vw;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  /* This truncates the name when too long */
+  max-width: 16.5vw;
   white-space: nowrap;
-
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-
 
 
 @media screen and (max-width: 1279px) {

@@ -1,0 +1,11 @@
+.button.button_action_delete {
+  background-image: url('../../../images/icons/trashcan.svg');
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  background-size: 100% 100%;
+  border: none; 
+  height: 1.41vw;
+  width: 1.5vw;
+  top: 1.95vw;
+  right: 1.25vw;
+}

@@ -5,6 +5,7 @@
 .place {
   border-radius: .78125vw;  
   background-color:  #FFFFFF;
+  position: relative;
   height: 28.2vw;
 }
 

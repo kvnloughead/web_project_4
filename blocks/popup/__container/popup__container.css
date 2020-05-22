@@ -16,15 +16,27 @@
   margin-left: -215px;
 }
 
-@media screen and (max-width: 768px) {
+.popup__container_invisible {
+  display: none;
+}
+
+@media screen and (max-width: 425px) {
+  .popup__container {
+    width: 240px;
+    height: 258px;
+    padding: 30px 20px 30px 20px;
+    margin-top: -99.23px;
+    margin-left: -122.3px; 
+  }
+}
+
+@media screen and (min-width: 426px) and (max-width: 768px) {
   .popup__container {
     width: 244px;
     height: 190px;
     padding: 18px 18px 18px 18px;
     margin-top: -93.84px;
-    margin-left: -122.3px;
-    display: flex;
-    flex-direction: column;
+    margin-left: -122.3px; 
     justify-content: space-between;
   }
 }

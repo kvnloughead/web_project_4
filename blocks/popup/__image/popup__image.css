@@ -1,10 +1,5 @@
 .popup__image {
+  display: block;
   max-width: 75vw;
   max-height: 75vh;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  margin-top: -271px;
-  margin-left: -361px; 
-  z-index: 1;
 }

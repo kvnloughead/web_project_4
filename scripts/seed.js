@@ -3,6 +3,7 @@
 const placesGrid = document.querySelector('.places__grid');
 const imagePopupTemplate = document.querySelector('#image-popup-template');
 
+
 const initialCards = [
   {
       name: 'Yosemite Valley',
@@ -95,29 +96,21 @@ function openImagePopup(evt) {
   const url = evt.target.style
                         .backgroundImage
                         .split('"')[1];
-  console.log(url);
-  
   const clone = imagePopupTemplate.content.cloneNode(true);
-  const image = clone.querySelector('.popup__image');
-  
-  console.log(image.src)
-  image.src = url;
-  console.log(image.src)
-  
-
+  const imagePopup = clone.querySelector('.popup__image')
+  const imagePopupContainer = clone.querySelector('.popup__image-container');
+  imagePopup.src = url;
+  // TODO set alt text
+  // TODO make close button work
   placesGrid.parentNode.appendChild(clone);
 
-  // const image = evt.target;
-  // const imageUrl = image.style
-  //                       .backgroundImage
-  //                       .split('"')[1];
-  // console.log(imageUrl.length)
-  // const imagePopup = document.createElement('img');
-
-  // imagePopup.classList.add('popup__image');
-  // imagePopup.setAttribute('src', imageUrl);
-
-  // image.parentNode.appendChild(imagePopup);
+  imagePopupContainer.style.marginTop = `${-.5 * imagePopup.offsetHeight}px`;
+  imagePopupContainer.style.marginLeft = `${-.5 * imagePopup.offsetWidth}px`;
+  console.log(imagePopup)
+  console.log(imagePopup.offsetWidth);
+  console.log(imagePopup.offsetHeight);
+  console.log(imagePopupContainer.style.marginLeft)
+  console.log(imagePopupContainer.style.marginTop)
 }
 
 createInitialCards();

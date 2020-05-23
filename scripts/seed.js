@@ -109,10 +109,15 @@ function openImagePopup(evt) {
 
   placesGrid.parentNode.appendChild(clone);
   popup.classList.toggle('popup_visible');
+
   
   imagePopupContainer.style.marginTop = `${-.5 * imagePopup.offsetHeight}px`;
   imagePopupContainer.style.marginLeft = `${-.5 * imagePopup.offsetWidth}px`;
   closeBtn.addEventListener('click', closePopup);
+
+  window.setTimeout(
+    () => imagePopupContainer.classList.add('popup__image-container_open'),
+    .1);
 }
 
 function closePopup(evt) {

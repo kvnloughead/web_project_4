@@ -1,3 +1,6 @@
 .popup.popup_visible {
   display: flex;
+  /* opacity: 0;
+  z-index: 0;
+  transition: opacity 10s ease-in-out; */
 }

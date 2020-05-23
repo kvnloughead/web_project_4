@@ -46,9 +46,7 @@ function toggleOverlayAndModal(evt) {
       placesGrid.parentNode.appendChild(clone);
       window.setTimeout(
         () => editModal.classList.add('transition_type_container'),
-        0);
-
-      
+        0);     
     }
   }
 }

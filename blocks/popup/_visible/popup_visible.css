@@ -1,6 +1,14 @@
 .popup.popup_visible {
-  display: flex;
-  /* opacity: 0;
-  z-index: 0;
-  transition: opacity 10s ease-in-out; */
+  background-color: rgba(0, 0, 0, .5);
+  z-index: 1;
+}
+
+.popup.transition_type_modal-overlay {
+  background-color: rgba(0, 0, 0, .5);
+  z-index: 1;
+}
+
+.popup.transition_type_image-overlay {
+  background-color: rgba(0, 0, 0, .9);
+  z-index: 1;
 }

@@ -108,7 +108,7 @@ function openImagePopup(evt) {
   imagePopup.alt = `Image of ${card.name}`;
 
   placesGrid.parentNode.appendChild(clone);
-  popup.classList.toggle('popup_visible');
+  popup.classList.toggle('transition_type_image-overlay');
 
   
   imagePopupContainer.style.marginTop = `${-.5 * imagePopup.offsetHeight}px`;
@@ -116,12 +116,15 @@ function openImagePopup(evt) {
   closeBtn.addEventListener('click', closePopup);
 
   window.setTimeout(
-    () => imagePopupContainer.classList.add('popup__image-container_open'),
-    .1);
+    () => imagePopupContainer.classList.add('transition_type_container'),
+    0);
 }
 
 function closePopup(evt) {
-  popup.classList.toggle('popup_visible');
+  window.setTimeout(
+    () => popup.classList.remove('transition_type_modal-overlay', 'transition_type_image-overlay'),
+    1);
+  // popup.classList.toggle('popup_visible');
   evt.target.parentNode.remove();
 }
 

@@ -9,16 +9,15 @@ const profileJob = document.querySelector('.profile__job');
 
 function toggleOverlayAndModal(evt) {
   
-  popup.classList.toggle('popup_visible');
+  popup.classList.toggle('transition_type_modal-overlay');
 
   if (evt.type !== "submit") {
 
     const btnClassList = Array.from(evt.target.classList);
 
     if (btnClassList.includes('button_action_add')) {
-      // editModal.classList.add('popup__container_invisible');
-      // addModal.classList.remove('popup__container_invisible');
       const clone = addModalTemplate.content.cloneNode(true);
+      const addModal = clone.querySelector('.popup__container');
       const closeAddBtn = clone.querySelector('.button_action_close');
       const addFormElement = clone.querySelector('.popup__form');
 
@@ -26,10 +25,14 @@ function toggleOverlayAndModal(evt) {
       addFormElement.addEventListener('submit', newFormSubmitHandler);
 
       placesGrid.parentNode.appendChild(clone); 
+      window.setTimeout(
+        () => addModal.classList.add('transition_type_container'),
+        0);
 
 
     } else if (btnClassList.includes('button_action_edit')){
       const clone = editModalTemplate.content.cloneNode(true);
+      const editModal = clone.querySelector('.popup__container');
       const closeEditBtn = clone.querySelector('.button_action_close');
       const editFormElement = clone.querySelector('.popup__form');
       const [name, job] = editFormElement.querySelectorAll('.popup__input'); 
@@ -41,6 +44,9 @@ function toggleOverlayAndModal(evt) {
       editFormElement.addEventListener('submit', editFormSubmitHandler);
 
       placesGrid.parentNode.appendChild(clone);
+      window.setTimeout(
+        () => editModal.classList.add('transition_type_container'),
+        0);
 
       
     }

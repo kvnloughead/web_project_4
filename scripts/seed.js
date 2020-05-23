@@ -1,11 +1,11 @@
-// Seeds the page with a set of starting cards
+// This script
+//   1. Defines functions pertaining to the creation of cards,
+//   2. seeds the page with an initial set, and
+//   3. handles the create of image popups
 
 const placesGrid = document.querySelector('.places__grid');
 const imagePopupTemplate = document.querySelector('#image-popup-template');
 const popup = document.querySelector('.popup');
-const editModal = popup.querySelector('.popup__container_type_edit');
-const addModal = popup.querySelector('.popup__container_type_add');
-
 
 const initialCards = [
   {
@@ -50,90 +50,104 @@ function createCard(card) {
 }
 
 function createCardElements() {
-  const listItem = document.createElement('li');
-  const imageElem = document.createElement('div');
-  const footer = document.createElement('div');
-  const nameElem = document.createElement('h2');
-  const likeBtn = document.createElement('button');
-  const deleteBtn = document.createElement('button');
-  imageElem.setAttribute('crossorigin', 'anonymous');
-  return [listItem, imageElem, footer, nameElem, likeBtn, deleteBtn];
+  const listItemEl = document.createElement('li');
+  const imageEl = document.createElement('div');
+  const footerEl = document.createElement('div');
+  const nameEl = document.createElement('h2');
+  const likeBtnEl = document.createElement('button');
+  const deleteBtnEl = document.createElement('button');
+  imageEl.setAttribute('crossorigin', 'anonymous');
+  elements = {
+    listItemEl: listItemEl, 
+    imageEl: imageEl,
+    footerEl: footerEl, 
+    nameEl: nameEl, 
+    likeBtnEl: likeBtnEl, 
+    deleteBtnEl: deleteBtnEl
+  }
+  return elements;
 }
 
 function addClassesToCardElements(elements) {
-  const [listItem, imageElem, footer, nameElem, likeBtn, deleteBtn] = elements;
-  listItem.classList.add('place');
-  imageElem.classList.add('place__image');
-  footer.classList.add('place__footer');
-  nameElem.classList.add('place__name');
-  likeBtn.classList.add('button', 'button_action_like');
-  deleteBtn.classList.add('button', 'button_action_delete');
-  return [listItem, imageElem, footer, nameElem, likeBtn, deleteBtn];
+  elements.listItemEl.classList.add('place');
+  elements.imageEl.classList.add('place__image');
+  elements.footerEl.classList.add('place__footer');
+  elements.nameEl.classList.add('place__name');
+  elements.likeBtnEl.classList.add('button', 'button_action_like');
+  elements.deleteBtnEl.classList.add('button', 'button_action_delete');
+  return elements;
 }
 
 function addContentToCardElements(elements, card) {
-  const [listItem, imageElem, footer, nameElem, likeBtn, deleteBtn] = elements;
-  imageElem.style.backgroundImage = `url(${card.link})`;
-  nameElem.textContent = card.name;
-  return [listItem, imageElem, footer, nameElem, likeBtn, deleteBtn];
+  elements.imageEl.style.backgroundImage = `url(${card.link})`;
+  elements.nameEl.textContent = card.name;
+  return elements;
 }
 
 function addHandlersToButtons(elements, card) {
-  const [listItem, image, footer, nameElem, likeBtn, deleteBtn] = elements;
-  likeBtn.addEventListener('click', 
+  elements.likeBtnEl.addEventListener('click', 
     (evt) => evt.target.classList.toggle('button_like-btn-clicked'));
-  deleteBtn.addEventListener('click', 
-    () => listItem.parentNode.removeChild(listItem));
-  image.addEventListener('click', 
+  elements.deleteBtnEl.addEventListener('click', 
+    () => listItemEl.parentNode.removeChild(listItemEl));
+  elements.imageEl.addEventListener('click', 
     openImagePopup, card);
 }
 
 function nestCardElements(elements) {
-  const [listItem, image, footer, nameElem, likeBtn, deleteBtn] = elements;
-  footer.append(nameElem, likeBtn);
-  listItem.append(image, deleteBtn, footer);
-  placesGrid.prepend(listItem);
+  elements.footerEl.append(elements.nameEl, elements.likeBtnEl);
+  elements.listItemEl.append(elements.imageEl, 
+                             elements.deleteBtnEl, elements.footerEl);
+  placesGrid.prepend(elements.listItemEl);
 }
 
 function openImagePopup(evt) {
-  const url = evt.target.style
-                        .backgroundImage
-                        .split('"')[1];
-  const clone = imagePopupTemplate.content.cloneNode(true);
-  const imagePopup = clone.querySelector('.popup__image')
-  const imagePopupContainer = clone.querySelector('.popup__image-container');
-  const closeBtn = clone.querySelector('.button_action_close');
+  const cloneOfTemplate = imagePopupTemplate.content.cloneNode(true);
+  const imagePopupContainer 
+    = cloneOfTemplate.querySelector('.popup__image-container');
+  const imagePopup = cloneOfTemplate.querySelector('.popup__image');
+  addContentToImagePopup(evt, imagePopup);
+  addCloseBtnEventListener(cloneOfTemplate);
+  placeAndCenterImagePopup(cloneOfTemplate, imagePopupContainer, imagePopup);
+  handleTransition(imagePopupContainer);
+}
 
-  imagePopup.src = url;
+function addContentToImagePopup(evt, imagePopup) {
+  const imageUrl = evt.target.style.backgroundImage.split('"')[1];
+  imagePopup.src = imageUrl;
   imagePopup.alt = `Image of ${card.name}`;
+}
 
-  placesGrid.parentNode.appendChild(clone);
-
-  popup.classList.toggle('transition_type_image-overlay');
-
+function placeAndCenterImagePopup(cloneOfTemplate, imagePopupContainer, imagePopup) {
+  placesGrid.parentNode.appendChild(cloneOfTemplate);
   imagePopupContainer.style.marginTop = `${-.5 * imagePopup.offsetHeight}px`;
   imagePopupContainer.style.marginLeft = `${-.5 * imagePopup.offsetWidth}px`;
-  closeBtn.addEventListener('click', closePopup);
+}
 
+function addCloseBtnEventListener(cloneOfTemplate) {
+  const closeBtn = cloneOfTemplate.querySelector('.button_action_close');
+  closeBtn.addEventListener('click', closePopup);
+}
+
+function handleTransition(imagePopupContainer) {
+  popup.classList.toggle('transition_type_image-overlay');
   window.setTimeout(
     () => imagePopupContainer.classList.add('transition_type_container'),
     0);
 }
 
 function closePopup(evt) {
-
+  // awkwardly handles transitions before removing nodes from DOM
   popup.classList.toggle('transition_visible');
   evt.target.parentNode.classList.toggle('transition_visible');
   popup.classList.remove('transition_type_modal-overlay',
                          'transition_type_image-overlay');
   evt.target.parentNode.classList.remove('transition_type_container');
-
   window.setTimeout(
     () => {
       popup.classList.toggle('transition_visible');
       evt.target.parentNode.classList.toggle('transition_visible');
       evt.target.parentNode.remove()
-    }, 5000);
+    }, 500);
 }
 
 createInitialCards();

@@ -108,7 +108,7 @@ function closePopup(evt) {
     () => {
       popup.classList.toggle('transition_visible');
       evt.target.parentNode.classList.toggle('transition_visible');
-      evt.target.parentNode.remove()
+      evt.target.parentNode.remove();
     }, 500);
 }
 

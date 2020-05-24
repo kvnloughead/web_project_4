@@ -8,7 +8,8 @@
   </head>
   <body class="page">
     <header class="header">
-      <img class="header__logo" src="./images/icons/header-logo.svg" alt="Around the U.S. Logo" />
+      <img class="header__logo" src="./images/icons/header-logo.svg" 
+            alt="Around the U.S. Logo" />
     </header>
     <main>
       <section class="profile">
@@ -27,9 +28,8 @@
         <button class="button button_action_add"></button>
       </section>
       
-      <section class="places">
+      <div class="places">
         <ul class="places__grid">
-
           <template id="card-template">
             <li class="place">
               <div class="place__image"></div>
@@ -40,11 +40,10 @@
               </div>
             </li>
           </template>
-
         </ul>
-      </section>
+      </div>
       
-      <section class="popup">
+      <dev class="popup">
         <template id="edit-modal-template">
           <div class="popup__container popup__container_type_edit">
             <button class="button button_action_close" type="reset"></button>
@@ -72,6 +71,7 @@
             </form>
           </div>
         </template>
+
         <template id="add-modal-template">
           <div class="popup__container popup__container_type_add">
             <button class="button button_action_close" type="reset"></button>
@@ -101,13 +101,15 @@
         </template>
 
         <template id="image-popup-template">
-          <div class="popup__image-container">
-            <button class="button button_action_close" type="reset"></button>
+          <figure class="popup__image-container">
+            <button class="button button_action_close" 
+                    type="reset"></button>
             <img src="" alt="" class="popup__image">
-          </div>
+            <figcaption class="popup__image-caption">asdfadf</figcaption>
+          </figure>
         </template>
-        
-      </section>
+      </div>
+
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Around The U.S.</p>

@@ -6,7 +6,6 @@
   min-width: 60vw;
 }
 
-
 @media screen and (max-width: 768px) {
   .popup__image {
     min-height: auto;

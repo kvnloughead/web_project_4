@@ -37,7 +37,7 @@ const initialCards = [
 ];
 
 function createInitialCards() {
-  for (card of initialCards) {
+  for (const card of initialCards) {
     createCard(card);
   }  
 }
@@ -108,7 +108,7 @@ function closePopup(evt) {
     () => {
       popup.classList.toggle('transition_visible');
       evt.target.parentNode.classList.toggle('transition_visible');
-      evt.target.parentNode.remove()
+      evt.target.parentNode.remove();
     }, 500);
 }
 

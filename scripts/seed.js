@@ -47,7 +47,7 @@ function createCard(card) {
   const imageEl = cloneOfTemplate.querySelector('.place__image');
   const nameEl = cloneOfTemplate.querySelector('.place__name');
   const placeEl = cloneOfTemplate.querySelector('.place');
-  const likeBtnEl = cloneOfTemplate.querySelector('.button_action_like');
+  const likeBtnEl = cloneOfTemplate.querySelector('.place__like-btn');
   const deleteBtnEl = cloneOfTemplate.querySelector('.button_action_delete');
   addContentToCard(imageEl, nameEl, card);
   addEventListeners(imageEl, likeBtnEl, deleteBtnEl, placeEl, card);
@@ -62,7 +62,7 @@ function addContentToCard(imageEl, nameEl, card) {
 function addEventListeners(imageEl, likeBtnEl, deleteBtnEl, placeEl, card) {
   imageEl.addEventListener('click', openImagePopup, card);
   likeBtnEl.addEventListener('click', 
-    () => likeBtnEl.classList.toggle('button_like-btn-clicked'));
+    () => likeBtnEl.classList.toggle('place__like-btn_clicked'));
   deleteBtnEl.addEventListener('click', 
     () => placeEl.parentNode.removeChild(placeEl));
 }

@@ -28,7 +28,20 @@
       </section>
       
       <section class="places">
-        <ul class="places__grid"></ul>
+        <ul class="places__grid">
+
+          <template id="card-template">
+            <li class="place">
+              <div class="place__image"></div>
+              <button class="button button_action_delete"></button>
+              <div class="place__footer">
+                <h2 class="place__name"></h2>
+                <button class="button button_action_like"></button>
+              </div>
+            </li>
+          </template>
+          
+        </ul>
       </section>
       
       <section class="popup">

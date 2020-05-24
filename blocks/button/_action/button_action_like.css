@@ -9,6 +9,7 @@
   width: 1.64vw;
 }
 
+
 @media screen and (max-width: 767px) {
   .button.button_action_like {
     height: 2.347vw;

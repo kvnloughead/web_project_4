@@ -5,6 +5,7 @@
 
 const placesGrid = document.querySelector('.places__grid');
 const imagePopupTemplate = document.querySelector('#image-popup-template');
+const cardTemplate = document.querySelector('#card-template');
 const popup = document.querySelector('.popup');
 
 const initialCards = [
@@ -42,63 +43,28 @@ function createInitialCards() {
 }
 
 function createCard(card) {
-  let elements = createCardElements();
-  elements = addClassesToCardElements(elements);
-  elements = addContentToCardElements(elements, card);
-  addHandlersToButtons(elements, card);
-  nestCardElements(elements); 
+  const cloneOfTemplate = cardTemplate.content.cloneNode(true);
+  const imageEl = cloneOfTemplate.querySelector('.place__image');
+  const nameEl = cloneOfTemplate.querySelector('.place__name');
+  const placeEl = cloneOfTemplate.querySelector('.place');
+  const likeBtnEl = cloneOfTemplate.querySelector('.button_action_like');
+  const deleteBtnEl = cloneOfTemplate.querySelector('.button_action_delete');
+  addContentToCard(imageEl, nameEl, card);
+  addEventListeners(imageEl, likeBtnEl, deleteBtnEl, placeEl, card);
+  placesGrid.prepend(cloneOfTemplate);
 }
 
-function createCardElements() {
-  const listItemEl = document.createElement('li');
-  const imageEl = document.createElement('div');
-  const footerEl = document.createElement('div');
-  const nameEl = document.createElement('h2');
-  const likeBtnEl = document.createElement('button');
-  const deleteBtnEl = document.createElement('button');
-  imageEl.setAttribute('crossorigin', 'anonymous');
-  elements = {
-    listItemEl: listItemEl, 
-    imageEl: imageEl,
-    footerEl: footerEl, 
-    nameEl: nameEl, 
-    likeBtnEl: likeBtnEl, 
-    deleteBtnEl: deleteBtnEl
-  }
-  return elements;
+function addContentToCard(imageEl, nameEl, card) {
+  imageEl.style.backgroundImage = `url(${card.link})`;
+  nameEl.textContent = card.name;
 }
 
-function addClassesToCardElements(elements) {
-  elements.listItemEl.classList.add('place');
-  elements.imageEl.classList.add('place__image');
-  elements.footerEl.classList.add('place__footer');
-  elements.nameEl.classList.add('place__name');
-  elements.likeBtnEl.classList.add('button', 'button_action_like');
-  elements.deleteBtnEl.classList.add('button', 'button_action_delete');
-  return elements;
-}
-
-function addContentToCardElements(elements, card) {
-  elements.imageEl.style.backgroundImage = `url(${card.link})`;
-  elements.nameEl.textContent = card.name;
-  return elements;
-}
-
-function addHandlersToButtons(elements, card) {
-  elements.likeBtnEl.addEventListener('click', 
-    (evt) => evt.target.classList.toggle('button_like-btn-clicked'));
-  elements.deleteBtnEl.addEventListener('click', 
-    () => elements.listItemEl
-                  .parentNode.removeChild(elements.listItemEl));
-  elements.imageEl.addEventListener('click', 
-    openImagePopup, card);
-}
-
-function nestCardElements(elements) {
-  elements.footerEl.append(elements.nameEl, elements.likeBtnEl);
-  elements.listItemEl.append(elements.imageEl, 
-                             elements.deleteBtnEl, elements.footerEl);
-  placesGrid.prepend(elements.listItemEl);
+function addEventListeners(imageEl, likeBtnEl, deleteBtnEl, placeEl, card) {
+  imageEl.addEventListener('click', openImagePopup, card);
+  likeBtnEl.addEventListener('click', 
+    () => likeBtnEl.classList.toggle('button_like-btn-clicked'));
+  deleteBtnEl.addEventListener('click', 
+    () => placeEl.parentNode.removeChild(placeEl));
 }
 
 function openImagePopup(evt) {

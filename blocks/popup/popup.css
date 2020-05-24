@@ -17,5 +17,5 @@
   z-index: -1;
   background-color: rgba(0, 0, 0, 0); 
   transition: z-index 0s linear,
-              background-color .3s ease-in-out;
+              background-color .5s ease-in-out;
 }

@@ -7,7 +7,6 @@ const profileJob = document.querySelector('.profile__job');
 
 
 function openModalPopup(evt) {
-  popup.classList.toggle('transition_type_modal-overlay');
   const btnClassList = Array.from(evt.target.classList);
   if (btnClassList.includes('button_action_add')) {
     createAndInstantiateAddModalPopup();
@@ -19,41 +18,32 @@ function openModalPopup(evt) {
 function createAndInstantiateAddModalPopup() {
   const cloneOfAddTemplate = addModalTemplate.content.cloneNode(true);
   const addModal = cloneOfAddTemplate.querySelector('.popup__container');
-
-  const closeAddBtn = cloneOfAddTemplate.querySelector('.button_action_close');
-  closeAddBtn.addEventListener('click', closePopup);
-
   const addFormElement = cloneOfAddTemplate.querySelector('.popup__form');
   addFormElement.addEventListener('submit', newFormSubmitHandler);
-
+  addCloseBtnEventListener(cloneOfAddTemplate);
   placesGrid.parentNode.appendChild(cloneOfAddTemplate); 
-  window.setTimeout(
-    () => addModal.classList.add('transition_type_container'),
-    0);
+  handleTransition(addModal, 'modal');
 }
 
 function createAndInstantiateEditModalPopup() {
   const cloneOfEditTemplate = editModalTemplate.content.cloneNode(true);
   const editModal = cloneOfEditTemplate.querySelector('.popup__container');
   const editFormElement = cloneOfEditTemplate.querySelector('.popup__form');
+  createEditFormAndSubmitListener(editFormElement);
+  addCloseBtnEventListener(cloneOfEditTemplate);
+  placesGrid.parentNode.appendChild(cloneOfEditTemplate);
+  handleTransition(editModal, 'modal');
+}
 
+function createEditFormAndSubmitListener(editFormElement) {
   const [name, job] = editFormElement.querySelectorAll('.popup__input'); 
   name.value = profileName.textContent;
   job.value = profileJob.textContent;
-
-  const closeEditBtn = cloneOfEditTemplate.querySelector('.button_action_close');
-  closeEditBtn.addEventListener('click', closePopup);
   editFormElement.addEventListener('submit', editFormSubmitHandler);
-
-  placesGrid.parentNode.appendChild(cloneOfEditTemplate);
-  window.setTimeout(
-    () => editModal.classList.add('transition_type_container'),
-    0); 
 }
 
 function editFormSubmitHandler(evt) {
   evt.preventDefault();
-
   const newName = evt.currentTarget.firstElementChild.value;
   const newJob = evt.currentTarget.firstElementChild.nextElementSibling.value;
   profileName.textContent = newName;

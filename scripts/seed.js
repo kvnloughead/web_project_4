@@ -88,7 +88,8 @@ function addHandlersToButtons(elements, card) {
   elements.likeBtnEl.addEventListener('click', 
     (evt) => evt.target.classList.toggle('button_like-btn-clicked'));
   elements.deleteBtnEl.addEventListener('click', 
-    () => listItemEl.parentNode.removeChild(listItemEl));
+    () => elements.listItemEl
+                  .parentNode.removeChild(elements.listItemEl));
   elements.imageEl.addEventListener('click', 
     openImagePopup, card);
 }
@@ -108,7 +109,7 @@ function openImagePopup(evt) {
   addContentToImagePopup(evt, imagePopup);
   addCloseBtnEventListener(cloneOfTemplate);
   placeAndCenterImagePopup(cloneOfTemplate, imagePopupContainer, imagePopup);
-  handleTransition(imagePopupContainer);
+  handleTransition(imagePopupContainer, 'image');
 }
 
 function addContentToImagePopup(evt, imagePopup) {
@@ -128,15 +129,15 @@ function addCloseBtnEventListener(cloneOfTemplate) {
   closeBtn.addEventListener('click', closePopup);
 }
 
-function handleTransition(imagePopupContainer) {
-  popup.classList.toggle('transition_type_image-overlay');
+function handleTransition(imagePopupContainer, popupType) {
+  popup.classList.toggle(`transition_type_${popupType}-overlay`);
   window.setTimeout(
     () => imagePopupContainer.classList.add('transition_type_container'),
     0);
 }
 
 function closePopup(evt) {
-  // awkwardly handles transitions before removing nodes from DOM
+  // awkwardly handles transitions before removing nodes from
   popup.classList.toggle('transition_visible');
   evt.target.parentNode.classList.toggle('transition_visible');
   popup.classList.remove('transition_type_modal-overlay',

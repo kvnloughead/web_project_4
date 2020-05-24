@@ -1,6 +1,8 @@
 .popup__image-container {
-  max-width: 75vw;
-  max-height: 75vh;
+  /* min-height: 60vw;
+  min-height: 60vh; */
+  /* max-width: 75vw;
+  max-height: 75vh; */
   position: fixed;
   top: 50%;
   left: 50%;

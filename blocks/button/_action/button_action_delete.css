@@ -9,3 +9,10 @@
   top: 1.95vw;
   right: 1.25vw;
 }
+
+@media screen and (max-width: 768px) {
+  .button.button_action_delete {
+    width: 15px;
+    height: 18px;
+  }
+}

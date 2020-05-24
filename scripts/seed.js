@@ -108,8 +108,7 @@ function openImagePopup(evt) {
   const imagePopup = cloneOfTemplate.querySelector('.popup__image');
   addContentToImagePopup(evt, imagePopup);
   addCloseBtnEventListener(cloneOfTemplate);
-  placeAndCenterImagePopup(cloneOfTemplate, imagePopupContainer, imagePopup);
-  handleTransition(imagePopupContainer, 'image');
+  openPopup(imagePopupContainer, cloneOfTemplate, 'image');
 }
 
 function addContentToImagePopup(evt, imagePopup) {
@@ -118,18 +117,14 @@ function addContentToImagePopup(evt, imagePopup) {
   imagePopup.alt = `Image of ${card.name}`;
 }
 
-function placeAndCenterImagePopup(cloneOfTemplate, imagePopupContainer, imagePopup) {
-  placesGrid.parentNode.appendChild(cloneOfTemplate);
-  imagePopupContainer.style.marginTop = `${-.5 * imagePopup.offsetHeight}px`;
-  imagePopupContainer.style.marginLeft = `${-.5 * imagePopup.offsetWidth}px`;
-}
 
 function addCloseBtnEventListener(cloneOfTemplate) {
   const closeBtn = cloneOfTemplate.querySelector('.button_action_close');
   closeBtn.addEventListener('click', closePopup);
 }
 
-function handleTransition(imagePopupContainer, popupType) {
+function openPopup(imagePopupContainer, clone, popupType) {
+  placesGrid.parentNode.appendChild(clone);
   popup.classList.toggle(`transition_type_${popupType}-overlay`);
   window.setTimeout(
     () => imagePopupContainer.classList.add('transition_type_container'),
@@ -150,6 +145,7 @@ function closePopup(evt) {
       evt.target.parentNode.remove()
     }, 500);
 }
+
 
 createInitialCards();
 

@@ -22,7 +22,7 @@ function createAndInstantiateAddModalPopup() {
   addFormElement.addEventListener('submit', newFormSubmitHandler);
   addCloseBtnEventListener(cloneOfAddTemplate);
   placesGrid.parentNode.appendChild(cloneOfAddTemplate); 
-  handleTransition(addModal, 'modal');
+  openPopup(addModal, cloneOfAddTemplate, 'modal');
 }
 
 function createAndInstantiateEditModalPopup() {
@@ -32,7 +32,7 @@ function createAndInstantiateEditModalPopup() {
   createEditFormAndSubmitListener(editFormElement);
   addCloseBtnEventListener(cloneOfEditTemplate);
   placesGrid.parentNode.appendChild(cloneOfEditTemplate);
-  handleTransition(editModal, 'modal');
+  openPopup(editModal, cloneOfEditTemplate, 'modal');
 }
 
 function createEditFormAndSubmitListener(editFormElement) {

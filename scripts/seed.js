@@ -82,7 +82,6 @@ function openImagePopup(evt, name) {
 
 function addContentToImagePopup(evt, imagePopupEl, captionEl, name) {
   const imageUrl = evt.target.style.backgroundImage.split('"')[1];
-  
   imagePopupEl.src = imageUrl;
   imagePopupEl.alt = `Image of ${name}`;
   captionEl.textContent = name;

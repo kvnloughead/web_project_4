@@ -13,7 +13,10 @@
 
 .button:hover {
   opacity: .6;
+  cursor: url('../../../images/icons/finger.svg'), auto;
 }
+
+
 
 
 

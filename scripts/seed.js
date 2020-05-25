@@ -36,8 +36,8 @@ const initialCards = [
   }
 ];
 
-function createInitialCards() {
-  for (card of initialCards) {
+function createInitialCards(initialCards) {
+  for (const card of initialCards) {
     createCard(card);
   }  
 }
@@ -50,7 +50,7 @@ function createCard(card) {
   const likeBtnEl = cloneOfTemplate.querySelector('.place__like-btn');
   const deleteBtnEl = cloneOfTemplate.querySelector('.button_action_delete');
   addContentToCard(imageEl, nameEl, card);
-  addEventListeners(imageEl, likeBtnEl, deleteBtnEl, placeEl, card);
+  addEventListeners(nameEl, imageEl, likeBtnEl, deleteBtnEl, placeEl, card);
   placesGrid.prepend(cloneOfTemplate);
 }
 
@@ -59,28 +59,33 @@ function addContentToCard(imageEl, nameEl, card) {
   nameEl.textContent = card.name;
 }
 
-function addEventListeners(imageEl, likeBtnEl, deleteBtnEl, placeEl, card) {
-  imageEl.addEventListener('click', openImagePopup, card);
+function addEventListeners(nameEl, imageEl, likeBtnEl, deleteBtnEl, placeEl, card) {
+  imageEl.addEventListener('click', function (evt) {
+    openImagePopup(evt, nameEl.textContent)
+  });
   likeBtnEl.addEventListener('click', 
     () => likeBtnEl.classList.toggle('place__like-btn_clicked'));
   deleteBtnEl.addEventListener('click', 
     () => placeEl.parentNode.removeChild(placeEl));
 }
 
-function openImagePopup(evt) {
+function openImagePopup(evt, name) {
   const cloneOfTemplate = imagePopupTemplate.content.cloneNode(true);
   const imagePopupContainer 
     = cloneOfTemplate.querySelector('.popup__image-container');
-  const imagePopup = cloneOfTemplate.querySelector('.popup__image');
-  addContentToImagePopup(evt, imagePopup);
+  const imagePopupEl = cloneOfTemplate.querySelector('.popup__image');
+  const captionEl = cloneOfTemplate.querySelector('.popup__image-caption');
+  addContentToImagePopup(evt, imagePopupEl, captionEl, name);
   addCloseBtnEventListener(cloneOfTemplate);
   openPopup(imagePopupContainer, cloneOfTemplate, 'image');
 }
 
-function addContentToImagePopup(evt, imagePopup) {
+function addContentToImagePopup(evt, imagePopupEl, captionEl, name) {
   const imageUrl = evt.target.style.backgroundImage.split('"')[1];
-  imagePopup.src = imageUrl;
-  imagePopup.alt = `Image of ${card.name}`;
+  
+  imagePopupEl.src = imageUrl;
+  imagePopupEl.alt = `Image of ${name}`;
+  captionEl.textContent = name;
 }
 
 
@@ -113,6 +118,6 @@ function closePopup(evt) {
 }
 
 
-createInitialCards();
+createInitialCards(initialCards);
 
 

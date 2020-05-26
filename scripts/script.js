@@ -52,7 +52,8 @@ function createCard(card) {
   const deleteBtnEl = cloneOfTemplate.querySelector('.button_action_delete');
   addContentToCard(imageEl, nameEl, card);
   imagePopupContainer = createImagePopup(imageEl, nameEl.textContent);
-  addEventListeners(nameEl, imageEl, likeBtnEl, deleteBtnEl, placeEl, imagePopupContainer, card);
+  addEventListeners(nameEl, imageEl, likeBtnEl, 
+    deleteBtnEl, placeEl, imagePopupContainer, card);
   placesGrid.prepend(cloneOfTemplate);
 }
 
@@ -127,7 +128,9 @@ function createAndInstantiateAddModalPopup() {
   const cloneOfAddTemplate = addModalTemplate.content.cloneNode(true);
   const addModal = cloneOfAddTemplate.querySelector('.popup__container');
   const addFormElement = cloneOfAddTemplate.querySelector('.popup__form');
-  addFormElement.addEventListener('submit', newFormSubmitHandler);
+  addFormElement.addEventListener('submit', function(evt) {
+    newFormSubmitHandler(evt, addModal);
+  });
   addCloseBtnEventListener(cloneOfAddTemplate, addModal);
   addBtn.addEventListener('click', function() {
     openPopup(addModal, 'modal');
@@ -139,7 +142,7 @@ function createAndInstantiateEditModalPopup() {
   const cloneOfEditTemplate = editModalTemplate.content.cloneNode(true);
   const editModal = cloneOfEditTemplate.querySelector('.popup__container');
   const editFormElement = cloneOfEditTemplate.querySelector('.popup__form');
-  createEditFormAndSubmitListener(editFormElement);
+  createEditFormAndSubmitListener(editFormElement, editModal);
   addCloseBtnEventListener(cloneOfEditTemplate, editModal);
   editBtn.addEventListener('click', function() {
     openPopup(editModal, 'modal');
@@ -147,27 +150,28 @@ function createAndInstantiateEditModalPopup() {
   placesGrid.parentNode.appendChild(cloneOfEditTemplate);
 }
 
-function createEditFormAndSubmitListener(editFormElement) {
+function createEditFormAndSubmitListener(editFormElement, editModal) {
   const [name, job] = editFormElement.querySelectorAll('.popup__input'); 
   name.value = profileName.textContent;
   job.value = profileJob.textContent;
-  editFormElement.addEventListener('submit', editFormSubmitHandler);
+  editFormElement.addEventListener('submit', function(evt) {
+    editFormSubmitHandler(evt, editModal)});
 }
 
-function editFormSubmitHandler(evt) {
+function editFormSubmitHandler(evt, editModal) {
   evt.preventDefault();
   const newName = evt.currentTarget.firstElementChild.value;
   const newJob = evt.currentTarget.firstElementChild.nextElementSibling.value;
   profileName.textContent = newName;
   profileJob.textContent = newJob;
-  closePopup(evt);
+  closePopup(editModal);
 }
 
-function newFormSubmitHandler(evt) {
+function newFormSubmitHandler(evt, addModal) {
   evt.preventDefault();
   const cardVals = {name: title.value, link: imageUrl.value};
   createCard(cardVals);
-  closePopup(evt);
+  closePopup(addModal);
 }
 
 createInitialCards(initialCards);

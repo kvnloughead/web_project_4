@@ -5,6 +5,7 @@
 @import url('./__image-container/popup__image-container.css');
 @import url('./__image/popup__image.css');
 @import url('./__image-caption/popup__image-caption.css');
+@import url('./_type/popup_type_image.css');
 
 .popup {
   position: fixed;
@@ -19,9 +20,5 @@
   visibility: hidden;
   /* transitioning properties */
   opacity:0;
-  transition:visibility 0s linear 0.5s,opacity 0.5s linear;
-}
-
-.popup.popup_type_image {
-  background-color: rgba(0, 0, 0, .9); 
+  transition:visibility 0s linear .5s, opacity .5s linear;
 }

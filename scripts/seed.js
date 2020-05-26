@@ -1,7 +1,7 @@
 // This script
 //   1. Defines functions pertaining to the creation of cards,
 //   2. seeds the page with an initial set, and
-//   3. handles the create of image popups
+//   3. handles the creation of image popups
 
 const placesGrid = document.querySelector('.places__grid');
 const imagePopupTemplate = document.querySelector('#image-popup-template');
@@ -61,7 +61,7 @@ function addContentToCard(imageEl, nameEl, card) {
 
 function addEventListeners(nameEl, imageEl, likeBtnEl, deleteBtnEl, placeEl, card) {
   imageEl.addEventListener('click', function (evt) {
-    openImagePopup(evt, nameEl.textContent)
+    createImagePopup(evt, nameEl.textContent)
   });
   likeBtnEl.addEventListener('click', 
     () => likeBtnEl.classList.toggle('place__like-btn_clicked'));
@@ -69,7 +69,7 @@ function addEventListeners(nameEl, imageEl, likeBtnEl, deleteBtnEl, placeEl, car
     () => placeEl.parentNode.removeChild(placeEl));
 }
 
-function openImagePopup(evt, name) {
+function createImagePopup(evt, name) {
   const cloneOfTemplate = imagePopupTemplate.content.cloneNode(true);
   const imagePopupContainer 
     = cloneOfTemplate.querySelector('.popup__image-container');

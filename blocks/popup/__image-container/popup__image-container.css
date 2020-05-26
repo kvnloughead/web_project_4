@@ -10,7 +10,7 @@
   /* transitioning properties */
   z-index: 2;
   opacity: 0;
-  -webkit-transition: opacity .5s ease-in;
-  -o-transition: opacity .5s ease-in;
-  transition: opacity .5s ease-in;
+  visibility: hidden;
+  opacity:0;
+  transition:visibility 0s linear 0.5s,opacity 0.5s linear;
 }

@@ -15,8 +15,9 @@
   margin-top: -165px;
   margin-left: -215px;
   z-index: 1;
-  opacity: 0;
-  transition: opacity .5s ease-in;
+  visibility: hidden;
+  opacity:0;
+  transition:visibility 0s linear 0.5s,opacity 0.5s linear;
 }
 
 @media screen and (max-width: 500px) {

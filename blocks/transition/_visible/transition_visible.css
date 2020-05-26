@@ -1,5 +1,0 @@
-.transition_visible {
-  transition-property: z-index, opacity, background-color;
-  transition-duration: 0s, .5s, .5s;
-  transition-delay: 1s, 0s, 0s;
-}

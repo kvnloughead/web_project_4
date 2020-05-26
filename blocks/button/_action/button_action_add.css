@@ -11,12 +11,6 @@
   background-size: 20% 50%;
 }
 
-@media screen and (max-width: 930px) {
-  .button.button_action_add {
-    margin-left: 12px;
-  }
-}
-
 
 @media screen and (max-width: 730px) {
   .button.button_action_add {

@@ -11,106 +11,104 @@
       <img class="header__logo" src="./images/icons/header-logo.svg" 
             alt="Around the U.S. Logo" />
     </header>
-    <main>
-      <section class="profile">
-        <img
-          src="./images/cousteau.jpg"
-          alt="Portrait of Jacques Cousteau"
-          class="profile__image"
-        />
-        <div class="profile__info">
-          <div class="profile__text">
-            <h2 class="profile__name">Jacques Cousteau</h2>
-            <p class="profile__job">Explorer</p>
-          </div>
-          <button class="button button_action_edit"></button>
+    <section class="profile">
+      <img
+        src="./images/cousteau.jpg"
+        alt="Portrait of Jacques Cousteau"
+        class="profile__image"
+      />
+      <div class="profile__info">
+        <div class="profile__text">
+          <h2 class="profile__name">Jacques Cousteau</h2>
+          <p class="profile__job">Explorer</p>
         </div>
-        <button class="button button_action_add"></button>
-      </section>
-      
-      <div class="places">
-        <ul class="places__grid">
-          <template id="card-template">
-            <li class="place">
-              <div class="place__image"></div>
-              <button class="button button_action_delete"></button>
-              <div class="place__footer">
-                <h2 class="place__name"></h2>
-                <button class="place__like-btn"></button>
-              </div>
-            </li>
-          </template>
-        </ul>
+        <button class="button button_action_edit"></button>
       </div>
-      
-      <dev class="popup">
-        <template id="edit-modal-template">
-          <div class="popup__container popup__container_type_edit">
-            <button class="button button_action_close" type="reset"></button>
-            <h2 class="popup__title">Edit profile</h2>
-            <form class="popup__form" action="#">
-              <input
-                class="popup__input"
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Name"
-              />
-              <input
-                class="popup__input"
-                type="text"
-                id="job"
-                name="job"
-                placeholder="About me"
-              />
-              <button
-                class="button button_action_submit"
-                type="submit"
-                value="Save"
-              >Save</button>
-            </form>
-          </div>
+      <button class="button button_action_add"></button>
+    </section>
+    
+    <div class="places">
+      <ul class="places__grid">
+        <template id="card-template">
+          <li class="place">
+            <div class="place__image"></div>
+            <button class="button button_action_delete"></button>
+            <div class="place__footer">
+              <h2 class="place__name"></h2>
+              <button class="place__like-btn"></button>
+            </div>
+          </li>
         </template>
+      </ul>
+    </div>
+    
+    <div class="popup">
+      <template id="edit-modal-template">
+        <div class="popup__container popup__container_type_edit">
+          <button class="button button_action_close" type="reset"></button>
+          <h2 class="popup__title">Edit profile</h2>
+          <form class="popup__form" action="#">
+            <input
+              class="popup__input"
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Name"
+            />
+            <input
+              class="popup__input"
+              type="text"
+              id="job"
+              name="job"
+              placeholder="About me"
+            />
+            <button
+              class="button button_action_submit"
+              type="submit"
+              value="Save"
+            >Save</button>
+          </form>
+        </div>
+      </template>
 
-        <template id="add-modal-template">
-          <div class="popup__container popup__container_type_add">
-            <button class="button button_action_close" type="reset"></button>
-            <h2 class="popup__title">New place</h2>
-            <form class="popup__form" action="#">
-              <input
-                class="popup__input"
-                type="text"
-                id="title"
-                name="title"
-                placeholder="Title"
-              />
-              <input
-                class="popup__input"
-                type="text"
-                id="imageUrl"
-                name="imageUrl"
-                placeholder="Image link"
-              />
-              <button
-                class="button button_action_submit"
-                type="submit"
-                value="Create"
-              >Create</button>
-            </form>
-          </div>
-        </template>
+      <template id="add-modal-template">
+        <div class="popup__container popup__container_type_add">
+          <button class="button button_action_close" type="reset"></button>
+          <h2 class="popup__title">New place</h2>
+          <form class="popup__form" action="#">
+            <input
+              class="popup__input"
+              type="text"
+              id="title"
+              name="title"
+              placeholder="Title"
+            />
+            <input
+              class="popup__input"
+              type="text"
+              id="imageUrl"
+              name="imageUrl"
+              placeholder="Image link"
+            />
+            <button
+              class="button button_action_submit"
+              type="submit"
+              value="Create"
+            >Create</button>
+          </form>
+        </div>
+      </template>
 
-        <template id="image-popup-template">
-          <figure class="popup__image-container">
-            <button class="button button_action_close" 
-                    type="reset"></button>
-            <img src="" alt="" class="popup__image">
-            <figcaption class="popup__image-caption"></figcaption>
-          </figure>
-        </template>
-      </div>
+      <template id="image-popup-template">
+        <figure class="popup__image-container">
+          <button class="button button_action_close" 
+                  type="reset"></button>
+          <img src="" alt="" class="popup__image">
+          <figcaption class="popup__image-caption"></figcaption>
+        </figure>
+      </template>
+    </div>
 
-    </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Around The U.S.</p>
     </footer>

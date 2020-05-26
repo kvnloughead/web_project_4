@@ -6,22 +6,34 @@
   width: 882px;
 }
 
-@media screen and (max-width: 1279px) {
+@media screen and (max-width: 930px) {
   .header {
-    margin-left: 19px;
-    margin-right: 19px;
+    width: 100%;
   }
 }
 
-@media screen and (max-width: 930px) {
+@media screen and (max-width: 620px) {
   .header {
     width: calc(100vw + 19px);
     margin-left: -19px;
   }
 }
 
+/* 
+width: 882px;
+}
 
+@media screen and (max-width: 930px) {
+  .footer {
+    
+  }
+}
 
+@media screen and (max-width: 620px) {
+  .footer {
+    width: 282px;
+  }
+} */
 
 
  

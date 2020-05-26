@@ -4,14 +4,3 @@
   max-height: 75vh;
 }
 
-@media screen and (max-width: 768px) {
-  .popup__image {
-    min-height: auto;
-  }
-}
-
-@media screen and (min-width: 1281px) {
-  .popup__image {
-    min-height:  60vh;
-  }
-}

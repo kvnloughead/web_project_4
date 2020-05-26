@@ -1,8 +1,8 @@
 .button_action_edit {
-  width: 1.875vw;
-  height: 1.875vw;
+  width: 24px;
+  height: 24px;
   border: 1px solid  #FFFFFF;
-  margin: -1.17vw 0 .3vw 1.875vw;
+  margin: -15px 0 4px 24px;
   background-image: url('../../../images/icons/edit-pen.svg');
   background-repeat: no-repeat;
   background-position: center;

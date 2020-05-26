@@ -5,10 +5,10 @@
 @import url('./__like-btn/_clicked/place__like-btn_clicked.css');
 
 .place {
-  border-radius: .78125vw;  
+  border-radius: 10px;  
   background-color:  #FFFFFF;
   position: relative;
-  height: 28.2vw;
+  height: 362px;
 }
 
 @media screen and (max-width: 767px) {

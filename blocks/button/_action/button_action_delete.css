@@ -4,10 +4,10 @@
   position: absolute;
   background-size: 100% 100%;
   border: none; 
-  height: 1.41vw;
-  width: 1.5vw;
-  top: 1.95vw;
-  right: 1.25vw;
+  height: 18px;
+  width: 19px;
+  top: 25px;
+  right: 16px;
 }
 
 @media screen and (max-width: 768px) {

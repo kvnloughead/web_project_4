@@ -2,8 +2,8 @@
   display: grid;
   background-color: #000000;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 1.40625vw;
-  grid-row-gap: 1.640625vw;
+  grid-column-gap: 18px;
+  grid-row-gap: 20px;
   list-style: none;
   margin: 0;
   padding: 0;

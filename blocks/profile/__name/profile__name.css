@@ -1,10 +1,10 @@
 .profile__name {
   color:  #FFFFFF;
   font-weight: 500;
-  font-size: 3.28125vw;
+  font-size: 42px;
   line-height: 1.33;
   margin: 0;
-  max-width: 30vw;
+  max-width: 384px;
   /* This magic makes the scrolling happen */
   white-space: nowrap;
   overflow-x: auto;

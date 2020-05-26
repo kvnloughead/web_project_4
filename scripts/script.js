@@ -1,7 +1,7 @@
 const placesGrid = document.querySelector('.places__grid');
 const imagePopupTemplate = document.querySelector('#image-popup-template');
 const cardTemplate = document.querySelector('#card-template');
-const popup = document.querySelector('.popup');
+const popupOverlay = document.querySelector('.popup');
 const editBtn = document.querySelector('.button_action_edit');
 const addBtn = document.querySelector('.button_action_add');
 const editModalTemplate = document.querySelector('#edit-modal-template');
@@ -52,7 +52,6 @@ function createCard(card) {
   const deleteBtnEl = cloneOfTemplate.querySelector('.button_action_delete');
   addContentToCard(imageEl, nameEl, card);
   imagePopupContainer = createImagePopup(imageEl, nameEl.textContent);
-  console.log(imagePopupContainer)
   addEventListeners(nameEl, imageEl, likeBtnEl, deleteBtnEl, placeEl, imagePopupContainer, card);
   placesGrid.prepend(cloneOfTemplate);
 }
@@ -67,9 +66,11 @@ function addEventListeners(nameEl, imageEl, likeBtnEl, deleteBtnEl, placeEl, ima
     openPopup(imagePopupContainer, 'image');
   });
   likeBtnEl.addEventListener('click', 
-    () => likeBtnEl.classList.toggle('place__like-btn_clicked'));
+    () => likeBtnEl.classList.toggle('place__like-btn_clicked')
+  );
   deleteBtnEl.addEventListener('click', 
-    () => placeEl.parentNode.removeChild(placeEl));
+    () => placeEl.parentNode.removeChild(placeEl)
+  );
 }
 
 function createImagePopup(image, name) {
@@ -79,7 +80,7 @@ function createImagePopup(image, name) {
   const imagePopupEl = cloneOfTemplate.querySelector('.popup__image');
   const captionEl = cloneOfTemplate.querySelector('.popup__image-caption');
   addContentToImagePopup(image, imagePopupEl, captionEl, name);
-  addCloseBtnEventListener(cloneOfTemplate);
+  addCloseBtnEventListener(cloneOfTemplate, imagePopupContainer);
   placesGrid.parentNode.appendChild(imagePopupContainer);
   return imagePopupContainer;
 }
@@ -91,28 +92,26 @@ function addContentToImagePopup(image, imagePopupEl, captionEl, name) {
   captionEl.textContent = name;
 }
 
-function addCloseBtnEventListener(cloneOfTemplate) {
+function addCloseBtnEventListener(cloneOfTemplate, popup) {
   const closeBtn = cloneOfTemplate.querySelector('.button_action_close');
-  closeBtn.addEventListener('click', closePopup);
+  closeBtn.addEventListener('click', function() {
+    closePopup(popup);
+  });
 }
 
 function openPopup(popupContainer, popupType) {
   popupContainer.classList.toggle('transition');
+  if (popupType === 'image') {
+    popupOverlay.classList.add('popup_type_image');
+  } else {
+    popupOverlay.classList.remove('popup_type_image');
+  }
+  popupOverlay.classList.toggle('transition');
 }
 
-function closePopup(evt) {
-  // awkwardly handles transitions before removing nodes from
-  popup.classList.toggle('transition_visible');
-  evt.target.parentNode.classList.toggle('transition_visible');
-  popup.classList.remove('transition_type_modal-overlay',
-                         'transition_type_image-overlay');
-  evt.target.parentNode.classList.remove('transition_type_container');
-  window.setTimeout(
-    () => {
-      popup.classList.toggle('transition_visible');
-      evt.target.parentNode.classList.toggle('transition_visible');
-      evt.target.parentNode.remove();
-    }, 500);
+function closePopup(popup) {
+  popup.classList.toggle('transition');
+  popupOverlay.classList.toggle('transition');
 }
 
 function openModalPopup(evt) {
@@ -129,9 +128,9 @@ function createAndInstantiateAddModalPopup() {
   const addModal = cloneOfAddTemplate.querySelector('.popup__container');
   const addFormElement = cloneOfAddTemplate.querySelector('.popup__form');
   addFormElement.addEventListener('submit', newFormSubmitHandler);
-  addCloseBtnEventListener(cloneOfAddTemplate);
+  addCloseBtnEventListener(cloneOfAddTemplate, addModal);
   addBtn.addEventListener('click', function() {
-    openPopup(addModal);
+    openPopup(addModal, 'modal');
   });
   placesGrid.parentNode.appendChild(cloneOfAddTemplate); 
 }
@@ -141,9 +140,9 @@ function createAndInstantiateEditModalPopup() {
   const editModal = cloneOfEditTemplate.querySelector('.popup__container');
   const editFormElement = cloneOfEditTemplate.querySelector('.popup__form');
   createEditFormAndSubmitListener(editFormElement);
-  addCloseBtnEventListener(cloneOfEditTemplate);
+  addCloseBtnEventListener(cloneOfEditTemplate, editModal);
   editBtn.addEventListener('click', function() {
-    openPopup(editModal, 'foo')
+    openPopup(editModal, 'modal');
   });
   placesGrid.parentNode.appendChild(cloneOfEditTemplate);
 }

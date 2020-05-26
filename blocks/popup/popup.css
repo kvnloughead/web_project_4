@@ -14,9 +14,14 @@
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, .5); 
+  visibility: hidden;
   /* transitioning properties */
-  z-index: -1;
-  background-color: rgba(0, 0, 0, 0); 
-  transition: z-index 0s linear,
-              background-color .5s ease-in-out;
+  opacity:0;
+  transition:visibility 0s linear 0.5s,opacity 0.5s linear;
+}
+
+.popup.popup_type_image {
+  background-color: rgba(0, 0, 0, .9); 
 }

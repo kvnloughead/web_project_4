@@ -11,18 +11,21 @@
   background-size: 20% 50%;
 }
 
-@media screen and (max-width: 475px) {
+@media screen and (max-width: 930px) {
   .button.button_action_add {
-    width: 88.125vw;
-    height: 15.67vw;
-    margin: 36px 0 0 0;
-    background-size: 16px 16px;
+    margin-left: 12px;
   }
 }
 
-@media screen and (max-width: 767px) {
+
+@media screen and (max-width: 730px) {
   .button.button_action_add {
-    margin-top: 46px;
+    width: 282px;
+    background-size: 17px 17px;
+    align-self: center;
+    margin-left: 0;
   }
 }
+
+
 

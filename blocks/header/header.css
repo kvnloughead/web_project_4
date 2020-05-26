@@ -3,14 +3,23 @@
 .header {
   border-bottom: 1px solid hsla(0, 0%, 33%, .7);
   box-sizing: border-box;
-  width: 100%;
+  width: 882px;
 }
 
-@media screen and (min-width: 1281px) {
+@media screen and (max-width: 1279px) {
   .header {
-    /* border-bottom: .078125vw solid hsla(0, 0%, 33%, .7); */
+    margin-left: 19px;
+    margin-right: 19px;
   }
 }
+
+@media screen and (max-width: 930px) {
+  .header {
+    width: calc(100vw + 19px);
+    margin-left: -19px;
+  }
+}
+
 
 
 

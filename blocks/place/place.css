@@ -11,20 +11,6 @@
   height: 362px;
 }
 
-@media screen and (max-width: 767px) {
-  .place {  
-    height: 56.875vw;
-    border-radius: 3.13vw;
-  }
-}
-
-@media screen and (max-width: 375px) {
-  .place {  
-    height: 362px;
-    margin-bottom: 20px;
-  }
-}
-
 
 
 

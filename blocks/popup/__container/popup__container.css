@@ -30,24 +30,4 @@
   }
 }
 
-@media screen and (min-width: 426px) and (max-width: 768px) {
-  .popup__container {
-    width: 244px;
-    height: 190px;
-    padding: 18px 18px 18px 18px;
-    margin-top: -93.84px;
-    margin-left: -122.3px; 
-    justify-content: space-between;
-  }
-}
 
-@media screen and (min-width: 1281px) {
-  .popup__container {
-    height: 25.78125vw;
-    width: 33.59vw;
-    padding: 2.8vw;
-    margin-top: -12.89vw;
-    margin-left: -16.80vw;
-    box-shadow: 0 0 1.953vw rgba(0, 0, 0, .15);
-  }
-}

@@ -14,7 +14,7 @@
   cursor: url('../../../images/icons/finger.svg'), auto;	
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 930px) {
   .button.button_action_close {
     top: -23px;
     right: -23px;

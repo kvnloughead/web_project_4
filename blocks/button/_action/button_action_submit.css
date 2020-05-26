@@ -13,26 +13,3 @@
   opacity: .8;
 }
 
-@media screen and (max-width: 768px) {
-  .button_action_submit {
-    height: 20px;
-    font-size: 12px;
-  }
-}
-
-@media screen and (max-width: 425px) {
-  .button_action_submit {
-    height: 40px;
-    width: 200px;
-    font-size: 14px;
-    margin-top: 16px;
-  }
-}
-
-@media screen and (min-width: 1281px) {
-  .button_action_submit {
-    height: 3.91vw;
-    font-size: 1.41vw;
-    margin-top: 1.41vw;
-  }
-}

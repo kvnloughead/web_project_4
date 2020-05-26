@@ -9,10 +9,3 @@
   top: 25px;
   right: 16px;
 }
-
-@media screen and (max-width: 768px) {
-  .button.button_action_delete {
-    width: 15px;
-    height: 18px;
-  }
-}

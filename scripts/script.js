@@ -158,31 +158,61 @@ function createEditFormAndSubmitListener(editFormElement, editModal) {
     editFormSubmitHandler(evt, editModal)});
 }
 
-// function enableEditFormValidation() {
-//   const editForm = document.forms.editForm;
-//   const inputList = Array.from(editForm.querySelectorAll(".popup__input"));
-//   const buttonElement = editForm.querySelector('.button_action_submit');
-//   toggleButtonState(inputList, buttonElement);
-//   inputList.forEach((inputElement) => {
-//     inputElement.addEventListener("input", function () {
-//       checkInputValidity(editForm, inputElement);
-//       toggleButtonState(inputList, buttonElement);
-//     });
-//   });
-// }
+function enableEditFormValidation() {
+  const editForm = document.forms.editForm;
+  const inputList = Array.from(editForm.querySelectorAll(".popup__input"));
+  const buttonElement = editForm.querySelector('.button_action_submit');
+  toggleButtonState(inputList, buttonElement);
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener("input", function () {
+      checkInputValidity(editForm, inputElement, buttonElement);
+      toggleButtonState(inputList, buttonElement);
+    });
+  });
+}
 
 function toggleButtonState(inputList, buttonElement) {
-  console.log(inputList, buttonElement);
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add("button_inactive");
+    buttonElement.disabled = true;
+  } else {
+    buttonElement.classList.remove("button_inactive");
+    buttonElement.disabled = false;
+  }
+};
+
+function checkInputValidity(formElement, inputElement, buttonElement) {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else {
+    hideInputError(formElement, inputElement);
+  }
+};
+
+function hasInvalidInput(inputList) {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
 }
 
-function checkInputValidity(formElement, inputElement) {
+function showInputError(formElement, inputElement, errorMessage) {
+  const errorElement = formElement.querySelector(`#${inputElement.id}-input-error`);
+  inputElement.classList.add("form__input_type_error");
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add("form__input-error_active");
+};
 
-}
+function hideInputError(formElement, inputElement) {
+  const errorElement = formElement.querySelector(`#${inputElement.id}-input-error`);
+  inputElement.classList.remove("form__input_type_error");
+  errorElement.classList.remove("form__input-error_active");
+  errorElement.textContent = "";
+};
 
 function editFormSubmitHandler(evt, editModal) {
   evt.preventDefault();
-  const newName = evt.currentTarget.firstElementChild.value;
-  const newJob = evt.currentTarget.firstElementChild.nextElementSibling.value;
+  const newName = evt.currentTarget.name.value
+  const newJob = evt.currentTarget.job.value
   profileName.textContent = newName;
   profileJob.textContent = newJob;
   closePopup(editModal);
@@ -198,4 +228,4 @@ function newFormSubmitHandler(evt, addModal) {
 createInitialCards(initialCards);
 createAndInstantiateAddModalPopup();
 createAndInstantiateEditModalPopup();
-// enableEditFormValidation();
+enableEditFormValidation();

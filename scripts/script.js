@@ -124,6 +124,18 @@ function openModalPopup(evt) {
   }
 }
 
+function createAndInstantiateEditModalPopup() {
+  const cloneOfEditTemplate = editModalTemplate.content.cloneNode(true);
+  const editModal = cloneOfEditTemplate.querySelector('.popup__container');
+  const editFormElement = cloneOfEditTemplate.querySelector('.popup__form');
+  createEditFormAndSubmitListener(editFormElement, editModal);
+  addCloseBtnEventListener(cloneOfEditTemplate, editModal);
+  editBtn.addEventListener('click', function() {
+    openPopup(editModal, 'modal');
+  });
+  placesGrid.parentNode.appendChild(cloneOfEditTemplate);
+}
+
 function createAndInstantiateAddModalPopup() {
   const cloneOfAddTemplate = addModalTemplate.content.cloneNode(true);
   const addModal = cloneOfAddTemplate.querySelector('.popup__container');
@@ -138,24 +150,33 @@ function createAndInstantiateAddModalPopup() {
   placesGrid.parentNode.appendChild(cloneOfAddTemplate); 
 }
 
-function createAndInstantiateEditModalPopup() {
-  const cloneOfEditTemplate = editModalTemplate.content.cloneNode(true);
-  const editModal = cloneOfEditTemplate.querySelector('.popup__container');
-  const editFormElement = cloneOfEditTemplate.querySelector('.popup__form');
-  createEditFormAndSubmitListener(editFormElement, editModal);
-  addCloseBtnEventListener(cloneOfEditTemplate, editModal);
-  editBtn.addEventListener('click', function() {
-    openPopup(editModal, 'modal');
-  });
-  placesGrid.parentNode.appendChild(cloneOfEditTemplate);
-}
-
 function createEditFormAndSubmitListener(editFormElement, editModal) {
   const [name, job] = editFormElement.querySelectorAll('.popup__input'); 
   name.value = profileName.textContent;
   job.value = profileJob.textContent;
   editFormElement.addEventListener('submit', function(evt) {
     editFormSubmitHandler(evt, editModal)});
+}
+
+// function enableEditFormValidation() {
+//   const editForm = document.forms.editForm;
+//   const inputList = Array.from(editForm.querySelectorAll(".popup__input"));
+//   const buttonElement = editForm.querySelector('.button_action_submit');
+//   toggleButtonState(inputList, buttonElement);
+//   inputList.forEach((inputElement) => {
+//     inputElement.addEventListener("input", function () {
+//       checkInputValidity(editForm, inputElement);
+//       toggleButtonState(inputList, buttonElement);
+//     });
+//   });
+// }
+
+function toggleButtonState(inputList, buttonElement) {
+  console.log(inputList, buttonElement);
+}
+
+function checkInputValidity(formElement, inputElement) {
+
 }
 
 function editFormSubmitHandler(evt, editModal) {
@@ -177,3 +198,4 @@ function newFormSubmitHandler(evt, addModal) {
 createInitialCards(initialCards);
 createAndInstantiateAddModalPopup();
 createAndInstantiateEditModalPopup();
+// enableEditFormValidation();

@@ -9,6 +9,8 @@ const addModalTemplate = document.querySelector('#add-modal-template');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 const forms = document.forms;
+const editForm = document.forms[0];
+const addForm = document.forms[1];
 
 const initialCards = [
   {
@@ -94,10 +96,10 @@ function addContentToImagePopup(image, imagePopupEl, captionEl, name) {
   captionEl.textContent = name;
 }
 
-function addCloseBtnEventListener(cloneOfTemplate, popup, form) {
+function addCloseBtnEventListener(cloneOfTemplate, popup, form, inputList, buttonElement, currName, currJob) {
   const closeBtn = cloneOfTemplate.querySelector('.button_action_close');
   closeBtn.addEventListener('click', function() {
-    closePopup(popup, form);
+    closePopup(popup, form, inputList, buttonElement, currName, currJob);
   });
 }
 
@@ -111,16 +113,21 @@ function openPopup(popupContainer, popupType) {
   popupOverlay.classList.toggle('transition');
 }
 
-function closePopup(popup, form) {
+function closePopup(popup, form, inputList, buttonElement,  currName, currJob) {
   popup.classList.toggle('transition');
   popupOverlay.classList.toggle('transition');
   if (form) {
     form.reset();
     if (form.id === "edit-form") {
-      console.log(form)
-      initializeInputValues(form)
+      initializeInputValues(form,  currName, currJob);
+      toggleFormActiveState(inputList, buttonElement);
+      for (const inputElement of inputList) {
+        checkInputValidity(form, inputElement, buttonElement);
+      }
+      for (const input of inputList) {
+        input.classList.remove('.popup__input_type_error');
+      }
     }
-    // console.log(form)
   }
   
 }
@@ -138,13 +145,24 @@ function createAndInstantiateEditModalPopup() {
   const cloneOfEditTemplate = editModalTemplate.content.cloneNode(true);
   const editModal = cloneOfEditTemplate.querySelector('.popup__container');
   const editFormElement = cloneOfEditTemplate.querySelector('.popup__form');
-  createEditFormAndSubmitListener(editFormElement, editModal);
-  addCloseBtnEventListener(cloneOfEditTemplate, editModal, editFormElement);
+  const [currName, currJob] = editFormElement.querySelectorAll('.popup__input'); 
+  createEditFormAndSubmitListener(editFormElement, editModal, currName, currJob);
+  const inputList = Array.from(editFormElement.querySelectorAll(".popup__input"));
+  const buttonElement = editFormElement.querySelector('.button_action_submit');
+  toggleFormActiveState(inputList, buttonElement);
+  inputList.forEach((inputElement) => {
+  inputElement.addEventListener("input", function () {
+    checkInputValidity(editFormElement, inputElement, buttonElement);
+    toggleFormActiveState(inputList, buttonElement);
+  });
+  });
+  addCloseBtnEventListener(cloneOfEditTemplate, editModal, editFormElement, inputList, editBtn, currName, currJob);
   editBtn.addEventListener('click', function() {
     openPopup(editModal, 'modal');
   });
   placesGrid.parentNode.appendChild(cloneOfEditTemplate);
 }
+
 
 function createAndInstantiateAddModalPopup() {
   const cloneOfAddTemplate = addModalTemplate.content.cloneNode(true);
@@ -160,35 +178,35 @@ function createAndInstantiateAddModalPopup() {
   placesGrid.parentNode.appendChild(cloneOfAddTemplate); 
 }
 
-function createEditFormAndSubmitListener(editFormElement, editModal) {
-  initializeInputValues(editFormElement);
+function createEditFormAndSubmitListener(editFormElement, editModal, currName, currJob) {
+  // const [currName, currJob] = editFormElement.querySelectorAll('.popup__input'); 
+  initializeInputValues(editFormElement, currName, currJob);
   editFormElement.addEventListener('submit', function(evt) {
     editFormSubmitHandler(evt, editModal);
-    name.value = profileName.textContent;
-    job.value = profileJob.textContent;
+    currName.value = profileName.textContent;
+    currJob.value = profileJob.textContent;
   });
 }
 
-function initializeInputValues(editFormElement) {
-  const [name, job] = editFormElement.querySelectorAll('.popup__input'); 
-  name.value = profileName.textContent;
-  job.value = profileJob.textContent;
-  console.log(name.value, job.value)
+function initializeInputValues(editFormElement, currName, currJob) {
+  // const [name, job] = editFormElement.querySelectorAll('.popup__input'); 
+  currName.value = profileName.textContent;
+  currJob.value = profileJob.textContent;
 }
 
-function enableFormValidation(forms) {
-  for (const form of forms) {
-    const inputList = Array.from(form.querySelectorAll(".popup__input"));
-    const buttonElement = form.querySelector('.button_action_submit');
-    toggleFormActiveState(inputList, buttonElement);
-    inputList.forEach((inputElement) => {
-    inputElement.addEventListener("input", function () {
-      checkInputValidity(form, inputElement, buttonElement);
-      toggleFormActiveState(inputList, buttonElement);
-    });
-  });
-  }
-}
+// function enableFormValidation(forms) {
+//   for (const form of forms) {
+//     const inputList = Array.from(form.querySelectorAll(".popup__input"));
+//     const buttonElement = form.querySelector('.button_action_submit');
+//     toggleFormActiveState(inputList, buttonElement);
+//     inputList.forEach((inputElement) => {
+//     inputElement.addEventListener("input", function () {
+//       checkInputValidity(form, inputElement, buttonElement);
+//       toggleFormActiveState(inputList, buttonElement);
+//     });
+//   });
+//   }
+// }
 
 function toggleFormActiveState(inputList, buttonElement) {
   if (hasInvalidInput(inputList)) {
@@ -249,4 +267,3 @@ function newFormSubmitHandler(evt, addModal) {
 createInitialCards(initialCards);
 createAndInstantiateAddModalPopup();
 createAndInstantiateEditModalPopup();
-enableFormValidation(forms);

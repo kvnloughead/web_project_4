@@ -88,21 +88,27 @@
         <div class="popup__container popup__container_type_add">
           <button class="button button_action_close" type="reset"></button>
           <h2 class="popup__title">New place</h2>
-          <form name="addForm" class="popup__form" action="#">
+          <form name="addForm" class="popup__form" action="#" novalidate>
             <input
               class="popup__input"
               type="text"
               id="title"
               name="title"
               placeholder="Title"
+              minlength="1"
+              maxlength="30"
+              required
             />
+            <span class="popup__input-error" id="title-input-error"></span>
             <input
               class="popup__input"
-              type="text"
+              type="url"
               id="imageUrl"
               name="imageUrl"
               placeholder="Image link"
+              required
             />
+            <span class="popup__input-error" id="imageUrl-input-error"></span>
             <button
               class="button button_action_submit button_inactive"
               type="submit"

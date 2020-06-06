@@ -8,6 +8,7 @@ const editModalTemplate = document.querySelector('#edit-modal-template');
 const addModalTemplate = document.querySelector('#add-modal-template');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
+const forms = document.forms;
 
 const initialCards = [
   {
@@ -93,10 +94,10 @@ function addContentToImagePopup(image, imagePopupEl, captionEl, name) {
   captionEl.textContent = name;
 }
 
-function addCloseBtnEventListener(cloneOfTemplate, popup) {
+function addCloseBtnEventListener(cloneOfTemplate, popup, form) {
   const closeBtn = cloneOfTemplate.querySelector('.button_action_close');
   closeBtn.addEventListener('click', function() {
-    closePopup(popup);
+    closePopup(popup, form);
   });
 }
 
@@ -110,9 +111,11 @@ function openPopup(popupContainer, popupType) {
   popupOverlay.classList.toggle('transition');
 }
 
-function closePopup(popup) {
+function closePopup(popup, form) {
   popup.classList.toggle('transition');
   popupOverlay.classList.toggle('transition');
+  console.log(form)
+  form.reset();
 }
 
 function openModalPopup(evt) {
@@ -129,7 +132,7 @@ function createAndInstantiateEditModalPopup() {
   const editModal = cloneOfEditTemplate.querySelector('.popup__container');
   const editFormElement = cloneOfEditTemplate.querySelector('.popup__form');
   createEditFormAndSubmitListener(editFormElement, editModal);
-  addCloseBtnEventListener(cloneOfEditTemplate, editModal);
+  addCloseBtnEventListener(cloneOfEditTemplate, editModal, editFormElement);
   editBtn.addEventListener('click', function() {
     openPopup(editModal, 'modal');
   });
@@ -143,7 +146,7 @@ function createAndInstantiateAddModalPopup() {
   addFormElement.addEventListener('submit', function(evt) {
     newFormSubmitHandler(evt, addModal);
   });
-  addCloseBtnEventListener(cloneOfAddTemplate, addModal);
+  addCloseBtnEventListener(cloneOfAddTemplate, addModal, addFormElement);
   addBtn.addEventListener('click', function() {
     openPopup(addModal, 'modal');
   });
@@ -158,20 +161,22 @@ function createEditFormAndSubmitListener(editFormElement, editModal) {
     editFormSubmitHandler(evt, editModal)});
 }
 
-function enableEditFormValidation() {
-  const editForm = document.forms.editForm;
-  const inputList = Array.from(editForm.querySelectorAll(".popup__input"));
-  const buttonElement = editForm.querySelector('.button_action_submit');
-  toggleButtonState(inputList, buttonElement);
-  inputList.forEach((inputElement) => {
+function enableFormValidation(forms) {
+  for (const form of forms) {
+    const inputList = Array.from(form.querySelectorAll(".popup__input"));
+    const buttonElement = form.querySelector('.button_action_submit');
+    toggleFormActiveState(inputList, buttonElement);
+    inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", function () {
-      checkInputValidity(editForm, inputElement, buttonElement);
-      toggleButtonState(inputList, buttonElement);
+      checkInputValidity(form, inputElement, buttonElement);
+      toggleFormActiveState(inputList, buttonElement);
     });
   });
+  }
+  
 }
 
-function toggleButtonState(inputList, buttonElement) {
+function toggleFormActiveState(inputList, buttonElement) {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add("button_inactive");
     buttonElement.disabled = true;
@@ -197,15 +202,15 @@ function hasInvalidInput(inputList) {
 
 function showInputError(formElement, inputElement, errorMessage) {
   const errorElement = formElement.querySelector(`#${inputElement.id}-input-error`);
-  inputElement.classList.add("form__input_type_error");
+  inputElement.classList.add("popup__input_type_inactive");
   errorElement.textContent = errorMessage;
-  errorElement.classList.add("form__input-error_active");
+  errorElement.classList.add("popup__input-error_active");
 };
 
 function hideInputError(formElement, inputElement) {
   const errorElement = formElement.querySelector(`#${inputElement.id}-input-error`);
-  inputElement.classList.remove("form__input_type_error");
-  errorElement.classList.remove("form__input-error_active");
+  inputElement.classList.remove("popup__input_type_inactive");
+  errorElement.classList.remove("popup__input-error_active");
   errorElement.textContent = "";
 };
 
@@ -228,4 +233,4 @@ function newFormSubmitHandler(evt, addModal) {
 createInitialCards(initialCards);
 createAndInstantiateAddModalPopup();
 createAndInstantiateEditModalPopup();
-enableEditFormValidation();
+enableFormValidation(forms);

@@ -114,8 +114,15 @@ function openPopup(popupContainer, popupType) {
 function closePopup(popup, form) {
   popup.classList.toggle('transition');
   popupOverlay.classList.toggle('transition');
-  console.log(form)
-  form.reset();
+  if (form) {
+    form.reset();
+    if (form.id === "edit-form") {
+      console.log(form)
+      initializeInputValues(form)
+    }
+    // console.log(form)
+  }
+  
 }
 
 function openModalPopup(evt) {
@@ -154,11 +161,19 @@ function createAndInstantiateAddModalPopup() {
 }
 
 function createEditFormAndSubmitListener(editFormElement, editModal) {
+  initializeInputValues(editFormElement);
+  editFormElement.addEventListener('submit', function(evt) {
+    editFormSubmitHandler(evt, editModal);
+    name.value = profileName.textContent;
+    job.value = profileJob.textContent;
+  });
+}
+
+function initializeInputValues(editFormElement) {
   const [name, job] = editFormElement.querySelectorAll('.popup__input'); 
   name.value = profileName.textContent;
   job.value = profileJob.textContent;
-  editFormElement.addEventListener('submit', function(evt) {
-    editFormSubmitHandler(evt, editModal)});
+  console.log(name.value, job.value)
 }
 
 function enableFormValidation(forms) {
@@ -173,7 +188,6 @@ function enableFormValidation(forms) {
     });
   });
   }
-  
 }
 
 function toggleFormActiveState(inputList, buttonElement) {
@@ -228,6 +242,8 @@ function newFormSubmitHandler(evt, addModal) {
   const cardVals = {name: title.value, link: imageUrl.value};
   createCard(cardVals);
   closePopup(addModal);
+  // console.log(evt.target)
+  evt.target.reset();
 }
 
 createInitialCards(initialCards);

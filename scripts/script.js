@@ -116,18 +116,22 @@ function openPopup(popupContainer, popupType) {
 function closePopup(popup, form, inputList, buttonElement,  currName, currJob) {
   popup.classList.toggle('transition');
   popupOverlay.classList.toggle('transition');
-  if (form) {
+  if (form && form.id === 'edit-form') {
     form.reset();
-    if (form.id === "edit-form") {
-      initializeInputValues(form,  currName, currJob);
-      toggleFormActiveState(inputList, buttonElement);
-      for (const inputElement of inputList) {
-        checkInputValidity(form, inputElement, buttonElement);
-      }
-      for (const input of inputList) {
-        input.classList.remove('.popup__input_type_error');
-      }
+    initializeInputValues(form,  currName, currJob);
+    toggleFormActiveState(inputList, buttonElement);
+    for (const inputElement of inputList) {
+      checkInputValidity(form, inputElement, buttonElement);
     }
+    for (const input of inputList) {
+      input.classList.remove('.popup__input_type_error');
+    }
+  } else if (form && form.id === 'add-form') {
+    for (const input of inputList) {
+      hideInputError(form, input);
+      input.classList.remove('.popup__input_type_error');
+    }
+    form.reset();
   }
   
 }
@@ -171,15 +175,24 @@ function createAndInstantiateAddModalPopup() {
   addFormElement.addEventListener('submit', function(evt) {
     newFormSubmitHandler(evt, addModal);
   });
-  addCloseBtnEventListener(cloneOfAddTemplate, addModal, addFormElement);
+  const inputList = Array.from(addFormElement.querySelectorAll(".popup__input"));
+  const buttonElement = addFormElement.querySelector('.button_action_submit');
+  toggleFormActiveState(inputList, buttonElement);
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener("input", function () {
+      checkInputValidity(addFormElement, inputElement, buttonElement);
+      toggleFormActiveState(inputList, buttonElement);
+    });
+  });
+  addCloseBtnEventListener(cloneOfAddTemplate, addModal, addFormElement, inputList, addBtn);
   addBtn.addEventListener('click', function() {
     openPopup(addModal, 'modal');
   });
   placesGrid.parentNode.appendChild(cloneOfAddTemplate); 
 }
 
+
 function createEditFormAndSubmitListener(editFormElement, editModal, currName, currJob) {
-  // const [currName, currJob] = editFormElement.querySelectorAll('.popup__input'); 
   initializeInputValues(editFormElement, currName, currJob);
   editFormElement.addEventListener('submit', function(evt) {
     editFormSubmitHandler(evt, editModal);
@@ -189,24 +202,9 @@ function createEditFormAndSubmitListener(editFormElement, editModal, currName, c
 }
 
 function initializeInputValues(editFormElement, currName, currJob) {
-  // const [name, job] = editFormElement.querySelectorAll('.popup__input'); 
   currName.value = profileName.textContent;
   currJob.value = profileJob.textContent;
 }
-
-// function enableFormValidation(forms) {
-//   for (const form of forms) {
-//     const inputList = Array.from(form.querySelectorAll(".popup__input"));
-//     const buttonElement = form.querySelector('.button_action_submit');
-//     toggleFormActiveState(inputList, buttonElement);
-//     inputList.forEach((inputElement) => {
-//     inputElement.addEventListener("input", function () {
-//       checkInputValidity(form, inputElement, buttonElement);
-//       toggleFormActiveState(inputList, buttonElement);
-//     });
-//   });
-//   }
-// }
 
 function toggleFormActiveState(inputList, buttonElement) {
   if (hasInvalidInput(inputList)) {
@@ -260,7 +258,6 @@ function newFormSubmitHandler(evt, addModal) {
   const cardVals = {name: title.value, link: imageUrl.value};
   createCard(cardVals);
   closePopup(addModal);
-  // console.log(evt.target)
   evt.target.reset();
 }
 

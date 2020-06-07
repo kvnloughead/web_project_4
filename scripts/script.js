@@ -116,24 +116,16 @@ function openPopup(popupContainer, popupType) {
 function closePopup(popup, form, inputList, buttonElement,  currName, currJob) {
   popup.classList.toggle('transition');
   popupOverlay.classList.toggle('transition');
-  if (form && form.id === 'edit-form') {
-    form.reset();
-    initializeInputValues(form,  currName, currJob);
-    toggleFormActiveState(inputList, buttonElement);
-    for (const inputElement of inputList) {
-      checkInputValidity(form, inputElement, buttonElement);
-    }
-    for (const input of inputList) {
-      input.classList.remove('.popup__input_type_error');
-    }
-  } else if (form && form.id === 'add-form') {
+  if (form) {
     for (const input of inputList) {
       hideInputError(form, input);
       input.classList.remove('.popup__input_type_error');
     }
     form.reset();
+    if (form.id === 'edit-form') {
+      initializeInputValues(form,  currName, currJob);
+    }
   }
-  
 }
 
 function openModalPopup(evt) {
@@ -150,16 +142,10 @@ function createAndInstantiateEditModalPopup() {
   const editModal = cloneOfEditTemplate.querySelector('.popup__container');
   const editFormElement = cloneOfEditTemplate.querySelector('.popup__form');
   const [currName, currJob] = editFormElement.querySelectorAll('.popup__input'); 
-  createEditFormAndSubmitListener(editFormElement, editModal, currName, currJob);
   const inputList = Array.from(editFormElement.querySelectorAll(".popup__input"));
   const buttonElement = editFormElement.querySelector('.button_action_submit');
-  toggleFormActiveState(inputList, buttonElement);
-  inputList.forEach((inputElement) => {
-  inputElement.addEventListener("input", function () {
-    checkInputValidity(editFormElement, inputElement, buttonElement);
-    toggleFormActiveState(inputList, buttonElement);
-  });
-  });
+  createEditFormAndSubmitListener(editFormElement, editModal, currName, currJob);
+  enableFormValidation(editFormElement, inputList, buttonElement);
   addCloseBtnEventListener(cloneOfEditTemplate, editModal, editFormElement, inputList, editBtn, currName, currJob);
   editBtn.addEventListener('click', function() {
     openPopup(editModal, 'modal');
@@ -172,11 +158,20 @@ function createAndInstantiateAddModalPopup() {
   const cloneOfAddTemplate = addModalTemplate.content.cloneNode(true);
   const addModal = cloneOfAddTemplate.querySelector('.popup__container');
   const addFormElement = cloneOfAddTemplate.querySelector('.popup__form');
+  const inputList = Array.from(addFormElement.querySelectorAll(".popup__input"));
+  const buttonElement = addFormElement.querySelector('.button_action_submit');
   addFormElement.addEventListener('submit', function(evt) {
     newFormSubmitHandler(evt, addModal);
   });
-  const inputList = Array.from(addFormElement.querySelectorAll(".popup__input"));
-  const buttonElement = addFormElement.querySelector('.button_action_submit');
+  enableFormValidation(addFormElement, inputList, buttonElement);
+  addCloseBtnEventListener(cloneOfAddTemplate, addModal, addFormElement, inputList, addBtn);
+  addBtn.addEventListener('click', function() {
+    openPopup(addModal, 'modal');
+  });
+  placesGrid.parentNode.appendChild(cloneOfAddTemplate); 
+}
+
+function enableFormValidation(addFormElement, inputList, buttonElement) {
   toggleFormActiveState(inputList, buttonElement);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", function () {
@@ -184,11 +179,6 @@ function createAndInstantiateAddModalPopup() {
       toggleFormActiveState(inputList, buttonElement);
     });
   });
-  addCloseBtnEventListener(cloneOfAddTemplate, addModal, addFormElement, inputList, addBtn);
-  addBtn.addEventListener('click', function() {
-    openPopup(addModal, 'modal');
-  });
-  placesGrid.parentNode.appendChild(cloneOfAddTemplate); 
 }
 
 

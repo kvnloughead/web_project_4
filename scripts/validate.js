@@ -1,9 +1,3 @@
-// const forms = document.forms;
-// const editFormElement = document.forms[0];
-// const editFormInputs = Array.from(editFormElement.querySelectorAll(".popup__input"));
-// const addFormElement = document.forms[1];
-// const addFormInputs = Array.from(addFormElement.querySelectorAll(".popup__input"));
-
 function enableValidation(args) {
   const forms = document.querySelectorAll(args.formSelector);
   for (const form of forms) {
@@ -28,7 +22,6 @@ function enableValidation(args) {
       createNewFormSubmitListener(form, container, inputList, args)
     }
   }
-  
 }
 
 function toggleFormActiveState(inputList, buttonElement, args) {
@@ -73,13 +66,6 @@ function hideInputError(formElement, inputElement, args) {
   errorElement.classList.remove(args.errorClass);
   errorElement.textContent = "";
 };
-
-// function addCloseBtnEventListener(cloneOfTemplate, popup, form, inputList, buttonElement, currName, currJob) {
-//   const closeBtn = cloneOfTemplate.querySelector('.button_action_close');
-//   closeBtn.addEventListener('click', function() {
-//     closePopup(popup, form, inputList, buttonElement, currName, currJob);
-//   });
-// }
 
 function addCloseBtnEventListener(popupContainer, inputList, form, args) {
   const closeBtn = popupContainer.querySelector(args.closeButtonSelector);
@@ -130,11 +116,6 @@ function createNewFormSubmitListener(form, popupContainer, inputList, args) {
     evt.target.reset();
     
   })
-  // evt.preventDefault();
-  // const cardVals = {name: title.value, link: imageUrl.value};
-  // createCard(cardVals);
-  // closePopup(addModal,in);
-  // // evt.target.reset();
 }
 
 enableValidation({
@@ -148,8 +129,4 @@ enableValidation({
   inactiveButtonClass: "button_inactive",
   inputErrorClass: "popup__input-error",
   errorClass: "popup__input-error_active",
-
-  editModalSelector: ".popup__container_type_edit",
-  addModalSelector: ".popup__container_type_add",
-  imagePopupSelector: ".popup__image-container"
 });

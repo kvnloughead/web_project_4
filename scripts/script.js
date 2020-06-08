@@ -81,7 +81,6 @@ function createImagePopup(image, name) {
   const imagePopupEl = cloneOfTemplate.querySelector('.popup__image');
   const captionEl = cloneOfTemplate.querySelector('.popup__image-caption');
   addContentToImagePopup(image, imagePopupEl, captionEl, name);
-  // addCloseBtnEventListener(cloneOfTemplate, imagePopupContainer);
   placesGrid.parentNode.appendChild(imagePopupContainer);
   return imagePopupContainer;
 }
@@ -103,8 +102,6 @@ function openPopup(popupContainer, popupType) {
   popupOverlay.classList.toggle('transition');
 }
 
-
-
 function openModalPopup(evt) {
   const btnClassList = Array.from(evt.target.classList);
   if (btnClassList.includes('button_action_add')) {
@@ -119,11 +116,6 @@ function createAndInstantiateEditModalPopup() {
   const editModal = cloneOfEditTemplate.querySelector('.popup__container');
   const editFormElement = cloneOfEditTemplate.querySelector('.popup__form');
   const [currName, currJob] = editFormElement.querySelectorAll('.popup__input'); 
-  // const inputList = Array.from(editFormElement.querySelectorAll(".popup__input"));
-  // const buttonElement = editFormElement.querySelector('.button_action_submit');
-  // createEditFormSubmitListener(editFormElement, editModal, currName, currJob);
-  // enableFormValidation(editFormElement, inputList, buttonElement);
-  // addCloseBtnEventListener(cloneOfEditTemplate, editModal, editFormElement, inputList, editBtn, currName, currJob);
   editBtn.addEventListener('click', function() {
     openPopup(editModal, 'modal');
   });
@@ -135,21 +127,11 @@ function createAndInstantiateAddModalPopup() {
   const cloneOfAddTemplate = addModalTemplate.content.cloneNode(true);
   const addModal = cloneOfAddTemplate.querySelector('.popup__container');
   const addFormElement = cloneOfAddTemplate.querySelector('.popup__form');
-  // const inputList = Array.from(addFormElement.querySelectorAll(".popup__input"));
-  // const buttonElement = addFormElement.querySelector('.button_action_submit');
-  // addFormElement.addEventListener('submit', function(evt) {
-  //   newFormSubmitHandler(evt, addModal);
-  // });
-  // enableFormValidation(addFormElement, inputList, buttonElement);
-  // addCloseBtnEventListener(cloneOfAddTemplate, addModal, addFormElement, inputList, addBtn);
   addBtn.addEventListener('click', function() {
     openPopup(addModal, 'modal');
   });
   placesGrid.parentNode.appendChild(cloneOfAddTemplate); 
 }
-
-
-
 
 createInitialCards(initialCards);
 createAndInstantiateAddModalPopup();

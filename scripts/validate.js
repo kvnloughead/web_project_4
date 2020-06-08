@@ -16,7 +16,16 @@ function enableValidation(args) {
     } else if (form.id === 'add-form') {
       createNewFormSubmitListener(form, container, inputList, args)
     }
+    addPopupOverlayClickListener(form, container, inputList, args);
   }
+}
+
+function addPopupOverlayClickListener(form, popupContainer, inputList, args) {
+  popupOverlay.addEventListener('click', function() {
+    if (popupContainer.classList.contains('transition')) {
+      closePopup(form, popupContainer, inputList, args);
+    }
+  });
 }
 
 function toggleFormActiveState(inputList, buttonElement, args) {
@@ -79,7 +88,6 @@ function addCloseBtnEventListener(popupContainer, inputList, form, args) {
 }
 
 function closePopup(form, popupContainer, inputList, args) {
-  console.log(popupContainer)
   popupContainer.classList.toggle('transition');
   popupOverlay.classList.toggle('transition');
   if (!popupContainer.classList.contains('popup__image-container')) {

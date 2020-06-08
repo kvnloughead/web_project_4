@@ -7,6 +7,7 @@ function enableValidation(args) {
     toggleFormActiveState(inputList, submitButtonElement, args);
     addInputListeners(form, inputList, submitButtonElement, args);
     addCloseBtnEventListener(container, inputList, form, args);
+    addEscapeKeyListener(form, container, inputList, args);
     if (form.id === 'edit-form') {
       const [currName, currJob] = form.querySelectorAll(args.inputSelector); 
       args.currName = currName;
@@ -16,11 +17,11 @@ function enableValidation(args) {
     } else if (form.id === 'add-form') {
       createNewFormSubmitListener(form, container, inputList, args)
     }
-    addPopupOverlayClickListener(form, container, inputList, args);
+    addPopupOverlayListener(form, container, inputList, args);
   }
 }
 
-function addPopupOverlayClickListener(form, popupContainer, inputList, args) {
+function addPopupOverlayListener(form, popupContainer, inputList, args) {
   popupOverlay.addEventListener('click', function() {
     if (popupContainer.classList.contains('transition')) {
       closePopup(form, popupContainer, inputList, args);
@@ -87,6 +88,16 @@ function addCloseBtnEventListener(popupContainer, inputList, form, args) {
   });
 }
 
+function addEscapeKeyListener(form, container, inputList, args) {
+  document.addEventListener('keydown', function(evt) {
+    if (evt.key === "Escape" 
+        && container.classList.contains('transition')) {
+      closePopup(form, container, inputList, args);
+    }
+  }); 
+}
+
+
 function closePopup(form, popupContainer, inputList, args) {
   popupContainer.classList.toggle('transition');
   popupOverlay.classList.toggle('transition');
@@ -129,6 +140,8 @@ function createNewFormSubmitListener(form, popupContainer, inputList, args) {
     
   })
 }
+
+
 
 enableValidation({
   formSelector: ".popup__form",

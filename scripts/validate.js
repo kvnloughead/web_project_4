@@ -5,12 +5,7 @@ function enableValidation(args) {
     const submitButtonElement = form.querySelector(args.submitButtonSelector);
     const container = form.parentNode;
     toggleFormActiveState(inputList, submitButtonElement, args);
-    inputList.forEach((inputElement) => {
-      inputElement.addEventListener("input", function () {
-        checkInputValidity(form, inputElement, submitButtonElement, args);
-        toggleFormActiveState(inputList, submitButtonElement, args);
-      });
-    });
+    addInputListeners(form, inputList, submitButtonElement, args);
     addCloseBtnEventListener(container, inputList, form, args);
     if (form.id === 'edit-form') {
       const [currName, currJob] = form.querySelectorAll(args.inputSelector); 
@@ -21,7 +16,16 @@ function enableValidation(args) {
     } else if (form.id === 'add-form') {
       createNewFormSubmitListener(form, container, inputList, args)
     }
+    addPopupOverlayClickListener(form, container, inputList, args);
   }
+}
+
+function addPopupOverlayClickListener(form, popupContainer, inputList, args) {
+  popupOverlay.addEventListener('click', function() {
+    if (popupContainer.classList.contains('transition')) {
+      closePopup(form, popupContainer, inputList, args);
+    }
+  });
 }
 
 function toggleFormActiveState(inputList, buttonElement, args) {
@@ -33,6 +37,15 @@ function toggleFormActiveState(inputList, buttonElement, args) {
     buttonElement.disabled = false;
   }
 };
+
+function addInputListeners(form, inputList, submitButtonElement, args) {
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener("input", function () {
+      checkInputValidity(form, inputElement, submitButtonElement, args);
+      toggleFormActiveState(inputList, submitButtonElement, args);
+    });
+  });
+}
 
 function initializeInputValues(args) {
   args.currName.value = profileName.textContent;
@@ -75,7 +88,6 @@ function addCloseBtnEventListener(popupContainer, inputList, form, args) {
 }
 
 function closePopup(form, popupContainer, inputList, args) {
-  console.log(popupContainer)
   popupContainer.classList.toggle('transition');
   popupOverlay.classList.toggle('transition');
   if (!popupContainer.classList.contains('popup__image-container')) {

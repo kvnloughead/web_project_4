@@ -13,9 +13,9 @@ function enableValidation(args) {
       args.currName = currName;
       args.currJob = currJob;
       createEditFormSubmitListener(form, container, inputList, args);
-      initializeInputValues(args)
+      initializeInputValues(args);
     } else if (form.id === 'add-form') {
-      createNewFormSubmitListener(form, container, inputList, args)
+      createNewFormSubmitListener(form, container, inputList, args);
     }
     addPopupOverlayListener(form, container, inputList, args);
   }
@@ -37,7 +37,7 @@ function toggleFormActiveState(inputList, buttonElement, args) {
     buttonElement.classList.remove(args.inactiveButtonClass);
     buttonElement.disabled = false;
   }
-};
+}
 
 function addInputListeners(form, inputList, submitButtonElement, args) {
   inputList.forEach((inputElement) => {
@@ -59,7 +59,7 @@ function checkInputValidity(formElement, inputElement, buttonElement, args) {
   } else {
     hideInputError(formElement, inputElement, args);
   }
-};
+}
 
 function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
@@ -72,14 +72,14 @@ function showInputError(formElement, inputElement, errorMessage, args) {
   inputElement.classList.add(args.inactiveInputClass);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(args.errorClass);
-};
+}
 
 function hideInputError(formElement, inputElement, args) {
   const errorElement = formElement.querySelector(`#${inputElement.id}-input-error`);
   inputElement.classList.remove(args.inactiveInputClass);
   errorElement.classList.remove(args.errorClass);
   errorElement.textContent = "";
-};
+}
 
 function addCloseBtnEventListener(popupContainer, inputList, form, args) {
   const closeBtn = popupContainer.querySelector(args.closeButtonSelector);
@@ -104,8 +104,7 @@ function closePopup(popupContainer, form, inputList, args) {
 
 function addEscapeKeyListener(form, container, inputList, args) {
   document.addEventListener('keydown', function(evt) {
-    if (evt.key === "Escape" 
-        && container.classList.contains('transition')) {
+    if (evt.key === "Escape" && container.classList.contains('transition')) {
       closePopup(container, form, inputList, args);
     }
   }); 
@@ -122,8 +121,8 @@ function createEditFormSubmitListener(form, container, inputList, args) {
 
 function editFormSubmitHandler(evt, form, container, inputList, args) {
   evt.preventDefault();
-  const newName = evt.currentTarget.name.value
-  const newJob = evt.currentTarget.job.value
+  const newName = evt.currentTarget.name.value;
+  const newJob = evt.currentTarget.job.value;
   profileName.textContent = newName;
   profileJob.textContent = newJob;
   closePopup(container, form, inputList, args);
@@ -135,12 +134,9 @@ function createNewFormSubmitListener(form, popupContainer, inputList, args) {
     const cardVals = {name: title.value, link: imageUrl.value};
     createCard(cardVals);
     closePopup(popupContainer, form, inputList, args);
-    evt.target.reset();
-    
-  })
+    evt.target.reset();    
+  });
 }
-
-
 
 enableValidation({
   formSelector: ".popup__form",

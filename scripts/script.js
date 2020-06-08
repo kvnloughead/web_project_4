@@ -51,7 +51,7 @@ function createCard(card) {
   const likeBtnEl = cloneOfTemplate.querySelector('.place__like-btn');
   const deleteBtnEl = cloneOfTemplate.querySelector('.button_action_delete');
   addContentToCard(imageEl, nameEl, card);
-  imagePopupContainer = createImagePopup(imageEl, nameEl.textContent);
+  const imagePopupContainer = createImagePopup(imageEl, nameEl.textContent);
   addEventListeners(nameEl, imageEl, likeBtnEl, 
     deleteBtnEl, placeEl, imagePopupContainer, card);
   placesGrid.prepend(cloneOfTemplate);
@@ -62,8 +62,9 @@ function addContentToCard(imageEl, nameEl, card) {
   nameEl.textContent = card.name;
 }
 
-function addEventListeners(nameEl, imageEl, likeBtnEl, deleteBtnEl, placeEl, imagePopupContainer,card) {
-  imageEl.addEventListener('click', function (evt) {
+function addEventListeners(nameEl, imageEl, likeBtnEl, deleteBtnEl, placeEl,
+                           imagePopupContainer) {
+  imageEl.addEventListener('click', function () {
     openPopup(imagePopupContainer, 'image');
   });
   likeBtnEl.addEventListener('click', 
@@ -81,7 +82,7 @@ function createImagePopup(image, name) {
   const imagePopupEl = cloneOfTemplate.querySelector('.popup__image');
   const captionEl = cloneOfTemplate.querySelector('.popup__image-caption');
   addContentToImagePopup(image, imagePopupEl, captionEl, name);
-  addImageCloseBtnListener(imagePopupContainer)
+  addImageCloseBtnListener(imagePopupContainer);
   addImageEscapeKeyListener(imagePopupContainer);
   addImageOverlayListener(imagePopupContainer);
   placesGrid.parentNode.appendChild(imagePopupContainer);
@@ -91,19 +92,13 @@ function createImagePopup(image, name) {
 function addImageCloseBtnListener(imageContainer) {
   const closeBtn = imageContainer.querySelector('.button_action_close');
   closeBtn.addEventListener('click', function() {
-    closeImagePopup(imageContainer);
+    closePopup(imageContainer);
   })
-}
-
-function closeImagePopup(imagePopupEl) {
-  imagePopupEl.classList.toggle('transition');
-  popupOverlay.classList.toggle('transition');
 }
 
 function addImageEscapeKeyListener(container) {
   document.addEventListener('keydown', function(evt) {
-    if (evt.key === "Escape" 
-        && container.classList.contains('transition')) {
+    if (evt.key === "Escape" && container.classList.contains('transition')) {
       closePopup(container);
     }
   }); 
@@ -147,7 +142,6 @@ function createAndInstantiateEditModalPopup() {
   const cloneOfEditTemplate = editModalTemplate.content.cloneNode(true);
   const editModal = cloneOfEditTemplate.querySelector('.popup__container');
   const editFormElement = cloneOfEditTemplate.querySelector('.popup__form');
-  const [currName, currJob] = editFormElement.querySelectorAll('.popup__input'); 
   editBtn.addEventListener('click', function() {
     openPopup(editModal, 'modal');
   });
@@ -158,7 +152,6 @@ function createAndInstantiateEditModalPopup() {
 function createAndInstantiateAddModalPopup() {
   const cloneOfAddTemplate = addModalTemplate.content.cloneNode(true);
   const addModal = cloneOfAddTemplate.querySelector('.popup__container');
-  const addFormElement = cloneOfAddTemplate.querySelector('.popup__form');
   addBtn.addEventListener('click', function() {
     openPopup(addModal, 'modal');
   });

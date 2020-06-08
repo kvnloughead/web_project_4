@@ -81,8 +81,40 @@ function createImagePopup(image, name) {
   const imagePopupEl = cloneOfTemplate.querySelector('.popup__image');
   const captionEl = cloneOfTemplate.querySelector('.popup__image-caption');
   addContentToImagePopup(image, imagePopupEl, captionEl, name);
+  addImageCloseBtnListener(imagePopupContainer)
+  addImageEscapeKeyListener(imagePopupContainer);
+  addImageOverlayListener(imagePopupContainer);
   placesGrid.parentNode.appendChild(imagePopupContainer);
   return imagePopupContainer;
+}
+
+function addImageCloseBtnListener(imageContainer) {
+  const closeBtn = imageContainer.querySelector('.button_action_close');
+  closeBtn.addEventListener('click', function() {
+    closeImagePopup(imageContainer);
+  })
+}
+
+function closeImagePopup(imagePopupEl) {
+  imagePopupEl.classList.toggle('transition');
+  popupOverlay.classList.toggle('transition');
+}
+
+function addImageEscapeKeyListener(container) {
+  document.addEventListener('keydown', function(evt) {
+    if (evt.key === "Escape" 
+        && container.classList.contains('transition')) {
+      closePopup(container);
+    }
+  }); 
+}
+
+function addImageOverlayListener(container) {
+  popupOverlay.addEventListener('click', function() {
+    if (container.classList.contains('transition')) {
+      closePopup(container);
+    }
+  });
 }
 
 function addContentToImagePopup(image, imagePopupEl, captionEl, name) {

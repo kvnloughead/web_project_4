@@ -24,7 +24,7 @@ function enableValidation(args) {
 function addPopupOverlayListener(form, popupContainer, inputList, args) {
   popupOverlay.addEventListener('click', function() {
     if (popupContainer.classList.contains('transition')) {
-      closePopup(form, popupContainer, inputList, args);
+      closePopup(popupContainer, form, inputList, args);
     }
   });
 }
@@ -84,21 +84,11 @@ function hideInputError(formElement, inputElement, args) {
 function addCloseBtnEventListener(popupContainer, inputList, form, args) {
   const closeBtn = popupContainer.querySelector(args.closeButtonSelector);
   closeBtn.addEventListener('click', function() {
-    closePopup(form, popupContainer, inputList, args);
+    closePopup(popupContainer, form, inputList, args);
   });
 }
 
-function addEscapeKeyListener(form, container, inputList, args) {
-  document.addEventListener('keydown', function(evt) {
-    if (evt.key === "Escape" 
-        && container.classList.contains('transition')) {
-      closePopup(form, container, inputList, args);
-    }
-  }); 
-}
-
-
-function closePopup(form, popupContainer, inputList, args) {
+function closePopup(popupContainer, form, inputList, args) {
   popupContainer.classList.toggle('transition');
   popupOverlay.classList.toggle('transition');
   if (!popupContainer.classList.contains('popup__image-container')) {
@@ -110,6 +100,15 @@ function closePopup(form, popupContainer, inputList, args) {
       initializeInputValues(args);
     }
   }
+}
+
+function addEscapeKeyListener(form, container, inputList, args) {
+  document.addEventListener('keydown', function(evt) {
+    if (evt.key === "Escape" 
+        && container.classList.contains('transition')) {
+      closePopup(container, form, inputList, args);
+    }
+  }); 
 }
 
 function createEditFormSubmitListener(form, container, inputList, args) {
@@ -127,7 +126,7 @@ function editFormSubmitHandler(evt, form, container, inputList, args) {
   const newJob = evt.currentTarget.job.value
   profileName.textContent = newName;
   profileJob.textContent = newJob;
-  closePopup(form, container, inputList, args);
+  closePopup(container, form, inputList, args);
 }
 
 function createNewFormSubmitListener(form, popupContainer, inputList, args) {
@@ -135,7 +134,7 @@ function createNewFormSubmitListener(form, popupContainer, inputList, args) {
     evt.preventDefault();
     const cardVals = {name: title.value, link: imageUrl.value};
     createCard(cardVals);
-    closePopup(form, popupContainer, inputList, args);
+    closePopup(popupContainer, form, inputList, args);
     evt.target.reset();
     
   })

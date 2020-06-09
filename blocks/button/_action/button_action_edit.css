@@ -16,3 +16,10 @@
     margin: 3px 0 0 12px;
   }
 }
+
+@media screen and (max-width: 930px) {
+  .button.button_action_edit {
+    margin-right: 15px;
+  }
+}
+

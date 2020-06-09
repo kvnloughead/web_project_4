@@ -37,12 +37,6 @@ const initialCards = [
   }
 ];
 
-function createInitialCards(initialCards) {
-  for (const card of initialCards) {
-    createCard(card);
-  }  
-}
-
 function createCard(card) {
   const cloneOfTemplate = cardTemplate.content.cloneNode(true);
   const imageEl = cloneOfTemplate.querySelector('.place__image');
@@ -98,7 +92,7 @@ function addImageCloseBtnListener(imageContainer) {
 
 function addImageEscapeKeyListener(container) {
   document.addEventListener('keydown', function(evt) {
-    if (evt.key === "Escape" && container.classList.contains('transition')) {
+    if (evt.key === "Escape" && container.classList.contains('  ')) {
       closePopup(container);
     }
   }); 
@@ -158,6 +152,8 @@ function createAndInstantiateAddModalPopup() {
   placesGrid.parentNode.appendChild(cloneOfAddTemplate); 
 }
 
-createInitialCards(initialCards);
+for (const card of initialCards) {
+  createCard(card);
+}  
 createAndInstantiateAddModalPopup();
 createAndInstantiateEditModalPopup();

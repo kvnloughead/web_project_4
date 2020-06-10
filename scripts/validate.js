@@ -1,3 +1,39 @@
+const modalOverlay = document.querySelector('.popup__modal-overlay');
+const editModalTemplate = document.querySelector('#edit-modal-template');
+const addModalTemplate = document.querySelector('#add-modal-template');
+const profileName = document.querySelector('.profile__name');
+const profileJob = document.querySelector('.profile__job');
+const editBtn = document.querySelector('.button_action_edit');
+const addBtn = document.querySelector('.button_action_add');
+
+const modalArgs = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".button_action_submit",
+  closeButtonSelector: ".button_action_close",
+  modalOverlaySelector: ".popup__modal-overlay",
+  inactiveInputClass: "popup__input_type_inactive",
+  inactiveButtonClass: "button_inactive",
+  inputErrorClass: "popup__input-error",
+  errorClass: "popup__input-error_active",
+}
+
+function initializeInputValues(currName, currJob) {
+  currName.value = profileName.textContent;
+  currJob.value = profileJob.textContent;
+}
+
+function createModal(modalTemplate, buttonElement) {
+  const cloneOfTemplate = modalTemplate.content.cloneNode(true);
+  const container = cloneOfTemplate.querySelector('.popup__container');
+  const form = container.querySelector('.popup__form');
+  const inputList = Array.from(form.querySelectorAll('popup__input'));
+  buttonElement.addEventListener('click', () => {
+    openModalPopup(form, container, inputList, args);
+  });
+  profileName.parentNode.appendChild(cloneOfTemplate);
+}
+
 function showInputError(formElement, inputElement, errorMessage, args) {
   const errorElement = formElement.querySelector(`#${inputElement.id}-input-error`);
   inputElement.classList.add(args.inactiveInputClass);
@@ -46,30 +82,21 @@ function addInputListeners(form, inputList, submitButtonElement, args) {
 }
 
 function openModalPopup(form, container, inputList, args) {
-  container.classList.toggle('visible');
-  popupOverlay.classList.remove('popup_type_image');
-  popupOverlay.classList.toggle('visible');
+  container.classList.toggle('popup__container_visible');
+  modalOverlay.classList.remove('popup_type_image');
+  modalOverlay.classList.toggle('popup__modal-overlay_visible');
   addEscapeKeyListener(form, container, inputList, args);
   addPopupOverlayListener(form, container, inputList, args);
 }
 
 function closePopup(popupContainer, form, inputList, args) {
-  popupContainer.classList.toggle('visible');
-  popupOverlay.classList.toggle('visible');
-  if (!popupContainer.classList.contains('popup__image-container')) {
-    for (const input of inputList) {
-      hideInputError(form, input, args);
-    }
-    form.reset();
-    if (form.id === 'edit-form') {
-      initializeInputValues(args.currName, args.currJob);
-    }
-  }
+  popupContainer.classList.remove('popup__container_visible');
+  modalOverlay.classList.remove('popup__modal-overlay_visible');
 }
 
 function addPopupOverlayListener(form, popupContainer, inputList, args) {
-  popupOverlay.addEventListener('click', () => {
-    if (popupContainer.classList.contains('visible')) {
+  modalOverlay.addEventListener('click', () => {
+    if (popupContainer.classList.contains('popup__container_visible')) {
       closePopup(popupContainer, form, inputList, args);
     }
   });
@@ -84,7 +111,7 @@ function addCloseBtnEventListener(popupContainer, inputList, form, args) {
 
 function addEscapeKeyListener(form, container, inputList, args) {
   document.addEventListener('keydown', (evt) => {
-    if (evt.key === "Escape" && container.classList.contains('visible')) {
+    if (evt.key === "Escape" && container.classList.contains('popup__container_visible')) {
       closePopup(container, form, inputList, args);
     }
   }); 
@@ -143,4 +170,6 @@ function enableValidation(args) {
   }
 }
 
-enableValidation(settingsObject);
+createModal(editModalTemplate, editBtn);
+createModal(addModalTemplate, addBtn);
+enableValidation(modalArgs);

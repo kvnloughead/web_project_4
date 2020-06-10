@@ -1,31 +1,17 @@
 const placesGrid = document.querySelector('.places__grid');
 const imagePopupTemplate = document.querySelector('#image-popup-template');
 const cardTemplate = document.querySelector('#card-template');
-const popupOverlay = document.querySelector('.popup');
-const editBtn = document.querySelector('.button_action_edit');
-const addBtn = document.querySelector('.button_action_add');
-const editModalTemplate = document.querySelector('#edit-modal-template');
-const addModalTemplate = document.querySelector('#add-modal-template');
-const profileName = document.querySelector('.profile__name');
-const profileJob = document.querySelector('.profile__job');
+const imageOverlay = document.querySelector('.popup');
 
-const settingsObject = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
+const args = {
   submitButtonSelector: ".button_action_submit",
   closeButtonSelector: ".button_action_close",
-  popupOverlaySelector: ".popup",
-  inactiveInputClass: "popup__input_type_inactive",
-  inactiveButtonClass: "button_inactive",
-  inputErrorClass: "popup__input-error",
-  errorClass: "popup__input-error_active",
 }
 
 const initialCards = [
   {
       name: 'Yosemite Valley',
       link: 'https://code.s3.yandex.net/web-code/yosemite.jpg'
-      
   },
   {
       name: 'Lake Louise',
@@ -62,9 +48,9 @@ function openImagePopup(imagePopupContainer, cardVals) {
   addImageCloseBtnListener(imagePopupContainer);
   addImageEscapeKeyListener(imagePopupContainer);
   addImageOverlayListener(imagePopupContainer);
-  imagePopupContainer.classList.toggle('visible');
-  popupOverlay.classList.add('popup_type_image');
-  popupOverlay.classList.toggle('visible');
+  imagePopupContainer.classList.add('popup__image-container_visible');
+  imageOverlay.classList.add('popup_type_image');
+  imageOverlay.classList.add('popup_visible');
 }
 
 function addEventListeners(imageEl, likeBtnEl, deleteBtnEl, placeEl,
@@ -96,8 +82,8 @@ function createCard(cardVals) {
 }
 
 function closeImagePopup(container) {
-  container.classList.remove('visible');
-  popupOverlay.classList.remove('visible');
+  container.classList.remove('popup__image-container_visible');
+  imageOverlay.classList.remove('popup_visible');
 }
 
 function addImageCloseBtnListener(imageContainer) {
@@ -109,16 +95,16 @@ function addImageCloseBtnListener(imageContainer) {
 
 function addImageEscapeKeyListener(container) {
   document.addEventListener('keydown', (evt) => {
-    if (evt.key === "Escape" && container.classList.contains('visible')) {
-      closePopup(container);
+    if (evt.key === "Escape" && container.classList.contains('popup__image-container_visible')) {
+      closeImagePopup(container);
     }
   }); 
 }
 
 function addImageOverlayListener(container) {
-  popupOverlay.addEventListener('click', () => {
-    if (container.classList.contains('visible')) {
-      closePopup(container);
+  imageOverlay.addEventListener('click', () => {
+    if (container.classList.contains('popup__image-container_visible')) {
+      closeImagePopup(container);
     }
   });
 }
@@ -131,26 +117,26 @@ function createImagePopup(image, name) {
   return imagePopupContainer;
 }
 
-function initializeInputValues(currName, currJob) {
-  currName.value = profileName.textContent;
-  currJob.value = profileJob.textContent;
-}
+// function initializeInputValues(currName, currJob) {
+//   currName.value = profileName.textContent;
+//   currJob.value = profileJob.textContent;
+// }
 
-function createModal(modalTemplate, buttonElement) {
-  const cloneOfTemplate = modalTemplate.content.cloneNode(true);
-  const container = cloneOfTemplate.querySelector('.popup__container');
-  const form = container.querySelector('.popup__form');
-  const inputList = Array.from(form.querySelectorAll('popup__input'));
-  buttonElement.addEventListener('click', () => {
-    openModalPopup(form, container, inputList, settingsObject);
-  });
-  placesGrid.parentNode.appendChild(cloneOfTemplate);
-}
+// function createModal(modalTemplate, buttonElement) {
+//   const cloneOfTemplate = modalTemplate.content.cloneNode(true);
+//   const container = cloneOfTemplate.querySelector('.popup__container');
+//   const form = container.querySelector('.popup__form');
+//   const inputList = Array.from(form.querySelectorAll('popup__input'));
+//   buttonElement.addEventListener('click', () => {
+//     openModalPopup(form, container, inputList, args);
+//   });
+//   placesGrid.parentNode.appendChild(cloneOfTemplate);
+// }
 
 for (const card of initialCards) {
   createCard(card);
 }  
 
-createModal(editModalTemplate, editBtn);
-createModal(addModalTemplate, addBtn);
+// createModal(editModalTemplate, editBtn);
+// createModal(addModalTemplate, addBtn);
 createImagePopup();

@@ -70,22 +70,21 @@ function addContentToImagePopup(imageUrl, imagePopupEl, captionEl, name) {
   captionEl.textContent = name;
 }
 
-function openImagePopup(imagePopupContainer, cardVals) {
-  const imagePopupEl = imagePopupContainer.querySelector('.popup__image');
-  const captionEl = imagePopupContainer.querySelector('.popup__image-caption');
+function openImagePopup(container, cardVals) {
+  const imagePopupEl = container.querySelector('.popup__image');
+  const captionEl = container.querySelector('.popup__image-caption');
   addContentToImagePopup(cardVals.link, imagePopupEl, captionEl, cardVals.name);
-  addImageCloseBtnListener(imagePopupContainer);
-  addImageEscapeKeyListener(imagePopupContainer);
-  addImageOverlayListener(imagePopupContainer);
-  imagePopupContainer.classList.add('popup__image-container_visible');
+  addImageCloseBtnListener(container);
+  addImageEscapeKeyListener(container);
+  addImageOverlayListener(container);
+  container.classList.add('popup__image-container_visible');
   imageOverlay.classList.add('popup__image-overlay_visible');
 }
 
 function addEventListeners(imageEl, likeBtnEl, deleteBtnEl, placeEl,
-                           imagePopupContainer, cardVals) {
+                           container, cardVals) {
   imageEl.addEventListener('click', () => {
-    console.log(imagePopupContainer);
-    openImagePopup(imagePopupContainer, cardVals);
+    openImagePopup(container, cardVals);
   });
   likeBtnEl.addEventListener('click', 
     () => likeBtnEl.classList.toggle('place__like-btn_clicked')

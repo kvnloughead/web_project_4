@@ -16,17 +16,17 @@ const modalArgs = {
   errorClass: "popup__input-error_active",
 };
 
-function showInputError(formElement, inputElement, errorMessage, modalArgs) {
+function showInputError(formElement, inputElement, errorMessage, args) {
   const errorElement = formElement.querySelector(`#${inputElement.id}-input-error`);
-  inputElement.classList.add(modalArgs.inactiveInputClass);
+  inputElement.classList.add(args.inactiveInputClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add(modalArgs.errorClass);
+  errorElement.classList.add(args.errorClass);
 }
 
-function hideInputError(formElement, inputElement, modalArgs) {
+function hideInputError(formElement, inputElement, args) {
   const errorElement = formElement.querySelector(`#${inputElement.id}-input-error`);
-  inputElement.classList.remove(modalArgs.inactiveInputClass);
-  errorElement.classList.remove(modalArgs.errorClass);
+  inputElement.classList.remove(args.inactiveInputClass);
+  errorElement.classList.remove(args.errorClass);
   errorElement.textContent = "";
 }
 
@@ -36,66 +36,66 @@ function hasInvalidInput(inputList) {
   });
 }
 
-function checkInputValidity(formElement, inputElement, buttonElement, modalArgs) {
+function checkInputValidity(formElement, inputElement, buttonElement, args) {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage, modalArgs);
+    showInputError(formElement, inputElement, inputElement.validationMessage, args);
   } else {
-    hideInputError(formElement, inputElement, modalArgs);
+    hideInputError(formElement, inputElement, args);
   }
 }
 
-function toggleFormActiveState(inputList, buttonElement, modalArgs) {
+function toggleFormActiveState(inputList, buttonElement, args) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(modalArgs.inactiveButtonClass);
+    buttonElement.classList.add(args.inactiveButtonClass);
     buttonElement.disabled = true;
   } else {
-    buttonElement.classList.remove(modalArgs.inactiveButtonClass);
+    buttonElement.classList.remove(args.inactiveButtonClass);
     buttonElement.disabled = false;
   }
 }
 
-function addInputListeners(form, inputList, submitButtonElement, modalArgs) {
+function addInputListeners(form, inputList, submitButtonElement, args) {
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", function () {
-      checkInputValidity(form, inputElement, submitButtonElement, modalArgs);
-      toggleFormActiveState(inputList, submitButtonElement, modalArgs);
+      checkInputValidity(form, inputElement, submitButtonElement, args);
+      toggleFormActiveState(inputList, submitButtonElement, args);
     });
   });
 }
 
-function closePopup(popupContainer, form, inputList, modalArgs) {
+function closePopup(popupContainer, form, inputList, args) {
   popupContainer.classList.remove('popup__container_visible');
   modalOverlay.classList.remove('popup__modal-overlay_visible');
   for (const input of inputList) {
-    hideInputError(form, input, modalArgs);
+    hideInputError(form, input, args);
   }
   form.reset();
   if (form.id === 'edit-form') {
-    initializeInputValues(modalArgs.currName, modalArgs.currJob);
+    initializeInputValues(args.currName, args.currJob);
   }
 }
 
-function addEscapeKeyListener(form, container, inputList, modalArgs) {
+function addEscapeKeyListener(form, container, inputList, args) {
   document.addEventListener('keydown', (evt) => {
     if (evt.key === "Escape" && container.classList.contains('popup__container_visible')) {
-      closePopup(container, form, inputList, modalArgs);
+      closePopup(container, form, inputList, args);
     }
   }); 
 }
 
-function addPopupOverlayListener(form, popupContainer, inputList, modalArgs) {
+function addPopupOverlayListener(form, popupContainer, inputList, args) {
   modalOverlay.addEventListener('click', () => {
     if (popupContainer.classList.contains('popup__container_visible')) {
-      closePopup(popupContainer, form, inputList, modalArgs);
+      closePopup(popupContainer, form, inputList, args);
     }
   });
 }
 
-function openModalPopup(form, container, inputList, modalArgs) {
+function openModalPopup(form, container, inputList, args) {
   container.classList.toggle('popup__container_visible');
   modalOverlay.classList.toggle('popup__modal-overlay_visible');
-  addEscapeKeyListener(form, container, inputList, modalArgs);
-  addPopupOverlayListener(form, container, inputList, modalArgs);
+  addEscapeKeyListener(form, container, inputList, args);
+  addPopupOverlayListener(form, container, inputList, args);
 }
 
 function createModal(modalTemplate, buttonElement) {
@@ -106,70 +106,64 @@ function createModal(modalTemplate, buttonElement) {
   buttonElement.addEventListener('click', () => {
     openModalPopup(form, container, inputList, modalArgs);
   });
-  // Your comment last time seemed to imply that you thought I was appending 
-  // new modals each time the button was clicked, but I don't think that is so.  
-  // This function createModal runs only once at page loading for each modal.
-  //  Then openModalPopup simply toggles visibility.
   editBtn.parentNode.appendChild(cloneOfTemplate);
 }
 
-function addCloseBtnEventListener(popupContainer, inputList, form, modalArgs) {
-  const closeBtn = popupContainer.querySelector(modalArgs.closeButtonSelector);
+function addCloseBtnEventListener(popupContainer, inputList, form, args) {
+  const closeBtn = popupContainer.querySelector(args.closeButtonSelector);
   closeBtn.addEventListener('click', () => {
-    closePopup(popupContainer, form, inputList, modalArgs);
+    closePopup(popupContainer, form, inputList, args);
   });
 }
 
-function editFormSubmitHandler(evt, form, container, inputList, modalArgs) {
+function editFormSubmitHandler(evt, form, container, inputList, args) {
   evt.preventDefault();
   const newName = evt.currentTarget.name.value;
   const newJob = evt.currentTarget.job.value;
   profileName.textContent = newName;
   profileJob.textContent = newJob;
-  closePopup(container, form, inputList, modalArgs);
+  closePopup(container, form, inputList, args);
 }
 
-
-function createEditFormSubmitListener(form, container, inputList, modalArgs) {
-  initializeInputValues(modalArgs.currName, modalArgs.currJob);
+function createEditFormSubmitListener(form, container, inputList, args) {
+  initializeInputValues(args.currName, args.currJob);
   form.addEventListener('submit', (evt) => {
-    editFormSubmitHandler(evt, form, container, inputList, modalArgs);
-    modalArgs.currName.value = profileName.textContent;
-    modalArgs.currJob.value = profileJob.textContent;
+    editFormSubmitHandler(evt, form, container, inputList, args);
+    args.currName.value = profileName.textContent;
+    args.currJob.value = profileJob.textContent;
   });
 }
 
-
-function createNewFormSubmitListener(form, popupContainer, inputList, modalArgs) {
+function createNewFormSubmitListener(form, popupContainer, inputList, args) {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const title = inputList[0].value;
     const imageUrl = inputList[1].value;
     const cardVals = {name: title, link: imageUrl};
     createCard(cardVals);
-    closePopup(popupContainer, form, inputList, modalArgs);
+    closePopup(popupContainer, form, inputList, args);
     evt.target.reset();    
   });
 }
 
-function enableValidation(modalArgs) {
-  const forms = Array.from(document.querySelectorAll(modalArgs.formSelector));
+function enableValidation(args) {
+  const forms = Array.from(document.querySelectorAll(args.formSelector));
   for (const form of forms) {
-    const inputList = Array.from(form.querySelectorAll(modalArgs.inputSelector));
-    const submitButtonElement = form.querySelector(modalArgs.submitButtonSelector);
+    const inputList = Array.from(form.querySelectorAll(args.inputSelector));
+    const submitButtonElement = form.querySelector(args.submitButtonSelector);
     const container = form.parentNode;
-    toggleFormActiveState(inputList, submitButtonElement, modalArgs);
-    addInputListeners(form, inputList, submitButtonElement, modalArgs);
-    addCloseBtnEventListener(container, inputList, form, modalArgs);
+    toggleFormActiveState(inputList, submitButtonElement, args);
+    addInputListeners(form, inputList, submitButtonElement, args);
+    addCloseBtnEventListener(container, inputList, form, args);
     if (form.id === 'edit-form') {
       const [currName, currJob] 
-          = Array.from(form.querySelectorAll(modalArgs.inputSelector)); 
-      modalArgs.currName = currName;
-      modalArgs.currJob = currJob;
-      createEditFormSubmitListener(form, container, inputList, modalArgs);
-      initializeInputValues(modalArgs.currName, modalArgs.currJob);
+          = Array.from(form.querySelectorAll(args.inputSelector)); 
+      args.currName = currName;
+      args.currJob = currJob;
+      createEditFormSubmitListener(form, container, inputList, args);
+      initializeInputValues(args.currName, args.currJob);
     } else if (form.id === 'add-form') {
-      createNewFormSubmitListener(form, container, inputList, modalArgs);
+      createNewFormSubmitListener(form, container, inputList, args);
     }
   }
 }

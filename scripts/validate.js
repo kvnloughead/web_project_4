@@ -1,8 +1,6 @@
 const modalOverlay = document.querySelector('.popup__modal-overlay');
 const editModalTemplate = document.querySelector('#edit-modal-template');
 const addModalTemplate = document.querySelector('#add-modal-template');
-const profileName = document.querySelector('.profile__name');
-const profileJob = document.querySelector('.profile__job');
 const editBtn = document.querySelector('.button_action_edit');
 const addBtn = document.querySelector('.button_action_add');
 
@@ -16,35 +14,19 @@ const modalArgs = {
   inactiveButtonClass: "button_inactive",
   inputErrorClass: "popup__input-error",
   errorClass: "popup__input-error_active",
-}
+};
 
-function initializeInputValues(currName, currJob) {
-  currName.value = profileName.textContent;
-  currJob.value = profileJob.textContent;
-}
-
-function createModal(modalTemplate, buttonElement) {
-  const cloneOfTemplate = modalTemplate.content.cloneNode(true);
-  const container = cloneOfTemplate.querySelector('.popup__container');
-  const form = container.querySelector('.popup__form');
-  const inputList = Array.from(form.querySelectorAll('popup__input'));
-  buttonElement.addEventListener('click', () => {
-    openModalPopup(form, container, inputList, args);
-  });
-  profileName.parentNode.appendChild(cloneOfTemplate);
-}
-
-function showInputError(formElement, inputElement, errorMessage, args) {
+function showInputError(formElement, inputElement, errorMessage, modalArgs) {
   const errorElement = formElement.querySelector(`#${inputElement.id}-input-error`);
-  inputElement.classList.add(args.inactiveInputClass);
+  inputElement.classList.add(modalArgs.inactiveInputClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add(args.errorClass);
+  errorElement.classList.add(modalArgs.errorClass);
 }
 
-function hideInputError(formElement, inputElement, args) {
+function hideInputError(formElement, inputElement, modalArgs) {
   const errorElement = formElement.querySelector(`#${inputElement.id}-input-error`);
-  inputElement.classList.remove(args.inactiveInputClass);
-  errorElement.classList.remove(args.errorClass);
+  inputElement.classList.remove(modalArgs.inactiveInputClass);
+  errorElement.classList.remove(modalArgs.errorClass);
   errorElement.textContent = "";
 }
 
@@ -54,119 +36,141 @@ function hasInvalidInput(inputList) {
   });
 }
 
-function checkInputValidity(formElement, inputElement, buttonElement, args) {
+function checkInputValidity(formElement, inputElement, buttonElement, modalArgs) {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage, args);
+    showInputError(formElement, inputElement, inputElement.validationMessage, modalArgs);
   } else {
-    hideInputError(formElement, inputElement, args);
+    hideInputError(formElement, inputElement, modalArgs);
   }
 }
 
-function toggleFormActiveState(inputList, buttonElement, args) {
+function toggleFormActiveState(inputList, buttonElement, modalArgs) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(args.inactiveButtonClass);
+    buttonElement.classList.add(modalArgs.inactiveButtonClass);
     buttonElement.disabled = true;
   } else {
-    buttonElement.classList.remove(args.inactiveButtonClass);
+    buttonElement.classList.remove(modalArgs.inactiveButtonClass);
     buttonElement.disabled = false;
   }
 }
 
-function addInputListeners(form, inputList, submitButtonElement, args) {
+function addInputListeners(form, inputList, submitButtonElement, modalArgs) {
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", function () {
-      checkInputValidity(form, inputElement, submitButtonElement, args);
-      toggleFormActiveState(inputList, submitButtonElement, args);
+      checkInputValidity(form, inputElement, submitButtonElement, modalArgs);
+      toggleFormActiveState(inputList, submitButtonElement, modalArgs);
     });
   });
 }
 
-function openModalPopup(form, container, inputList, args) {
-  container.classList.toggle('popup__container_visible');
-  modalOverlay.classList.remove('popup_type_image');
-  modalOverlay.classList.toggle('popup__modal-overlay_visible');
-  addEscapeKeyListener(form, container, inputList, args);
-  addPopupOverlayListener(form, container, inputList, args);
-}
-
-function closePopup(popupContainer, form, inputList, args) {
+function closePopup(popupContainer, form, inputList, modalArgs) {
   popupContainer.classList.remove('popup__container_visible');
   modalOverlay.classList.remove('popup__modal-overlay_visible');
+  for (const input of inputList) {
+    hideInputError(form, input, modalArgs);
+  }
+  form.reset();
+  if (form.id === 'edit-form') {
+    initializeInputValues(modalArgs.currName, modalArgs.currJob);
+  }
 }
 
-function addPopupOverlayListener(form, popupContainer, inputList, args) {
-  modalOverlay.addEventListener('click', () => {
-    if (popupContainer.classList.contains('popup__container_visible')) {
-      closePopup(popupContainer, form, inputList, args);
-    }
-  });
-}
-
-function addCloseBtnEventListener(popupContainer, inputList, form, args) {
-  const closeBtn = popupContainer.querySelector(args.closeButtonSelector);
-  closeBtn.addEventListener('click', () => {
-    closePopup(popupContainer, form, inputList, args);
-  });
-}
-
-function addEscapeKeyListener(form, container, inputList, args) {
+function addEscapeKeyListener(form, container, inputList, modalArgs) {
   document.addEventListener('keydown', (evt) => {
     if (evt.key === "Escape" && container.classList.contains('popup__container_visible')) {
-      closePopup(container, form, inputList, args);
+      closePopup(container, form, inputList, modalArgs);
     }
   }); 
 }
 
-function editFormSubmitHandler(evt, form, container, inputList, args) {
+function addPopupOverlayListener(form, popupContainer, inputList, modalArgs) {
+  modalOverlay.addEventListener('click', () => {
+    if (popupContainer.classList.contains('popup__container_visible')) {
+      closePopup(popupContainer, form, inputList, modalArgs);
+    }
+  });
+}
+
+function openModalPopup(form, container, inputList, modalArgs) {
+  container.classList.toggle('popup__container_visible');
+  modalOverlay.classList.toggle('popup__modal-overlay_visible');
+  addEscapeKeyListener(form, container, inputList, modalArgs);
+  addPopupOverlayListener(form, container, inputList, modalArgs);
+}
+
+function createModal(modalTemplate, buttonElement) {
+  const cloneOfTemplate = modalTemplate.content.cloneNode(true);
+  const container = cloneOfTemplate.querySelector('.popup__container');
+  const form = container.querySelector('.popup__form');
+  const inputList = Array.from(form.querySelectorAll('.popup__input'));
+  buttonElement.addEventListener('click', () => {
+    openModalPopup(form, container, inputList, modalArgs);
+  });
+  // Your comment last time seemed to imply that you thought I was appending 
+  // new modals each time the button was clicked, but I don't think that is so.  
+  // This function createModal runs only once at page loading for each modal.
+  //  Then openModalPopup simply toggles visibility.
+  editBtn.parentNode.appendChild(cloneOfTemplate);
+}
+
+function addCloseBtnEventListener(popupContainer, inputList, form, modalArgs) {
+  const closeBtn = popupContainer.querySelector(modalArgs.closeButtonSelector);
+  closeBtn.addEventListener('click', () => {
+    closePopup(popupContainer, form, inputList, modalArgs);
+  });
+}
+
+function editFormSubmitHandler(evt, form, container, inputList, modalArgs) {
   evt.preventDefault();
   const newName = evt.currentTarget.name.value;
   const newJob = evt.currentTarget.job.value;
   profileName.textContent = newName;
   profileJob.textContent = newJob;
-  closePopup(container, form, inputList, args);
+  closePopup(container, form, inputList, modalArgs);
 }
 
 
-function createEditFormSubmitListener(form, container, inputList, args) {
-  initializeInputValues(args.currName, args.currJob);
+function createEditFormSubmitListener(form, container, inputList, modalArgs) {
+  initializeInputValues(modalArgs.currName, modalArgs.currJob);
   form.addEventListener('submit', (evt) => {
-    editFormSubmitHandler(evt, form, container, inputList, args);
-    args.currName.value = profileName.textContent;
-    args.currJob.value = profileJob.textContent;
+    editFormSubmitHandler(evt, form, container, inputList, modalArgs);
+    modalArgs.currName.value = profileName.textContent;
+    modalArgs.currJob.value = profileJob.textContent;
   });
 }
 
 
-function createNewFormSubmitListener(form, popupContainer, inputList, args) {
+function createNewFormSubmitListener(form, popupContainer, inputList, modalArgs) {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    const cardVals = {name: title.value, link: imageUrl.value};
+    const title = inputList[0].value;
+    const imageUrl = inputList[1].value;
+    const cardVals = {name: title, link: imageUrl};
     createCard(cardVals);
-    closePopup(popupContainer, form, inputList, args);
+    closePopup(popupContainer, form, inputList, modalArgs);
     evt.target.reset();    
   });
 }
 
-function enableValidation(args) {
-  const forms = Array.from(document.querySelectorAll(args.formSelector));
+function enableValidation(modalArgs) {
+  const forms = Array.from(document.querySelectorAll(modalArgs.formSelector));
   for (const form of forms) {
-    const inputList = Array.from(form.querySelectorAll(args.inputSelector));
-    const submitButtonElement = form.querySelector(args.submitButtonSelector);
+    const inputList = Array.from(form.querySelectorAll(modalArgs.inputSelector));
+    const submitButtonElement = form.querySelector(modalArgs.submitButtonSelector);
     const container = form.parentNode;
-    toggleFormActiveState(inputList, submitButtonElement, args);
-    addInputListeners(form, inputList, submitButtonElement, args);
-    addCloseBtnEventListener(container, inputList, form, args);
+    toggleFormActiveState(inputList, submitButtonElement, modalArgs);
+    addInputListeners(form, inputList, submitButtonElement, modalArgs);
+    addCloseBtnEventListener(container, inputList, form, modalArgs);
     if (form.id === 'edit-form') {
       const [currName, currJob] 
-          = Array.from(form.querySelectorAll(args.inputSelector)); 
-      args.currName = currName;
-      args.currJob = currJob;
-      createEditFormSubmitListener(form, container, inputList, args);
-      initializeInputValues(args.currName, args.currJob);
+          = Array.from(form.querySelectorAll(modalArgs.inputSelector)); 
+      modalArgs.currName = currName;
+      modalArgs.currJob = currJob;
+      createEditFormSubmitListener(form, container, inputList, modalArgs);
+      initializeInputValues(modalArgs.currName, modalArgs.currJob);
     } else if (form.id === 'add-form') {
-      createNewFormSubmitListener(form, container, inputList, args);
+      createNewFormSubmitListener(form, container, inputList, modalArgs);
     }
-    // addPopupOverlayListener(form, container, inputList, args);
   }
 }
 

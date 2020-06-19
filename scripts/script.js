@@ -1,8 +1,15 @@
 import { Card } from './Card.js'
+import { modalArgs, FormValidator } from './FormValidator.js';
 
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 const cardSelector = '#card-template';
+const forms = Array.from(document.querySelectorAll('.popup__form'));
+const modalOverlay = document.querySelector('.popup__modal-overlay');
+const editModalTemplate = document.querySelector('#edit-modal-template');
+const addModalTemplate = document.querySelector('#add-modal-template');
+const editBtn = document.querySelector('.button_action_edit');
+const addBtn = document.querySelector('.button_action_add');
 
 const initialCards = [
   {
@@ -31,90 +38,41 @@ const initialCards = [
   }
 ];
 
-
-// function closeImagePopup(container) {
-//   container.classList.remove('popup__image-container_visible');
-//   imageOverlay.classList.remove('popup__image-overlay_visible');
-// }
-
-// function addImageCloseBtnListener(imageContainer) {
-//   const closeBtn = imageContainer.querySelector('.button_action_close');
-//   closeBtn.addEventListener('click', () => {
-//     closeImagePopup(imageContainer);
-//   });
-// }
-
-// function addImageEscapeKeyListener(container) {
-//   document.addEventListener('keydown', (evt) => {
-//     if (evt.key === "Escape" && container.classList.contains('popup__image-container_visible')) {
-//       closeImagePopup(container);
-//     }
-//   }); 
-// }
-
-// function addImageOverlayListener(container) {
-//   imageOverlay.addEventListener('click', () => {
-//     if (container.classList.contains('popup__image-container_visible')) {
-//       closeImagePopup(container);
-//     }
-//   });
-// }
-
-// function addContentToImagePopup(imageUrl, imagePopupEl, captionEl, name) {
-//   imagePopupEl.src = imageUrl;
-//   imagePopupEl.alt = `Image of ${name}`;
-//   captionEl.textContent = name;
-// }
-
-// function openImagePopup(container, cardVals) {
-//   const imagePopupEl = container.querySelector('.popup__image');
-//   const captionEl = container.querySelector('.popup__image-caption');
-//   addContentToImagePopup(cardVals.link, imagePopupEl, captionEl, cardVals.name);
-//   addImageCloseBtnListener(container);
-//   addImageEscapeKeyListener(container);
-//   addImageOverlayListener(container);
-//   container.classList.add('popup__image-container_visible');
-//   imageOverlay.classList.add('popup__image-overlay_visible');
-// }
-
-// function addEventListeners(imageEl, likeBtnEl, deleteBtnEl, placeEl,
-//                            container, cardVals) {
-//   imageEl.addEventListener('click', () => {
-//     openImagePopup(container, cardVals);
-//   });
-//   likeBtnEl.addEventListener('click', 
-//     () => likeBtnEl.classList.toggle('place__like-btn_clicked')
-//   );
-//   deleteBtnEl.addEventListener('click', 
-//     () => placeEl.parentNode.removeChild(placeEl)
-//   );
-// }
-
-// function createCard(cardVals) {
-//   const cloneOfTemplate = cardTemplate.content.cloneNode(true);
-//   const imageEl = cloneOfTemplate.querySelector('.place__image');
-//   const nameEl = cloneOfTemplate.querySelector('.place__name');
-//   const placeEl = cloneOfTemplate.querySelector('.place');
-//   const likeBtnEl = cloneOfTemplate.querySelector('.place__like-btn');
-//   const deleteBtnEl = cloneOfTemplate.querySelector('.button_action_delete');
-//   imageEl.style.backgroundImage = `url(${cardVals.link})`;
-//   nameEl.textContent = cardVals.name;
-//   addEventListeners(imageEl, likeBtnEl, 
-//     deleteBtnEl, placeEl, imagePopupContainer, cardVals);
-//   placesGrid.prepend(cloneOfTemplate);
-// }
-
 function initializeInputValues(currName, currJob) {
   currName.value = profileName.textContent;
   currJob.value = profileJob.textContent;
 }
 
-// for (const card of initialCards) {
-//   createCard(card);
-// }  
+function openModalPopup(form, container, inputList, args) {
+  if (form.id === 'edit-form') {
+    const [currName, currJob] 
+        = Array.from(form.querySelectorAll('.popup__input')); 
+    initializeInputValues(currName, currJob);
+  }
+    container.classList.toggle('popup__container_visible');
+    modalOverlay.classList.toggle('popup__modal-overlay_visible');
+}
 
+function createModal(modalTemplate, buttonElement) {
+  const cloneOfTemplate = modalTemplate.content.cloneNode(true);
+  const container = cloneOfTemplate.querySelector('.popup__container');
+  const form = container.querySelector('.popup__form');
+  const inputList = Array.from(form.querySelectorAll('.popup__input'));
+  buttonElement.addEventListener('click', () => {
+    openModalPopup(form, container, inputList, modalArgs);
+  });
+  editBtn.parentNode.appendChild(cloneOfTemplate);
+}
+
+createModal(editModalTemplate, editBtn);
+createModal(addModalTemplate, addBtn);
+ 
 for (const card of initialCards) {
   const cardEl = new Card(card.name, card.link, cardSelector);
   cardEl.generateCard();
-}  
+} 
+
+for (const form of forms) {
+  const validator = new FormValidator(modalArgs, form);
+}
 

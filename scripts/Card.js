@@ -31,25 +31,17 @@ export class Card {
     this._nameEl.textContent = this._name;
   }
 
-  _addEventListeners() {
-    this._imageEl.addEventListener('click', () => {
-      this._openImagePopupHandler();
-    });
-    this._likeBtnEl.addEventListener('click', 
-      () => this._likeBtnEl.classList.toggle('place__like-btn_clicked')
-    );
-    this._deleteBtnEl.addEventListener('click', 
-      () => this._placeEl.parentNode.removeChild(this._placeEl)
-    );
+  _likeBtnHandler() {
+    this._likeBtnEl.classList.toggle('place__like-btn_clicked');
   }
 
-  _openImagePopupHandler() {
-    imagePopupEl.src = this._link;
-    imagePopupEl.alt = `Image of ${this._name}`;
-    captionEl.textContent = this._name;
-    this._addImagePopupEventListeners();
-    imagePopupContainer.classList.add('popup__image-container_visible');
-    imageOverlay.classList.add('popup__image-overlay_visible');
+  _deleteBtnHandler() {
+    this._placeEl.parentNode.removeChild(this._placeEl);
+  }
+
+  _closeImagePopup(container) {
+    container.classList.remove('popup__image-container_visible');
+    imageOverlay.classList.remove('popup__image-overlay_visible');
   }
 
   _addImagePopupEventListeners() {
@@ -69,12 +61,30 @@ export class Card {
     });
   }
 
-  _closeImagePopup(container) {
-    container.classList.remove('popup__image-container_visible');
-    imageOverlay.classList.remove('popup__image-overlay_visible');
+  _openImagePopupHandler() {
+    imagePopupEl.src = this._link;
+    imagePopupEl.alt = `Image of ${this._name}`;
+    captionEl.textContent = this._name;
+    this._addImagePopupEventListeners();
+    imagePopupContainer.classList.add('popup__image-container_visible');
+    imageOverlay.classList.add('popup__image-overlay_visible');
   }
 
-  // event handler methods, private
+  _addEventListeners() {
+    this._imageEl.addEventListener('click', () => {
+      this._openImagePopupHandler();
+    });
+    this._likeBtnEl.addEventListener('click', () => {
+      this._likeBtnHandler();
+    });
+    this._deleteBtnEl.addEventListener('click', () => {
+      this._deleteBtnHandler();
+    });
+  }
+
+
+
+
 
   generateCard() {
     const template = this._getTemplate();
@@ -85,9 +95,3 @@ export class Card {
   
 }
 
-
-
-// for (const card of initialCards) {
-//   const cardEl = new Card(card.name, card.link, cardSelector);
-//   cardEl.generateCard();
-// }  

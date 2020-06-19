@@ -1,8 +1,9 @@
-const modalOverlay = document.querySelector('.popup__modal-overlay');
-const editModalTemplate = document.querySelector('#edit-modal-template');
-const addModalTemplate = document.querySelector('#add-modal-template');
+// const modalOverlay = document.querySelector('.popup__modal-overlay');
+// const editModalTemplate = document.querySelector('#edit-modal-template');
+// const addModalTemplate = document.querySelector('#add-modal-template');
 const editBtn = document.querySelector('.button_action_edit');
 const addBtn = document.querySelector('.button_action_add');
+
 
 const modalArgs = {
   formSelector: ".popup__form",
@@ -15,6 +16,11 @@ const modalArgs = {
   inputErrorClass: "popup__input-error",
   errorClass: "popup__input-error_active",
 };
+
+function initializeInputValues(currName, currJob) {
+  currName.value = profileName.textContent;
+  currJob.value = profileJob.textContent;
+}
 
 function showInputError(formElement, inputElement, errorMessage, args) {
   const errorElement = formElement.querySelector(`#${inputElement.id}-input-error`);
@@ -91,23 +97,23 @@ function addPopupOverlayListener(form, popupContainer, inputList, args) {
   });
 }
 
-function openModalPopup(form, container, inputList, args) {
-  container.classList.toggle('popup__container_visible');
-  modalOverlay.classList.toggle('popup__modal-overlay_visible');
-  addEscapeKeyListener(form, container, inputList, args);
-  addPopupOverlayListener(form, container, inputList, args);
-}
+// function openModalPopup(form, container, inputList, args) {
+//   container.classList.toggle('popup__container_visible');
+//   modalOverlay.classList.toggle('popup__modal-overlay_visible');
+//   addEscapeKeyListener(form, container, inputList, args);
+//   addPopupOverlayListener(form, container, inputList, args);
+// }
 
-function createModal(modalTemplate, buttonElement) {
-  const cloneOfTemplate = modalTemplate.content.cloneNode(true);
-  const container = cloneOfTemplate.querySelector('.popup__container');
-  const form = container.querySelector('.popup__form');
-  const inputList = Array.from(form.querySelectorAll('.popup__input'));
-  buttonElement.addEventListener('click', () => {
-    openModalPopup(form, container, inputList, modalArgs);
-  });
-  editBtn.parentNode.appendChild(cloneOfTemplate);
-}
+// function createModal(modalTemplate, buttonElement) {
+//   const cloneOfTemplate = modalTemplate.content.cloneNode(true);
+//   const container = cloneOfTemplate.querySelector('.popup__container');
+//   const form = container.querySelector('.popup__form');
+//   const inputList = Array.from(form.querySelectorAll('.popup__input'));
+//   buttonElement.addEventListener('click', () => {
+//     openModalPopup(form, container, inputList, modalArgs);
+//   });
+//   editBtn.parentNode.appendChild(cloneOfTemplate);
+// }
 
 function addCloseBtnEventListener(popupContainer, inputList, form, args) {
   const closeBtn = popupContainer.querySelector(args.closeButtonSelector);
@@ -146,28 +152,28 @@ function createNewFormSubmitListener(form, popupContainer, inputList, args) {
   });
 }
 
-function enableValidation(args) {
-  const forms = Array.from(document.querySelectorAll(args.formSelector));
-  for (const form of forms) {
-    const inputList = Array.from(form.querySelectorAll(args.inputSelector));
-    const submitButtonElement = form.querySelector(args.submitButtonSelector);
-    const container = form.parentNode;
-    toggleFormActiveState(inputList, submitButtonElement, args);
-    addInputListeners(form, inputList, submitButtonElement, args);
-    addCloseBtnEventListener(container, inputList, form, args);
-    if (form.id === 'edit-form') {
-      const [currName, currJob] 
-          = Array.from(form.querySelectorAll(args.inputSelector)); 
-      args.currName = currName;
-      args.currJob = currJob;
-      createEditFormSubmitListener(form, container, inputList, args);
-      initializeInputValues(args.currName, args.currJob);
-    } else if (form.id === 'add-form') {
-      createNewFormSubmitListener(form, container, inputList, args);
-    }
-  }
-}
+// function enableValidation(args) {
+//   const forms = Array.from(document.querySelectorAll(args.formSelector));
+//   for (const form of forms) {
+//     const inputList = Array.from(form.querySelectorAll(args.inputSelector));
+//     const submitButtonElement = form.querySelector(args.submitButtonSelector);
+//     const container = form.parentNode;
+//     toggleFormActiveState(inputList, submitButtonElement, args);
+//     addInputListeners(form, inputList, submitButtonElement, args);
+//     addCloseBtnEventListener(container, inputList, form, args);
+//     if (form.id === 'edit-form') {
+//       const [currName, currJob] 
+//           = Array.from(form.querySelectorAll(args.inputSelector)); 
+//       args.currName = currName;
+//       args.currJob = currJob;
+//       createEditFormSubmitListener(form, container, inputList, args);
+//       initializeInputValues(args.currName, args.currJob);
+//     } else if (form.id === 'add-form') {
+//       createNewFormSubmitListener(form, container, inputList, args);
+//     }
+//   }
+// }
 
-createModal(editModalTemplate, editBtn);
-createModal(addModalTemplate, addBtn);
-enableValidation(modalArgs);
+// createModal(editModalTemplate, editBtn);
+// createModal(addModalTemplate, addBtn);
+// enableValidation(modalArgs);

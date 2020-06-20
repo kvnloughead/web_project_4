@@ -11,6 +11,8 @@ A responsive web page built in HTML, CSS and JS.  Built from figma specs ([here]
   - adding of place cards with images and titles.
   - Forms are validated with javascript.
 
+- Card creation and form validation achieved with OOP.
+
 - Image popups, for each place card.
 
 - Delete button and Like button on each card.

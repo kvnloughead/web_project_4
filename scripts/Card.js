@@ -1,12 +1,13 @@
-const placesGrid = document.querySelector('.places__grid');
-const imageOverlay = document.querySelector('.popup__image-overlay');
-const imagePopupTemplate = document.querySelector('#image-popup-template');
+const placesGrid = document.querySelector(".places__grid");
+const imageOverlay = document.querySelector(".popup__image-overlay");
+const imagePopupTemplate = document.querySelector("#image-popup-template");
 const cloneOfTemplate = imagePopupTemplate.content.cloneNode(true);
-const imagePopupContainer 
-    = cloneOfTemplate.querySelector('.popup__image-container');
+const imagePopupContainer = cloneOfTemplate.querySelector(
+  ".popup__image-container"
+);
 placesGrid.parentNode.appendChild(imagePopupContainer);
-const imagePopupEl = document.querySelector('.popup__image');
-const captionEl = document.querySelector('.popup__image-caption');
+const imagePopupEl = document.querySelector(".popup__image");
+const captionEl = document.querySelector(".popup__image-caption");
 
 export class Card {
   constructor(name, link, cardSelector) {
@@ -14,15 +15,17 @@ export class Card {
     this._link = link;
     this._cardSelector = cardSelector;
   }
-  
+
   _getTemplate() {
-    const cardElement = document.querySelector(this._cardSelector)
-      .content.querySelector(".place").cloneNode(true);
+    const cardElement = document
+      .querySelector(this._cardSelector)
+      .content.querySelector(".place")
+      .cloneNode(true);
     this._placeEl = cardElement;
-    this._imageEl = cardElement.querySelector('.place__image');
-    this._nameEl = cardElement.querySelector('.place__name');
-    this._likeBtnEl = cardElement.querySelector('.place__like-btn');
-    this._deleteBtnEl = cardElement.querySelector('.button_action_delete');
+    this._imageEl = cardElement.querySelector(".place__image");
+    this._nameEl = cardElement.querySelector(".place__name");
+    this._likeBtnEl = cardElement.querySelector(".place__like-btn");
+    this._deleteBtnEl = cardElement.querySelector(".button_action_delete");
     return cardElement;
   }
 
@@ -32,7 +35,7 @@ export class Card {
   }
 
   _likeBtnHandler() {
-    this._likeBtnEl.classList.toggle('place__like-btn_clicked');
+    this._likeBtnEl.classList.toggle("place__like-btn_clicked");
   }
 
   _deleteBtnHandler() {
@@ -40,22 +43,27 @@ export class Card {
   }
 
   _closeImagePopup(container) {
-    container.classList.remove('popup__image-container_visible');
-    imageOverlay.classList.remove('popup__image-overlay_visible');
+    container.classList.remove("popup__image-container_visible");
+    imageOverlay.classList.remove("popup__image-overlay_visible");
   }
 
   _addImagePopupEventListeners() {
-    const closeBtn = imagePopupContainer.querySelector('.button_action_close');
-    closeBtn.addEventListener('click', () => {
+    const closeBtn = imagePopupContainer.querySelector(".button_action_close");
+    closeBtn.addEventListener("click", () => {
       this._closeImagePopup(imagePopupContainer);
     });
-    document.addEventListener('keydown', (evt) => {
-      if (evt.key === "Escape" && imagePopupContainer.classList.contains('popup__image-container_visible')) {
+    document.addEventListener("keydown", (evt) => {
+      if (
+        evt.key === "Escape" &&
+        imagePopupContainer.classList.contains("popup__image-container_visible")
+      ) {
         this._closeImagePopup(imagePopupContainer);
       }
     });
-    imageOverlay.addEventListener('click', () => {
-      if (imagePopupContainer.classList.contains('popup__image-container_visible')) {
+    imageOverlay.addEventListener("click", () => {
+      if (
+        imagePopupContainer.classList.contains("popup__image-container_visible")
+      ) {
         this._closeImagePopup(imagePopupContainer);
       }
     });
@@ -66,18 +74,18 @@ export class Card {
     imagePopupEl.alt = `Image of ${this._name}`;
     captionEl.textContent = this._name;
     this._addImagePopupEventListeners();
-    imagePopupContainer.classList.add('popup__image-container_visible');
-    imageOverlay.classList.add('popup__image-overlay_visible');
+    imagePopupContainer.classList.add("popup__image-container_visible");
+    imageOverlay.classList.add("popup__image-overlay_visible");
   }
 
   _addEventListeners() {
-    this._imageEl.addEventListener('click', () => {
+    this._imageEl.addEventListener("click", () => {
       this._openImagePopupHandler();
     });
-    this._likeBtnEl.addEventListener('click', () => {
+    this._likeBtnEl.addEventListener("click", () => {
       this._likeBtnHandler();
     });
-    this._deleteBtnEl.addEventListener('click', () => {
+    this._deleteBtnEl.addEventListener("click", () => {
       this._deleteBtnHandler();
     });
   }
@@ -88,6 +96,4 @@ export class Card {
     this._addEventListeners();
     placesGrid.prepend(template);
   }
-  
 }
-

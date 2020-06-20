@@ -4,7 +4,7 @@ import { modalArgs, FormValidator } from './FormValidator.js';
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 const cardSelector = '#card-template';
-const forms = Array.from(document.querySelectorAll('.popup__form'));
+
 const modalOverlay = document.querySelector('.popup__modal-overlay');
 const editModalTemplate = document.querySelector('#edit-modal-template');
 const addModalTemplate = document.querySelector('#add-modal-template');
@@ -38,17 +38,17 @@ const initialCards = [
   }
 ];
 
-function initializeInputValues(currName, currJob) {
-  currName.value = profileName.textContent;
-  currJob.value = profileJob.textContent;
-}
+// function initializeInputValues(currName, currJob) {
+//   currName.value = profileName.textContent;
+//   currJob.value = profileJob.textContent;
+// }
 
 function openModalPopup(form, container, inputList, args) {
-  if (form.id === 'edit-form') {
-    const [currName, currJob] 
-        = Array.from(form.querySelectorAll('.popup__input')); 
-    initializeInputValues(currName, currJob);
-  }
+  // if (form.id === 'edit-form') {
+  //   const [currName, currJob] 
+  //       = Array.from(form.querySelectorAll('.popup__input')); 
+  //   initializeInputValues(currName, currJob);
+  // }
     container.classList.toggle('popup__container_visible');
     modalOverlay.classList.toggle('popup__modal-overlay_visible');
 }
@@ -72,7 +72,9 @@ for (const card of initialCards) {
   cardEl.generateCard();
 } 
 
+const forms = Array.from(document.querySelectorAll('.popup__form'));
 for (const form of forms) {
   const validator = new FormValidator(modalArgs, form);
+  validator.enableValidation();
 }
 

@@ -82,10 +82,6 @@ export class Card {
     });
   }
 
-
-
-
-
   generateCard() {
     const template = this._getTemplate();
     this._addContent();

@@ -1,13 +1,4 @@
-const placesGrid = document.querySelector(".places__grid");
-const imageOverlay = document.querySelector(".popup__image-overlay");
-const imagePopupTemplate = document.querySelector("#image-popup-template");
-const cloneOfTemplate = imagePopupTemplate.content.cloneNode(true);
-const imagePopupContainer = cloneOfTemplate.querySelector(
-  ".popup__image-container"
-);
-placesGrid.parentNode.appendChild(imagePopupContainer);
-const imagePopupEl = document.querySelector(".popup__image");
-const captionEl = document.querySelector(".popup__image-caption");
+import { openImagePopupHandler, placesGrid } from './utils.js';
 
 export class Card {
   constructor(name, link, cardSelector) {
@@ -42,45 +33,9 @@ export class Card {
     this._placeEl.parentNode.removeChild(this._placeEl);
   }
 
-  _closeImagePopup(container) {
-    container.classList.remove("popup__image-container_visible");
-    imageOverlay.classList.remove("popup__image-overlay_visible");
-  }
-
-  _addImagePopupEventListeners() {
-    const closeBtn = imagePopupContainer.querySelector(".button_action_close");
-    closeBtn.addEventListener("click", () => {
-      this._closeImagePopup(imagePopupContainer);
-    });
-    document.addEventListener("keydown", (evt) => {
-      if (
-        evt.key === "Escape" &&
-        imagePopupContainer.classList.contains("popup__image-container_visible")
-      ) {
-        this._closeImagePopup(imagePopupContainer);
-      }
-    });
-    imageOverlay.addEventListener("click", () => {
-      if (
-        imagePopupContainer.classList.contains("popup__image-container_visible")
-      ) {
-        this._closeImagePopup(imagePopupContainer);
-      }
-    });
-  }
-
-  _openImagePopupHandler() {
-    imagePopupEl.src = this._link;
-    imagePopupEl.alt = `Image of ${this._name}`;
-    captionEl.textContent = this._name;
-    this._addImagePopupEventListeners();
-    imagePopupContainer.classList.add("popup__image-container_visible");
-    imageOverlay.classList.add("popup__image-overlay_visible");
-  }
-
   _addEventListeners() {
     this._imageEl.addEventListener("click", () => {
-      this._openImagePopupHandler();
+      openImagePopupHandler(this._name, this._link);
     });
     this._likeBtnEl.addEventListener("click", () => {
       this._likeBtnHandler();

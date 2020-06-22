@@ -1,8 +1,4 @@
-import { Card } from "./Card.js";
-
-export const modalOverlay = document.querySelector(".popup__modal-overlay");
-const profileName = document.querySelector(".profile__name");
-const profileJob = document.querySelector(".profile__job");
+// import { Card } from "./Card.js";
 
 export class FormValidator {
   constructor(settingsObject, formToValidate) {
@@ -74,82 +70,82 @@ export class FormValidator {
     });
   }
 
-  _setInputValues() {
-    const [currName, currJob] = Array.from(
-      this._form.querySelectorAll(this._args.inputSelector)
-    );
-    currName.value = profileName.textContent;
-    currJob.value = profileJob.textContent;
-  }
+  // _setInputValues() {
+  //   const [currName, currJob] = Array.from(
+  //     this._form.querySelectorAll(this._args.inputSelector)
+  //   );
+  //   currName.value = profileName.textContent;
+  //   currJob.value = profileJob.textContent;
+  // }
 
-  _closePopup() {
-    this._container.classList.remove("popup__container_visible");
-    modalOverlay.classList.remove("popup__modal-overlay_visible");
-    for (const input of this._inputList) {
-      this._hideInputError(input);
-    }
-    this._form.reset();
-    if (this._form.id === "edit-form") {
-      this._setInputValues();
-    }
-  }
+  // _closePopup() {
+  //   this._container.classList.remove("popup__container_visible");
+  //   modalOverlay.classList.remove("popup__modal-overlay_visible");
+  //   for (const input of this._inputList) {
+  //     this._hideInputError(input);
+  //   }
+  //   this._form.reset();
+  //   if (this._form.id === "edit-form") {
+  //     this._setInputValues();
+  //   }
+  // }
 
-  _editFormSubmitHandler(evt) {
-    evt.preventDefault();
-    const newName = evt.currentTarget.name.value;
-    const newJob = evt.currentTarget.job.value;
-    profileName.textContent = newName;
-    profileJob.textContent = newJob;
-    this._closePopup();
-  }
+  // _editFormSubmitHandler(evt) {
+  //   evt.preventDefault();
+  //   const newName = evt.currentTarget.name.value;
+  //   const newJob = evt.currentTarget.job.value;
+  //   profileName.textContent = newName;
+  //   profileJob.textContent = newJob;
+  //   this._closePopup();
+  // }
 
-  _createEditFormSubmitListener() {
-    this._setInputValues();
-    this._form.addEventListener("submit", (evt) => {
-      this._editFormSubmitHandler(evt);
-      this._setInputValues();
-    });
-  }
+  // _createEditFormSubmitListener() {
+  //   this._setInputValues();
+  //   this._form.addEventListener("submit", (evt) => {
+  //     this._editFormSubmitHandler(evt);
+  //     this._setInputValues();
+  //   });
+  // }
 
-  _createNewFormSubmitListener() {
-    this._form.addEventListener("submit", (evt) => {
-      evt.preventDefault();
-      const title = this._inputList[0].value;
-      const imageUrl = this._inputList[1].value;
-      const newCard = new Card(title, imageUrl, this._args.cardSelector);
-      newCard.generateCard();
-      this._closePopup();
-      evt.target.reset();
-    });
-  }
+  // _createNewFormSubmitListener() {
+  //   this._form.addEventListener("submit", (evt) => {
+  //     evt.preventDefault();
+  //     const title = this._inputList[0].value;
+  //     const imageUrl = this._inputList[1].value;
+  //     const newCard = new Card(title, imageUrl, this._args.cardSelector);
+  //     newCard.generateCard();
+  //     this._closePopup();
+  //     evt.target.reset();
+  //   });
+  // }
 
-  _addEscapeKeyListener() {
-    document.addEventListener("keydown", (evt) => {
-      if (
-        evt.key === "Escape" &&
-        this._container.classList.contains("popup__container_visible")
-      ) {
-        this._closePopup();
-      }
-    });
-  }
+  // _addEscapeKeyListener() {
+  //   document.addEventListener("keydown", (evt) => {
+  //     if (
+  //       evt.key === "Escape" &&
+  //       this._container.classList.contains("popup__container_visible")
+  //     ) {
+  //       this._closePopup();
+  //     }
+  //   });
+  // }
 
-  _addPopupOverlayListener() {
-    modalOverlay.addEventListener("click", () => {
-      if (this._container.classList.contains("popup__container_visible")) {
-        this._closePopup();
-      }
-    });
-  }
+  // _addPopupOverlayListener() {
+  //   modalOverlay.addEventListener("click", () => {
+  //     if (this._container.classList.contains("popup__container_visible")) {
+  //       this._closePopup();
+  //     }
+  //   });
+  // }
 
-  _addCloseBtnEventListener() {
-    const closeBtn = this._container.querySelector(
-      this._args.closeButtonSelector
-    );
-    closeBtn.addEventListener("click", () => {
-      this._closePopup();
-    });
-  }
+  // _addCloseBtnEventListener() {
+  //   const closeBtn = this._container.querySelector(
+  //     this._args.closeButtonSelector
+  //   );
+  //   closeBtn.addEventListener("click", () => {
+  //     this._closePopup();
+  //   });
+  // }
 
   enableValidation() {
     this._toggleFormActiveState();

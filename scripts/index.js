@@ -2,16 +2,32 @@ import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 
 const cardSelector = '#card-template';
-const editModalTemplate = document.querySelector('#edit-modal-template');
-const addModalTemplate = document.querySelector('#add-modal-template');
+
 const editBtn = document.querySelector('.button_action_edit');
 const addBtn = document.querySelector('.button_action_add');
 const profileName = document.querySelector(".profile__name");
 const profileJob = document.querySelector(".profile__job");
 const modalOverlay = document.querySelector(".popup__modal-overlay");
-// const forms = document.querySelectorAll('.popup__form');
 
+// create edit modal from template
+const editModalTemplate = document.querySelector('#edit-modal-template');
+const cloneOfEditTemplate = editModalTemplate.content.cloneNode(true);
+const editContainer = cloneOfEditTemplate.querySelector('.popup__container');
+editBtn.addEventListener('click', () => {
+  openModalPopup(editContainer);
+});
+editBtn.parentNode.appendChild(cloneOfEditTemplate);
+const editForm = document.querySelector('#edit-form');
 
+// create add modal from template
+const addModalTemplate = document.querySelector('#add-modal-template');
+const cloneOfAddTemplate = addModalTemplate.content.cloneNode(true);
+const addContainer = cloneOfAddTemplate.querySelector('.popup__container');
+addBtn.addEventListener('click', () => {
+  openModalPopup(addContainer);
+});
+editBtn.parentNode.appendChild(cloneOfAddTemplate);
+const addForm = document.querySelector('#add-form');
 
 const modalArgs = {
   formSelector: ".popup__form",
@@ -25,6 +41,11 @@ const modalArgs = {
   errorClass: "popup__input-error_active",
   cardSelector: '#card-template'
 };
+
+const addFormValidator = new FormValidator(modalArgs, addForm);
+const editFormValidator = new FormValidator(modalArgs, editForm);
+addFormValidator.enableValidation();
+editFormValidator.enableValidation();
 
 const initialCards = [
   {
@@ -59,24 +80,24 @@ function openModalPopup(container) {
 }
 
 function createModal(modalTemplate, buttonElement) {
-  const cloneOfTemplate = modalTemplate.content.cloneNode(true);
-  const container = cloneOfTemplate.querySelector('.popup__container');
-  buttonElement.addEventListener('click', () => {
-    openModalPopup(container);
-  });
-  editBtn.parentNode.appendChild(cloneOfTemplate);
-  const addForm = document.querySelector('#add-form');
-  const editForm = document.querySelector('#edit-form');
+  // const cloneOfTemplate = modalTemplate.content.cloneNode(true);
+  // const container = cloneOfTemplate.querySelector('.popup__container');
+  // buttonElement.addEventListener('click', () => {
+  //   openModalPopup(container);
+  // });
+  // editBtn.parentNode.appendChild(cloneOfTemplate);
+  // const addForm = document.querySelector('#add-form');
+  // const editForm = document.querySelector('#edit-form');
   if (modalTemplate.id === 'edit-modal-template') {
-    createEditFormSubmitListener(editForm, container, modalArgs);
-    addCloseBtnEventListener(editForm, container, modalArgs);
-    addPopupOverlayListener(editForm, container, modalArgs);
-    addEscapeKeyListener(editForm, container, modalArgs);
+    createEditFormSubmitListener(editForm, editContainer, modalArgs);
+    addCloseBtnEventListener(editForm, editContainer, modalArgs);
+    addPopupOverlayListener(editForm, editContainer, modalArgs);
+    addEscapeKeyListener(editForm, editContainer, modalArgs);
   } else {
-    createNewFormSubmitListener(addForm, container, modalArgs);
-    addCloseBtnEventListener(addForm, container, modalArgs);
-    addPopupOverlayListener(addForm, container, modalArgs);
-    addEscapeKeyListener(addForm, container, modalArgs);
+    createNewFormSubmitListener(addForm, addContainer, modalArgs);
+    addCloseBtnEventListener(addForm, addContainer, modalArgs);
+    addPopupOverlayListener(addForm, addContainer, modalArgs);
+    addEscapeKeyListener(addForm, addContainer, modalArgs);
   }
 }
 
@@ -114,17 +135,19 @@ function editFormSubmitHandler(evt, form, container, args) {
 function createEditFormSubmitListener(form, container, args) {
   setInputValues(form, args);
   form.addEventListener("submit", (evt) => {
-    editFormSubmitHandler(evt, container, args);
+    // editFormValidator.enableValidation();
+    editFormSubmitHandler(evt, form, container, args);
     setInputValues(form, args);
   });
 }
 
-function createNewFormSubmitListener(form, args) {
+function createNewFormSubmitListener(form, container, args) {
   form.addEventListener("submit", (evt) => {
+    // addFormValidator.enableValidation();
     evt.preventDefault();
-    const title = inputList[0].value;
-    const imageUrl = inputList[1].value;
-    const newCard = new Card(title, imageUrl, this._args.cardSelector);
+    const title = form.elements[0].value;
+    const imageUrl = form.elements[1].value;
+    const newCard = new Card(title, imageUrl, args.cardSelector);
     newCard.generateCard();
     closePopup(form, container, args);
     evt.target.reset();
@@ -169,8 +192,8 @@ for (const card of initialCards) {
   cardEl.generateCard();
 } 
 
-const addFormValidator = new FormValidator(modalArgs, addForm);
-const editFormValidator = new FormValidator(modalArgs, editForm);
+
+
 
 // for (const form of forms) {
 //   const validator = new FormValidator(modalArgs, form);

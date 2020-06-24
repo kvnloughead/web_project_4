@@ -29,6 +29,7 @@ const initialCards = [
 ];
 
 const cardSelector = '#card-template';
+const placesGrid = document.querySelector(".places__grid");
 
 const editBtn = document.querySelector('.button_action_edit');
 const addBtn = document.querySelector('.button_action_add');
@@ -81,8 +82,9 @@ function formSubmitHandler(form, container, args, evt) {
     profileName.textContent = nameInputElement.value;
     profileJob.textContent = jobInputElement.value;
   } else {
-    const newCard = new Card(titleInputElement.value, linkInputElement.value, args.cardSelector);
-    newCard.generateCard();
+    let newCard = new Card(titleInputElement.value, linkInputElement.value, args.cardSelector);
+    newCard = newCard.generateCard();
+    placesGrid.prepend(newCard);
   }
   togglePopupModal(container)
 }
@@ -122,8 +124,9 @@ addModalEventListeners(editForm, editContainer, modalArgs);
 addModalEventListeners(addForm, addContainer, modalArgs);
  
 for (const card of initialCards) {
-  const cardEl = new Card(card.name, card.link, cardSelector);
-  cardEl.generateCard();
+  let cardEl = new Card(card.name, card.link, cardSelector);
+  cardEl = cardEl.generateCard();
+  placesGrid.prepend(cardEl);
 } 
 
 editBtn.addEventListener('click', () => {

@@ -1,11 +1,10 @@
-export const placesGrid = document.querySelector(".places__grid");
 const imageOverlay = document.querySelector(".popup__image-overlay");
 const imagePopupTemplate = document.querySelector("#image-popup-template");
 const cloneOfTemplate = imagePopupTemplate.content.cloneNode(true);
 const imagePopupContainer = cloneOfTemplate.querySelector(
   ".popup__image-container"
 );
-placesGrid.parentNode.appendChild(imagePopupContainer);
+imageOverlay.parentNode.appendChild(imagePopupContainer);
 const imagePopupEl = document.querySelector(".popup__image");
 const captionEl = document.querySelector(".popup__image-caption");
 

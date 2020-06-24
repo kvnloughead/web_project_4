@@ -1,4 +1,4 @@
-import { openImagePopupHandler, placesGrid } from './utils.js';
+import { openImagePopupHandler } from './utils.js';
 
 export class Card {
   constructor(name, link, cardSelector) {
@@ -46,9 +46,9 @@ export class Card {
   }
 
   generateCard() {
-    const template = this._getTemplate();
+    const card = this._getTemplate();
     this._addContent();
     this._addEventListeners();
-    placesGrid.prepend(template);
+    return card;
   }
 }

@@ -1,18 +1,11 @@
-// import { Card } from "./Card.js";
 
 export class FormValidator {
   constructor(settingsObject, formToValidate) {
     this._args = settingsObject;
     this._form = formToValidate;
-    this._inputList = Array.from(
-      this._form.querySelectorAll(this._args.inputSelector)
-    );
-    this._submitButtonElement = this._form.querySelector(
-      this._args.submitButtonSelector
-    );
     this._container = this._form.parentNode;
-    this._submitBtn = this._form.querySelector(
-      this._args.submitButtonSelector);
+    this._inputList = Array.from(this._form.querySelectorAll(this._args.inputSelector));
+    this._buttonElement = this._form.querySelector(this._args.submitButtonSelector);
   }
 
   _showInputError(inputElement, errorMessage) {
@@ -41,6 +34,15 @@ export class FormValidator {
     }
   }
 
+  _setEventListeners() {
+    this._inputList.forEach((inputElement) => {
+      inputElement.addEventListener('input', () => {
+        this._checkInputValidity(inputElement);
+        this._toggleFormActiveState(this._inputList, this._buttonElement);
+      });
+    });
+  }
+
   _hasInvalidInput() {
     return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
@@ -49,32 +51,37 @@ export class FormValidator {
 
   _toggleFormActiveState() {
     if (this._hasInvalidInput()) {
-      this._submitBtn.classList.add(this._args.inactiveButtonClass);
-      this._submitBtn.disabled = true;
+      this._buttonElement.classList.add(this._args.inactiveButtonClass);
+      this._buttonElement.disabled = true;
     } else {
-      this._submitBtn.classList.remove(this._args.inactiveButtonClass);
-      this._submitBtn.disabled = false;
+      this._buttonElement.classList.remove(this._args.inactiveButtonClass);
+      this._buttonElement.disabled = false;
     }
   }
 
-  _inputHandler(inputElement) {
-    this._checkInputValidity(inputElement);
-    this._toggleFormActiveState();
-  }
-
-  _addInputListeners() {
-    this._inputList.forEach((inputElement) => {
-      inputElement.addEventListener("input", () => {
-        this._inputHandler(inputElement);
-      });
-    });
-  }
-
   enableValidation() {
-    this._toggleFormActiveState();
-    this._addInputListeners();
-    // if (this._form.id === "edit-form") {
-    //   this._setInputValues();
-    // }
+    this._form.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+    });
+    this._setEventListeners();
   }
+
+  // _inputHandler(inputElement) {
+  //   this._checkInputValidity(inputElement);
+  //   this._toggleFormActiveState();
+  // }
+
+  // _addInputListeners() {
+  //   this._inputList.forEach((inputElement) => {
+  //     inputElement.addEventListener("input", () => {
+  //       this._inputHandler(inputElement);
+  //     });
+  //   });
+  // }
+
+  // enableValidation() {
+  //   this._toggleFormActiveState();
+  //   this._addInputListeners();
+
+  // }
 }

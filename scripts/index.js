@@ -86,7 +86,7 @@ function formSubmitHandler(form, container, args, evt) {
     newCard = newCard.generateCard();
     placesGrid.prepend(newCard);
   }
-  togglePopupModal(container)
+  togglePopupModal(container);
 }
 
 function addEscapeKeyListener(container) {
@@ -95,15 +95,15 @@ function addEscapeKeyListener(container) {
       evt.key === "Escape" &&
       container.classList.contains("popup__container_visible")
     ) {
-      togglePopupModal(container)
+      togglePopupModal(container);
     }
   });
 }
 
 function addPopupOverlayListener(container) {
-  modalOverlay.addEventListener("click", (evt) => {
+  modalOverlay.addEventListener("click", () => {
     if (container.classList.contains("popup__container_visible")) {
-      togglePopupModal(container)
+      togglePopupModal(container);
     }
   });
 }

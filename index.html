@@ -48,81 +48,77 @@
 
   
 
-    <div class="popup__modal-overlay">
-      <!-- <template id="edit-modal-template"> -->
-        <div class="popup__container popup__container_type_edit">
-          <button class="button button_action_close" type="reset"></button>
-          <h2 class="popup__title">Edit profile</h2>
-          <form id="edit-form" name="editForm" class="popup__form" action="#" novalidate>
-            <input
-              class="popup__input"
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Name"
-              minlength="2"
-              maxlength="40"
-              required
-            />
-            <span class="popup__input-error" id="name-input-error"></span>
-            <input
-              class="popup__input"
-              type="text"
-              id="job"
-              name="job"
-              placeholder="About me"
-              minlength="2"
-              maxlength="200"
-              required
-            />
-            <span class="popup__input-error" id="job-input-error"></span>
-            <button
-              class="button button_action_submit button_inactive"
-              type="submit"
-              value="Save"
-            >
-              Save
-            </button>
-          </form>
-        </div>
-      <!-- </template> -->
-
-      <!-- <template id="add-modal-template"> -->
-        <div class="popup__container popup__container_type_add">
-          <button class="button button_action_close" type="reset"></button>
-          <h2 class="popup__title">New place</h2>
-          <form id="add-form" name="addForm" class="popup__form" action="#" novalidate>
-            <input
-              class="popup__input"
-              type="text"
-              id="title"
-              name="title"
-              placeholder="Title"
-              minlength="1"
-              maxlength="30"
-              required
-            />
-            <span class="popup__input-error" id="title-input-error"></span>
-            <input
-              class="popup__input"
-              type="url"
-              id="imageUrl"
-              name="imageUrl"
-              placeholder="Image link"
-              required
-            />
-            <span class="popup__input-error" id="imageUrl-input-error"></span>
-            <button
-              class="button button_action_submit button_inactive"
-              type="submit"
-              value="Create"
-            >
-              Create
-            </button>
-          </form>
-        </div>
-      <!-- </template> -->
+    <div class="popup__modal-overlay"></div>
+    <div class="popup__container popup__container_type_edit">
+      <button class="button button_action_close" type="reset"></button>
+      <h2 class="popup__title">Edit profile</h2>
+      <form id="edit-form" name="editForm" class="popup__form" action="#" novalidate>
+        <input
+          class="popup__input"
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Name"
+          minlength="2"
+          maxlength="40"
+          required
+        />
+        <span class="popup__input-error" id="name-input-error"></span>
+        <input
+          class="popup__input"
+          type="text"
+          id="job"
+          name="job"
+          placeholder="About me"
+          minlength="2"
+          maxlength="200"
+          required
+        />
+        <span class="popup__input-error" id="job-input-error"></span>
+        <button
+          class="button button_action_submit button_inactive"
+          type="submit"
+          value="Save"
+        >
+          Save
+        </button>
+      </form>
     </div>
+
+    <div class="popup__container popup__container_type_add">
+      <button class="button button_action_close" type="reset"></button>
+      <h2 class="popup__title">New place</h2>
+      <form id="add-form" name="addForm" class="popup__form" action="#" novalidate>
+        <input
+          class="popup__input"
+          type="text"
+          id="title"
+          name="title"
+          placeholder="Title"
+          minlength="1"
+          maxlength="30"
+          required
+        />
+        <span class="popup__input-error" id="title-input-error"></span>
+        <input
+          class="popup__input"
+          type="url"
+          id="imageUrl"
+          name="imageUrl"
+          placeholder="Image link"
+          required
+        />
+        <span class="popup__input-error" id="imageUrl-input-error"></span>
+        <button
+          class="button button_action_submit button_inactive"
+          type="submit"
+          value="Create"
+        >
+          Create
+        </button>
+      </form>
+    </div>
+    
 
     <div class="popup__image-overlay">
       <template id="image-popup-template">

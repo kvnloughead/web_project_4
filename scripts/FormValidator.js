@@ -1,4 +1,3 @@
-
 export class FormValidator {
   constructor(settingsObject, formToValidate) {
     this._args = settingsObject;
@@ -6,6 +5,8 @@ export class FormValidator {
     this._container = this._form.parentNode;
     this._inputList = Array.from(this._form.querySelectorAll(this._args.inputSelector));
     this._buttonElement = this._form.querySelector(this._args.submitButtonSelector);
+    this._resetButton = this._container.querySelector(this._args.closeButtonSelector);
+    this._modalOverlay = document.querySelector(this._args.modalOverlaySelector);
   }
 
   _showInputError(inputElement, errorMessage) {
@@ -34,23 +35,14 @@ export class FormValidator {
     }
   }
 
-  _setEventListeners() {
-    this._inputList.forEach((inputElement) => {
-      inputElement.addEventListener('input', () => {
-        this._checkInputValidity(inputElement);
-        this._toggleFormActiveState(this._inputList, this._buttonElement);
-      });
-    });
-  }
-
   _hasInvalidInput() {
     return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   }
 
-  _toggleFormActiveState() {
-    if (this._hasInvalidInput()) {
+  _toggleButtonState(disableButton = false) {
+    if (this._hasInvalidInput() || disableButton) {
       this._buttonElement.classList.add(this._args.inactiveButtonClass);
       this._buttonElement.disabled = true;
     } else {
@@ -59,29 +51,46 @@ export class FormValidator {
     }
   }
 
+  _setEventListeners() {
+    this._inputList.forEach((inputElement) => {
+      inputElement.addEventListener('input', () => {
+        this._checkInputValidity(inputElement);
+        this._toggleButtonState();
+      });
+    });
+  }
+
+  _resetErrorMessages() {
+    this._toggleButtonState(true);
+    for (const input of this._inputList) {
+      this._hideInputError(input)
+    }
+  }
+
   enableValidation() {
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
+      this._toggleButtonState(true);
     });
+
+    // These listeners enable the removal of error messages upon closing
+    // the form.  I've now been told that this was not necessary for the
+    // project, but I'd rather leave it in.
+
+    this._resetButton.addEventListener('click', () => {
+      this._resetErrorMessages();
+    });
+
+    this._modalOverlay.addEventListener('click', () => {
+      this._resetErrorMessages();
+    });
+
+    document.addEventListener('keydown', (evt) => {
+      if (evt.key === "Escape") {
+        this._resetErrorMessages();
+      }
+    });
+    
     this._setEventListeners();
   }
-
-  // _inputHandler(inputElement) {
-  //   this._checkInputValidity(inputElement);
-  //   this._toggleFormActiveState();
-  // }
-
-  // _addInputListeners() {
-  //   this._inputList.forEach((inputElement) => {
-  //     inputElement.addEventListener("input", () => {
-  //       this._inputHandler(inputElement);
-  //     });
-  //   });
-  // }
-
-  // enableValidation() {
-  //   this._toggleFormActiveState();
-  //   this._addInputListeners();
-
-  // }
 }

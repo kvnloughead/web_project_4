@@ -1,5 +1,3 @@
-// Sorry about last time.  I forgot to push to master.
-
 export class FormValidator {
   constructor(settingsObject, formToValidate) {
     this._args = settingsObject;
@@ -70,37 +68,11 @@ export class FormValidator {
     });
   }
 
-  _resetErrorMessages() {
-    this._toggleButtonState(true);
-    for (const input of this._inputList) {
-      this._hideInputError(input);
-    }
-  }
-
   enableValidation() {
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._toggleButtonState(true);
     });
-
-    // These listeners enable the removal of error messages upon closing
-    // the form.  I've now been told that this was not necessary for the
-    // project, but I'd rather leave it in.
-
-    this._resetButton.addEventListener("click", () => {
-      this._resetErrorMessages();
-    });
-
-    this._modalOverlay.addEventListener("click", () => {
-      this._resetErrorMessages();
-    });
-
-    document.addEventListener("keydown", (evt) => {
-      if (evt.key === "Escape") {
-        this._resetErrorMessages();
-      }
-    });
-
     this._setEventListeners();
   }
 }

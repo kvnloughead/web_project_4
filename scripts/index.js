@@ -1,35 +1,9 @@
 import { Card } from './Card.js';
+import Section from './Section.js';
 import { FormValidator } from './FormValidator.js';
 
-const initialCards = [
-  {
-      name: 'Yosemite Valley',
-      link: 'https://code.s3.yandex.net/web-code/yosemite.jpg'
-  },
-  {
-      name: 'Lake Louise',
-      link: 'https://code.s3.yandex.net/web-code/lake-louise.jpg'
-  },
-  {
-      name: 'Bald Mountains',
-      link: 'https://code.s3.yandex.net/web-code/bald-mountains.jpg'
-  },
-  {
-      name: 'Latemar',
-      link: 'https://code.s3.yandex.net/web-code/latemar.jpg'
-  },
-  {
-      name: 'Vanois National Park',
-      link: 'https://code.s3.yandex.net/web-code/vanois.jpg'
-  },
-  {
-      name: 'Lago di Braies',
-      link: 'https://code.s3.yandex.net/web-code/lago.jpg'
-  }
-];
-
 const cardSelector = '#card-template';
-const placesGrid = document.querySelector(".places__grid");
+const placesGridSelector = ".places__grid";
 
 const editBtn = document.querySelector('.button_action_edit');
 const addBtn = document.querySelector('.button_action_add');
@@ -65,6 +39,50 @@ const editFormValidator = new FormValidator(modalArgs, editForm);
 addFormValidator.enableValidation();
 editFormValidator.enableValidation();
 
+const initialCards = [
+  {
+      name: 'Yosemite Valley',
+      link: 'https://code.s3.yandex.net/web-code/yosemite.jpg'
+  },
+  {
+      name: 'Lake Louise',
+      link: 'https://code.s3.yandex.net/web-code/lake-louise.jpg'
+  },
+  {
+      name: 'Bald Mountains',
+      link: 'https://code.s3.yandex.net/web-code/bald-mountains.jpg'
+  },
+  {
+      name: 'Latemar',
+      link: 'https://code.s3.yandex.net/web-code/latemar.jpg'
+  },
+  {
+      name: 'Vanois National Park',
+      link: 'https://code.s3.yandex.net/web-code/vanois.jpg'
+  },
+  {
+      name: 'Lago di Braies',
+      link: 'https://code.s3.yandex.net/web-code/lago.jpg'
+  }
+];
+
+let cardElements = [];
+for (const card of initialCards) {
+  console.log(document.querySelector('#card-template'));
+  let cardEl = new Card(card.name, card.link, cardSelector);
+  cardEl = cardEl.generateCard();
+  cardElements.push(cardEl);
+} 
+
+const cardList = new Section(
+  {
+    data: cardElements,
+    renderer: (element) => {
+      cardList.addItem(element);
+  }
+}, placesGridSelector);
+cardList.renderItems();
+
 function togglePopupModal(container) {
   if (container.classList.contains('popup__container_type_edit')) {
     nameInputElement.value = profileName.textContent;
@@ -82,9 +100,12 @@ function formSubmitHandler(form, container, args, evt) {
     profileName.textContent = nameInputElement.value;
     profileJob.textContent = jobInputElement.value;
   } else {
+    console.log(document.querySelector('#card-template'));
     let newCard = new Card(titleInputElement.value, linkInputElement.value, args.cardSelector);
     newCard = newCard.generateCard();
-    placesGrid.prepend(newCard);
+    cardList.addItem(newCard);
+    // cardElements.unshift(newCard);
+    cardList.renderItems(); 
   }
   togglePopupModal(container);
 }
@@ -122,12 +143,7 @@ function addModalEventListeners(form, container, args) {
 
 addModalEventListeners(editForm, editContainer, modalArgs);
 addModalEventListeners(addForm, addContainer, modalArgs);
- 
-for (const card of initialCards) {
-  let cardEl = new Card(card.name, card.link, cardSelector);
-  cardEl = cardEl.generateCard();
-  placesGrid.prepend(cardEl);
-} 
+
 
 editBtn.addEventListener('click', () => {
   togglePopupModal(editContainer);

@@ -30,6 +30,7 @@ export class Card {
   }
 
   _deleteBtnHandler() {
+    
     this._placeEl.parentNode.removeChild(this._placeEl);
   }
 

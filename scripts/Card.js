@@ -1,10 +1,13 @@
-import { openImagePopupHandler } from "./utils.js";
+// import { openImagePopupHandler } from "./utils.js";
+
+import handleCardClick from "./utils.js";
 
 export class Card {
-  constructor(name, link, cardSelector) {
+  constructor(name, link, cardSelector, handleCardClick) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -30,13 +33,12 @@ export class Card {
   }
 
   _deleteBtnHandler() {
-    
     this._placeEl.parentNode.removeChild(this._placeEl);
   }
 
   _addEventListeners() {
     this._imageEl.addEventListener("click", () => {
-      openImagePopupHandler(this._name, this._link);
+      handleCardClick(this._name, this._link);
     });
     this._likeBtnEl.addEventListener("click", () => {
       this._likeBtnHandler();

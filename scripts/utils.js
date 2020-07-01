@@ -1,3 +1,6 @@
+import PopupWithImage from './PopupWithImage.js';
+
+const imagePopupSelector = '.popup__image';
 const imageOverlay = document.querySelector(".popup__image-overlay");
 const imagePopupTemplate = document.querySelector("#image-popup-template");
 const cloneOfTemplate = imagePopupTemplate.content.cloneNode(true);
@@ -35,11 +38,16 @@ function addImagePopupEventListeners() {
   });
 }
 
-export function openImagePopupHandler(name, link) {
-  imagePopupEl.src = link;
-  imagePopupEl.alt = `Image of ${name}`;
-  captionEl.textContent = name;
-  addImagePopupEventListeners();
-  imagePopupContainer.classList.add("popup__image-container_visible");
-  imageOverlay.classList.add("popup__image-overlay_visible");
+export default function handleCardClick(name, imageUrl) {
+  const popup = new PopupWithImage(imagePopupSelector, name, imageUrl);
+  popup.open();
 }
+
+// export function openImagePopupHandler(name, link) {
+//   imagePopupEl.src = link;
+//   imagePopupEl.alt = `Image of ${name}`;
+//   captionEl.textContent = name;
+//   addImagePopupEventListeners();
+//   imagePopupContainer.classList.add("popup__image-container_visible");
+//   imageOverlay.classList.add("popup__image-overlay_visible");
+// }

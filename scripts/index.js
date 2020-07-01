@@ -68,7 +68,6 @@ const initialCards = [
 
 let cardElements = [];
 for (const card of initialCards) {
-  console.log(document.querySelector('#card-template'));
   let cardEl = new Card(card.name, card.link, cardSelector);
   cardEl = cardEl.generateCard();
   cardElements.push(cardEl);
@@ -100,11 +99,9 @@ function formSubmitHandler(form, container, args, evt) {
     profileName.textContent = nameInputElement.value;
     profileJob.textContent = jobInputElement.value;
   } else {
-    console.log(document.querySelector('#card-template'));
     let newCard = new Card(titleInputElement.value, linkInputElement.value, args.cardSelector);
     newCard = newCard.generateCard();
     cardList.addItem(newCard);
-    // cardElements.unshift(newCard);
     cardList.renderItems(); 
   }
   togglePopupModal(container);

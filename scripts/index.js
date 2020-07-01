@@ -1,6 +1,7 @@
-import { Card } from './Card.js';
+import Card from './Card.js';
 import Section from './Section.js';
-import { FormValidator } from './FormValidator.js';
+import PopupWithForm from './PopupWithForm.js'
+import FormValidator from './FormValidator.js';
 
 const cardSelector = '#card-template';
 const placesGridSelector = ".places__grid";
@@ -82,24 +83,28 @@ const cardList = new Section(
 }, placesGridSelector);
 cardList.renderItems();
 
-function togglePopupModal(container) {
-  if (container.classList.contains('popup__container_type_edit')) {
-    nameInputElement.value = profileName.textContent;
-    jobInputElement.value = profileJob.textContent;
-  } else {
-    addForm.reset();
-  }
-  container.classList.toggle("popup__container_visible");
-  modalOverlay.classList.toggle("popup__modal-overlay_visible");
-}
+const editModalPopup = new PopupWithForm('.popup__container_type_edit', formSubmitHandler);
+const addModalPopup = new PopupWithForm('.popup__container_type_add', formSubmitHandler);
 
-function formSubmitHandler(form, container, args, evt) {
+
+// function togglePopupModal(container) {
+//   if (container.classList.contains('popup__container_type_edit')) {
+//     nameInputElement.value = profileName.textContent;
+//     jobInputElement.value = profileJob.textContent;
+//   } else {
+//     addForm.reset();
+//   }
+//   container.classList.toggle("popup__container_visible");
+//   modalOverlay.classList.toggle("popup__modal-overlay_visible");
+// }
+
+function formSubmitHandler(inputValues, form, container, cardSelector, evt) {
   evt.preventDefault();
   if (form.id === 'edit-form'){
-    profileName.textContent = nameInputElement.value;
-    profileJob.textContent = jobInputElement.value;
+    profileName.textContent = inputValues.name.value;
+    profileJob.textContent = inputValues.job.value;
   } else {
-    let newCard = new Card(titleInputElement.value, linkInputElement.value, args.cardSelector);
+    let newCard = new Card(inputValues.title.value, inputValues.imageUrl.value, cardSelector);
     newCard = newCard.generateCard();
     cardList.addItem(newCard);
     cardList.renderItems(); 
@@ -143,11 +148,12 @@ addModalEventListeners(addForm, addContainer, modalArgs);
 
 
 editBtn.addEventListener('click', () => {
-  togglePopupModal(editContainer);
+  editModalPopup.open();
 });
 
 addBtn.addEventListener('click', () => {
-  togglePopupModal(addContainer);
+  // togglePopupModal(addContainer);
+  addModalPopup.open();
 });
 
 

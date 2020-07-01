@@ -1,8 +1,6 @@
-// import { openImagePopupHandler } from "./utils.js";
-
 import handleCardClick from "./utils.js";
 
-export class Card {
+export default class Card {
   constructor(name, link, cardSelector, handleCardClick) {
     this._name = name;
     this._link = link;

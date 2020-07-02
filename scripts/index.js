@@ -2,6 +2,8 @@ import Card from './Card.js';
 import Section from './Section.js';
 import PopupWithForm from './PopupWithForm.js'
 import FormValidator from './FormValidator.js';
+import HandleCardClick from './utils.js';
+import handleCardClick from './utils.js';
 
 const cardSelector = '#card-template';
 const placesGridSelector = ".places__grid";
@@ -78,6 +80,7 @@ const cardList = new Section(
   {
     data: cardElements,
     renderer: (element) => {
+      
       cardList.addItem(element);
   }
 }, placesGridSelector);
@@ -85,74 +88,30 @@ cardList.renderItems();
 
 const editModalPopup = new PopupWithForm('.popup__container_type_edit', formSubmitHandler);
 const addModalPopup = new PopupWithForm('.popup__container_type_add', formSubmitHandler);
-
-
-// function togglePopupModal(container) {
-//   if (container.classList.contains('popup__container_type_edit')) {
-//     nameInputElement.value = profileName.textContent;
-//     jobInputElement.value = profileJob.textContent;
-//   } else {
-//     addForm.reset();
-//   }
-//   container.classList.toggle("popup__container_visible");
-//   modalOverlay.classList.toggle("popup__modal-overlay_visible");
-// }
+editModalPopup.setEventListeners();
+addModalPopup.setEventListeners();
 
 function formSubmitHandler(inputValues, form, container, cardSelector, evt) {
+  console.log(inputValues)
   evt.preventDefault();
   if (form.id === 'edit-form'){
-    profileName.textContent = inputValues.name.value;
-    profileJob.textContent = inputValues.job.value;
+    profileName.textContent = inputValues.name;
+    profileJob.textContent = inputValues.job;
+    editModalPopup.close();
   } else {
-    let newCard = new Card(inputValues.title.value, inputValues.imageUrl.value, cardSelector);
+    let newCard = new Card(inputValues.title, inputValues.imageUrl, cardSelector, handleCardClick);
     newCard = newCard.generateCard();
     cardList.addItem(newCard);
-    cardList.renderItems(); 
+    addModalPopup.close(); 
   }
-  togglePopupModal(container);
+
 }
-
-function addEscapeKeyListener(container) {
-  document.addEventListener("keydown", (evt) => {
-    if (
-      evt.key === "Escape" &&
-      container.classList.contains("popup__container_visible")
-    ) {
-      togglePopupModal(container);
-    }
-  });
-}
-
-function addPopupOverlayListener(container) {
-  modalOverlay.addEventListener("click", () => {
-    if (container.classList.contains("popup__container_visible")) {
-      togglePopupModal(container);
-    }
-  });
-}
-
-function addModalEventListeners(form, container, args) {
-  form.addEventListener('submit', (evt) => {
-    formSubmitHandler(form, container, args, evt);
-  });
-  const closeBtn = container.querySelector(args.closeButtonSelector);
-  closeBtn.addEventListener('click', () => {
-    togglePopupModal(container);
-  });
-  addPopupOverlayListener(container);
-  addEscapeKeyListener(container);
-}
-
-addModalEventListeners(editForm, editContainer, modalArgs);
-addModalEventListeners(addForm, addContainer, modalArgs);
-
 
 editBtn.addEventListener('click', () => {
   editModalPopup.open();
 });
 
 addBtn.addEventListener('click', () => {
-  // togglePopupModal(addContainer);
   addModalPopup.open();
 });
 

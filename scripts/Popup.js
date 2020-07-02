@@ -1,17 +1,16 @@
 export default class Popup {
-  constructor(popupSelector) { // popupSelector:  container selector
+  constructor(popupSelector) { 
     if (popupSelector === '.popup__image-container') {
       this._popupOverlaySelector = '.popup__image-overlay';
-      this._popupContainerClass = popupSelector;
+      this._popupContainerClass = popupSelector.slice(1);
     } else {
       this._popupOverlaySelector = '.popup__modal-overlay';
-      this._popupContainerClass = '.popup__container';
+      this._popupContainerClass = 'popup__container';
     }
     this._popupOverlayClass = this._popupOverlaySelector.slice(1);
     this._popupOverlay = document.querySelector(this._popupOverlaySelector);
 
     this._popupContainerSelector = popupSelector;
-    // this._popupContainerClass = this._popupContainerSelector.slice(1);
     this._popupContainer = document.querySelector(this._popupContainerSelector);
     
     this._closeButton = this._popupContainer.querySelector('.button_action_close');
@@ -23,8 +22,7 @@ export default class Popup {
       .add(`${this._popupOverlayClass}_visible`);
     this._popupContainer
       .classList
-      .add(`${this._popupContainerClass.slice(1)}_visible`);
-    this.setEventListeners();
+      .add(`${this._popupContainerClass}_visible`);
   }
 
   close() {
@@ -33,7 +31,7 @@ export default class Popup {
       .remove(`${this._popupOverlayClass}_visible`);
     this._popupContainer
       .classList
-      .remove(`${this._popupContainerClass.slice(1)}_visible`);
+      .remove(`${this._popupContainerClass}_visible`);
   }
 
   _handleEscClose() {

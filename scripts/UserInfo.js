@@ -5,9 +5,10 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-    return { name: this._profileNameEl.textContent, 
-             job: this._profileJobEl.textContent 
-            };
+    return {
+      name: this._profileNameEl.textContent,
+      job: this._profileJobEl.textContent,
+    };
   }
 
   setUserInfo(inputValues) {

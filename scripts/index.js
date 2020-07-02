@@ -2,8 +2,8 @@ import Card from './Card.js';
 import Section from './Section.js';
 import PopupWithForm from './PopupWithForm.js'
 import FormValidator from './FormValidator.js';
-import HandleCardClick from './utils.js';
 import handleCardClick from './utils.js';
+import UserInfo from './UserInfo.js';
 
 const cardSelector = '#card-template';
 const placesGridSelector = ".places__grid";
@@ -12,6 +12,8 @@ const editBtn = document.querySelector('.button_action_edit');
 const addBtn = document.querySelector('.button_action_add');
 const profileName = document.querySelector(".profile__name");
 const profileJob = document.querySelector(".profile__job");
+const profileNameSelector = '.profile__name';
+const profileJobSelector = '.profile__job';
 const modalOverlay = document.querySelector(".popup__modal-overlay");
 
 const editContainer = document.querySelector('.popup__container_type_edit');
@@ -91,12 +93,14 @@ const addModalPopup = new PopupWithForm('.popup__container_type_add', formSubmit
 editModalPopup.setEventListeners();
 addModalPopup.setEventListeners();
 
+const userInfo = new UserInfo({ nameSelector: profileNameSelector, jobSelector: profileJobSelector });
+
 function formSubmitHandler(inputValues, form, container, cardSelector, evt) {
-  console.log(inputValues)
   evt.preventDefault();
   if (form.id === 'edit-form'){
-    profileName.textContent = inputValues.name;
-    profileJob.textContent = inputValues.job;
+    // profileName.textContent = inputValues.name;
+    // profileJob.textContent = inputValues.job;
+    userInfo.setUserInfo(inputValues);
     editModalPopup.close();
   } else {
     let newCard = new Card(inputValues.title, inputValues.imageUrl, cardSelector, handleCardClick);

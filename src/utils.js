@@ -11,5 +11,6 @@ imageOverlay.parentNode.appendChild(imagePopupContainer);
 
 export default function handleCardClick(name, imageUrl) {
   const popup = new PopupWithImage(imagePopupSelector, name, imageUrl);
+  popup.setEventListeners();
   popup.open();
 }

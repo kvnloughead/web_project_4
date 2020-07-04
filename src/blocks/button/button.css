@@ -2,7 +2,6 @@
 @import url('./_action/button_action_edit.css');
 @import url('./_action/button_action_submit.css');
 @import url('./_action/button_action_close.css');
-/* @import url('./_action/button_action_delete.css'); */
 @import url('./_inactive/button_inactive.css');
 
 .button {
@@ -14,7 +13,7 @@
 
 .button:hover {
   opacity: .6;
-  cursor: url('../../../images/icons/finger.svg'), auto;
+  cursor: url('../../images/icons/finger.svg'), auto;
 }
 
 

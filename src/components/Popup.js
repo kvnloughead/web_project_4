@@ -24,7 +24,6 @@ export default class Popup {
   }
 
   close() {
-    console.log('closing')
     this._popupOverlay.classList.remove(`${this._popupOverlayClass}_visible`);
     this._popupContainer.classList.remove(
       `${this._popupContainerClass}_visible`
@@ -47,7 +46,6 @@ export default class Popup {
   setEventListeners() {
     this._closeButton.addEventListener("click", () => {
       this.close();
-    console.log(this._closeButton)
     });
     this._popupOverlay.addEventListener("click", () => {
       this.close();

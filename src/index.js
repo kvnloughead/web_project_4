@@ -1,70 +1,20 @@
 import "./pages/index.css";
 
-import Card from "./Card.js";
-import Section from "./Section.js";
-import PopupWithForm from "./PopupWithForm.js";
-import FormValidator from "./FormValidator.js";
-import handleCardClick from "./utils.js";
-import UserInfo from "./UserInfo.js";
+import Card from "./components/Card.js";
+import Section from "./components/Section.js";
+import PopupWithForm from "./components/PopupWithForm.js";
+import FormValidator from "./components/FormValidator.js";
+import handleCardClick from "./utils/utils.js";
+import UserInfo from "./components/UserInfo.js";
+import { cardSelector, placesGridSelector, editBtn, addBtn, 
+         profileNameSelector, profileJobSelector, editForm, 
+         addForm, modalArgs, initialCards } from "./utils/constants.js";
 
-const cardSelector = "#card-template";
-const placesGridSelector = ".places__grid";
-
-const editBtn = document.querySelector(".button_action_edit");
-const addBtn = document.querySelector(".button_action_add");
-const profileNameSelector = ".profile__name";
-const profileJobSelector = ".profile__job";
-
-const editContainer = document.querySelector(".popup__container_type_edit");
-const editForm = editContainer.querySelector(".popup__form");
-
-const addContainer = document.querySelector(".popup__container_type_add");
-const addForm = addContainer.querySelector(".popup__form");
-
-const modalArgs = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".button_action_submit",
-  closeButtonSelector: ".button_action_close",
-  modalOverlaySelector: ".popup__modal-overlay",
-  inactiveInputClass: "popup__input_type_inactive",
-  inactiveButtonClass: "button_inactive",
-  inputErrorClass: "popup__input-error",
-  errorClass: "popup__input-error_active",
-  cardSelector: "#card-template",
-};
 
 const addFormValidator = new FormValidator(modalArgs, addForm);
 const editFormValidator = new FormValidator(modalArgs, editForm);
 addFormValidator.enableValidation();
 editFormValidator.enableValidation();
-
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://code.s3.yandex.net/web-code/latemar.jpg",
-  },
-  {
-    name: "Vanois National Park",
-    link: "https://code.s3.yandex.net/web-code/vanois.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://code.s3.yandex.net/web-code/lago.jpg",
-  },
-];
 
 let cardElements = [];
 for (const card of initialCards) {

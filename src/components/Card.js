@@ -1,4 +1,4 @@
-import handleCardClick from "./utils.js";
+import handleCardClick from "../utils/utils.js";
 
 export default class Card {
   constructor(name, link, cardSelector, handleCardClick) {

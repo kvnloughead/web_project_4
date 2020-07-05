@@ -21,9 +21,8 @@ export default class PopupWithForm extends Popup {
     this._popupContainer.addEventListener("submit", (evt) => {
       this._handleFormSubmit(
         this._getInputValues(),
-        this._form,
-        "#card-template",
-        evt
+        evt,
+        "#card-template"
       );
     });
   }

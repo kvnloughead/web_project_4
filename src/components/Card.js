@@ -37,7 +37,6 @@ export default class Card {
 
   _addEventListeners() {
     this._imageEl.addEventListener("click", () => {
-      console.log(this._name, this._link)
       handleCardClick(this._name, this._link);
     });
     this._likeBtnEl.addEventListener("click", () => {

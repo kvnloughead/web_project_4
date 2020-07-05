@@ -9,6 +9,14 @@ export const editForm = editContainer.querySelector(".popup__form");
 export const addContainer = document.querySelector(".popup__container_type_add");
 export const addForm = addContainer.querySelector(".popup__form");
 
+export const imagePopupSelector = ".popup__image-container";
+export const imageOverlay = document.querySelector(".popup__image-overlay");
+export const imagePopupTemplate = document.querySelector("#image-popup-template");
+export const cloneOfTemplate = imagePopupTemplate.content.cloneNode(true);
+export const imagePopupContainer = cloneOfTemplate.querySelector(
+  ".popup__image-container"
+);
+
 export const modalArgs = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",

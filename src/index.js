@@ -3,13 +3,18 @@ import "./pages/index.css";
 import Card from "./components/Card.js";
 import Section from "./components/Section.js";
 import PopupWithForm from "./components/PopupWithForm.js";
+import PopupWithImage from "./components/PopupWithImage.js";
 import FormValidator from "./components/FormValidator.js";
-import handleCardClick from "./utils/utils.js";
 import UserInfo from "./components/UserInfo.js";
 import { cardSelector, placesGridSelector, editBtn, addBtn, 
          profileNameSelector, profileJobSelector, editForm, 
-         addForm, modalArgs, initialCards } from "./utils/constants.js";
+         addForm, modalArgs, initialCards, imagePopupSelector,
+         imageOverlay, imagePopupTemplate, cloneOfTemplate,
+         imagePopupContainer } from "./utils/constants.js";
 
+imageOverlay.parentNode.appendChild(imagePopupContainer);
+const popup = new PopupWithImage(imagePopupSelector);
+popup.setEventListeners();
 
 const addFormValidator = new FormValidator(modalArgs, addForm);
 const editFormValidator = new FormValidator(modalArgs, editForm);
@@ -66,6 +71,10 @@ function formSubmitHandler(inputValues, form, cardSelector, evt) {
     cardList.addItem(newCard);
     addModalPopup.close();
   }
+}
+
+export default function handleCardClick(name, imageUrl) {
+  popup.open(name, imageUrl);
 }
 
 editBtn.addEventListener("click", () => {

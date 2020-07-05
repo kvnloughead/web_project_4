@@ -39,6 +39,7 @@ export default class Popup {
         )
       ) {
         this.close();
+        evt.target.removeEventListener("keydown", this._handleEscClose);
       }
     });
   }

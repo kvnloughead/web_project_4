@@ -5,10 +5,12 @@ export default class PopupWithForm extends Popup {
     super(popupSelector);
     this._handleFormSubmit = handleFormSubmit;
     this._form = this._popupContainer.querySelector(".popup__form");
+    this._inputList = this._popupContainer.querySelectorAll(".popup__input");
+    [ this._name, this._job ] = this._inputList;
   }
 
   _getInputValues() {
-    this._inputList = this._popupContainer.querySelectorAll(".popup__input");
+    // this._inputList = this._popupContainer.querySelectorAll(".popup__input");
     this._formValues = {};
     this._inputList.forEach((input) => {
       this._formValues[input.name] = input.value;
@@ -25,6 +27,12 @@ export default class PopupWithForm extends Popup {
         "#card-template"
       );
     });
+  }
+
+  open({ name, job }) {
+    this._name.value = name;
+    this._job.value = job;
+    super.open();
   }
 
   close() {

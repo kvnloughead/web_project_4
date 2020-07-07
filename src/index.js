@@ -89,7 +89,7 @@ editModalPopup.setEventListeners();
 addModalPopup.setEventListeners();
 
 editBtn.addEventListener("click", () => {
-  editModalPopup.open();
+  editModalPopup.open(userInfo.getUserInfo());
 });
 
 addBtn.addEventListener("click", () => {

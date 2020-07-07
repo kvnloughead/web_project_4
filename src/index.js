@@ -1,16 +1,27 @@
 import "./pages/index.css";
 
 // import Card from "./components/Card.js";
-import Card from "./components/Card.js"
+import Card from "./components/Card.js";
 import Section from "./components/Section.js";
 import PopupWithForm from "./components/PopupWithForm.js";
 import PopupWithImage from "./components/PopupWithImage.js";
 import FormValidator from "./components/FormValidator.js";
 import UserInfo from "./components/UserInfo.js";
-import { cardSelector, placesGridSelector, editBtn, addBtn, 
-         profileNameSelector, profileJobSelector, editForm, 
-         addForm, modalArgs, initialCards, imagePopupSelector,
-         imageOverlay, imagePopupContainer } from "./utils/constants.js";
+import {
+  cardSelector,
+  placesGridSelector,
+  editBtn,
+  addBtn,
+  profileNameSelector,
+  profileJobSelector,
+  editForm,
+  addForm,
+  modalArgs,
+  initialCards,
+  imagePopupSelector,
+  imageOverlay,
+  imagePopupContainer,
+} from "./utils/constants.js";
 
 imageOverlay.parentNode.appendChild(imagePopupContainer);
 const popup = new PopupWithImage(imagePopupSelector);
@@ -23,7 +34,7 @@ editFormValidator.enableValidation();
 
 const cardElements = [];
 for (const card of initialCards) {
-  let cardEl = new Card(card.name, card.link, cardSelector);
+  let cardEl = new Card(card.name, card.link, cardSelector, handleCardClick);
   cardEl = cardEl.generateCard();
   cardElements.push(cardEl);
 }

@@ -9,7 +9,6 @@
   z-index: 1;
   background-color: rgba(0, 0, 0, .5); 
   visibility: hidden;
-  /* transitioning properties */
   opacity:0;
   transition:visibility 0s linear .5s, opacity .5s linear;
 }

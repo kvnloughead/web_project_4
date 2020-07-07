@@ -1,12 +1,11 @@
 export default class Popup {
   constructor(popupSelector) {
     if (popupSelector === ".popup__image-container") {
-      this._popupOverlaySelector = ".popup__image-overlay";
       this._popupContainerClass = popupSelector.slice(1);
     } else {
-      this._popupOverlaySelector = ".popup__modal-overlay";
       this._popupContainerClass = "popup__container";
     }
+    this._popupOverlaySelector = ".popup__overlay";
     this._popupOverlayClass = this._popupOverlaySelector.slice(1);
     this._popupOverlay = document.querySelector(this._popupOverlaySelector);
 

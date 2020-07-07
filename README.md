@@ -17,7 +17,7 @@ A responsive web page built in HTML, CSS and JS.  Built from figma specs ([here]
 
 - Delete button and Like button on each card.
 
-Deployed [here](https://kvnloughead.github.io/web_project_4/index.html).
+Deployed [here](https://kvnloughead.github.io/web_project_4/dist).
 
 
 

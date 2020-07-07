@@ -31,6 +31,10 @@ const editFormValidator = new FormValidator(modalArgs, editForm);
 addFormValidator.enableValidation();
 editFormValidator.enableValidation();
 
+export default function handleCardClick(name, imageUrl) {
+  popup.open(name, imageUrl);
+}
+
 const cardElements = [];
 for (const card of initialCards) {
   let cardEl = new Card(card.name, card.link, cardSelector, handleCardClick);
@@ -53,10 +57,6 @@ const userInfo = new UserInfo({
   nameSelector: profileNameSelector,
   jobSelector: profileJobSelector,
 });
-
-export default function handleCardClick(name, imageUrl) {
-  popup.open(name, imageUrl);
-}
 
 function editFormSubmitHandler(inputValues, evt) {
   evt.preventDefault();

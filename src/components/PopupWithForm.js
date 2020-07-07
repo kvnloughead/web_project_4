@@ -28,9 +28,11 @@ export default class PopupWithForm extends Popup {
     });
   }
 
-  open({ name, job }) {
-    this._name.value = name;
-    this._job.value = job;
+  open(currentUserInfo) {
+    if (currentUserInfo) {
+      this._name.value = currentUserInfo.name;
+      this._job.value = currentUserInfo.job;
+    }
     super.open();
   }
 

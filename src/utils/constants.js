@@ -10,7 +10,7 @@ export const addContainer = document.querySelector(".popup__container_type_add")
 export const addForm = addContainer.querySelector(".popup__form");
 
 export const imagePopupSelector = ".popup__image-container";
-export const imageOverlay = document.querySelector(".popup__image-overlay");
+export const popupOverlay = document.querySelector(".popup__overlay");
 export const imagePopupTemplate = document.querySelector("#image-popup-template");
 export const cloneOfTemplate = imagePopupTemplate.content.cloneNode(true);
 export const imagePopupContainer = cloneOfTemplate.querySelector(
@@ -22,7 +22,7 @@ export const modalArgs = {
   inputSelector: ".popup__input",
   submitButtonSelector: ".button_action_submit",
   closeButtonSelector: ".button_action_close",
-  modalOverlaySelector: ".popup__modal-overlay",
+  popupOverlaySelector: ".popup__overlay",
   inactiveInputClass: "popup__input_type_inactive",
   inactiveButtonClass: "button_inactive",
   inputErrorClass: "popup__input-error",

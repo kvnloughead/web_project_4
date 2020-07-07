@@ -12,8 +12,8 @@ export default class FormValidator {
     this._resetButton = this._container.querySelector(
       this._args.closeButtonSelector
     );
-    this._modalOverlay = document.querySelector(
-      this._args.modalOverlaySelector
+    this._popupOverlay = document.querySelector(
+      this._args.popupOverlaySelector
     );
   }
 

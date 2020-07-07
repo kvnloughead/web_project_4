@@ -1,6 +1,5 @@
 import "./pages/index.css";
 
-// import Card from "./components/Card.js";
 import Card from "./components/Card.js";
 import Section from "./components/Section.js";
 import PopupWithForm from "./components/PopupWithForm.js";
@@ -19,11 +18,11 @@ import {
   modalArgs,
   initialCards,
   imagePopupSelector,
-  imageOverlay,
+  popupOverlay,
   imagePopupContainer,
 } from "./utils/constants.js";
 
-imageOverlay.parentNode.appendChild(imagePopupContainer);
+popupOverlay.parentNode.appendChild(imagePopupContainer);
 const popup = new PopupWithImage(imagePopupSelector);
 popup.setEventListeners();
 
@@ -55,23 +54,6 @@ const userInfo = new UserInfo({
   jobSelector: profileJobSelector,
 });
 
-// function formSubmitHandler(inputValues, form, cardSelector, evt) {
-//   evt.preventDefault();
-//   if (form.id === "edit-form") {
-//     userInfo.setUserInfo(inputValues);
-//     editModalPopup.close();
-//   } else {
-//     let newCard = new Card(
-//       inputValues.title,
-//       inputValues.imageUrl,
-//       cardSelector,
-//       handleCardClick
-//     );
-//     newCard = newCard.generateCard();
-//     cardList.addItem(newCard);
-//     addModalPopup.close();
-//   }
-// }
 export default function handleCardClick(name, imageUrl) {
   popup.open(name, imageUrl);
 }

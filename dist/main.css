@@ -25,10 +25,8 @@
 .place{border-radius:10px;background-color:#fff;position:relative;height:362px}
 .footer__copyright{font-size:18px;line-height:18px;color:#545454;align-self:left;margin:0}
 .footer{margin:0 0 60px;display:flex;width:882px}@media screen and (max-width:930px){.footer{width:582px}}@media screen and (max-width:620px){.footer{width:282px}}
-.popup__modal-overlay{position:fixed;width:100%;height:100%;top:0;left:0;right:0;bottom:0;z-index:1;background-color:rgba(0,0,0,.5);visibility:hidden;opacity:0;transition:visibility 0s linear .5s,opacity .5s linear}
-.popup__modal-overlay.popup__modal-overlay_visible{visibility:visible;opacity:1;transition-delay:0s}
-.popup__image-overlay{position:fixed;width:100%;height:100%;top:0;left:0;right:0;bottom:0;z-index:1;background-color:rgba(0,0,0,.9);visibility:hidden;opacity:0;transition:visibility 0s linear .5s,opacity .5s linear}
-.popup__image-overlay.popup__image-overlay_visible{visibility:visible;opacity:1;transition-delay:0s}
+.popup__overlay{position:fixed;width:100%;height:100%;top:0;left:0;right:0;bottom:0;z-index:1;background-color:rgba(0,0,0,.5);visibility:hidden;opacity:0;transition:visibility 0s linear .5s,opacity .5s linear}
+.popup__overlay.popup__overlay_visible{visibility:visible;opacity:1;transition-delay:0s}
 .popup__container{position:fixed;width:430px;height:330px;background-color:#fff;box-shadow:0 0 25px rgba(0,0,0,.15);border-radius:10px;display:flex;flex-direction:column;justify-content:left;padding:34px 36px 36px;box-sizing:border-box;top:50%;left:50%;margin-top:-165px;margin-left:-215px;z-index:2;visibility:hidden;opacity:0;transition:visibility 0s linear .5s,opacity .5s linear}@media screen and (max-width:500px){.popup__container{width:240px;height:258px;padding:28px 20px 30px;margin-top:-99.23px;margin-left:-122.3px}}
 .popup__container.popup__container_visible{visibility:visible;opacity:1;transition-delay:0s}
 .popup__form{display:flex;flex-direction:column;justify-content:space-between}

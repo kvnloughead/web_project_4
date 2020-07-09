@@ -58,25 +58,6 @@ const userInfo = new UserInfo({
   jobSelector: profileJobSelector,
 });
 
-function editFormSubmitHandler(inputValues, evt) {
-  evt.preventDefault();
-  userInfo.setUserInfo(inputValues);
-  editModalPopup.close();
-}
-
-function addFormSubmitHandler(inputValues, evt, cardSelector) {
-  evt.preventDefault();
-  let newCard = new Card(
-    inputValues.title,
-    inputValues.imageUrl,
-    cardSelector,
-    handleCardClick
-  );
-  newCard = newCard.generateCard();
-  cardList.addItem(newCard);
-  addModalPopup.close();
-}
-
 const editModalPopup = new PopupWithForm(
   ".popup__container_type_edit",
   editFormSubmitHandler
@@ -87,6 +68,26 @@ const addModalPopup = new PopupWithForm(
 );
 editModalPopup.setEventListeners();
 addModalPopup.setEventListeners();
+
+
+function editFormSubmitHandler(inputValues, evt) {
+  evt.preventDefault();
+  userInfo.setUserInfo(inputValues);
+  editModalPopup.close();
+}
+
+function addFormSubmitHandler(inputValues, evt, selector) {
+  evt.preventDefault();
+  let newCard = new Card(
+    inputValues.title,
+    inputValues.imageUrl,
+    selector,
+    handleCardClick
+  );
+  newCard = newCard.generateCard();
+  cardList.addItem(newCard);
+  addModalPopup.close();
+}
 
 editBtn.addEventListener("click", () => {
   editModalPopup.open(userInfo.getUserInfo());

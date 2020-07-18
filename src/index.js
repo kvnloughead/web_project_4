@@ -17,10 +17,10 @@ import {
   editForm,
   addForm,
   modalArgs,
-  initialCards,
   imagePopupSelector,
   popupOverlay,
   imagePopupContainer,
+  profileImageSelector,
 } from "./utils/constants.js";
 
 const api = new Api({
@@ -50,9 +50,21 @@ api.getInitialCards()
       placesGridSelector
     );
     cardList.renderItems();
+  })
+  .catch((err) => {
+    console.log(err);
   });
 
-api.loadUserInfo();
+const userInfo = new UserInfo({
+  nameSelector: profileNameSelector,
+  jobSelector: profileJobSelector,
+  imageSelector: profileImageSelector
+});
+
+api.loadUserInfo()
+  .then((res) => {
+    userInfo.setUserInfo(res);
+  });
 
 popupOverlay.parentNode.appendChild(imagePopupContainer);
 const popup = new PopupWithImage(imagePopupSelector);
@@ -85,10 +97,10 @@ export default function handleCardClick(name, imageUrl) {
 // );
 // cardList.renderItems();
 
-const userInfo = new UserInfo({
-  nameSelector: profileNameSelector,
-  jobSelector: profileJobSelector,
-});
+// const userInfo = new UserInfo({
+//   nameSelector: profileNameSelector,
+//   jobSelector: profileJobSelector,
+// });
 
 const editModalPopup = new PopupWithForm(
   ".popup__container_type_edit",
@@ -120,6 +132,7 @@ function addFormSubmitHandler(inputValues, evt, selector) {
   cardList.addItem(newCard);
   addModalPopup.close();
 }
+
 
 editBtn.addEventListener("click", () => {
   editModalPopup.open(userInfo.getUserInfo());

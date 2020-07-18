@@ -31,7 +31,27 @@ const api = new Api({
   }
 });
 
-api.getInitialCards();
+api.getInitialCards()
+  .then((initialCards) => {
+    const cardElements = [];
+    for (const card of initialCards) {
+      let cardEl = new Card(card.name, card.link, cardSelector, handleCardClick);
+      cardEl = cardEl.generateCard();
+      cardElements.push(cardEl);
+    }
+
+    const cardList = new Section(
+      {
+        data: cardElements,
+        renderer: (element) => {
+          cardList.addItem(element);
+        },
+      },
+      placesGridSelector
+    );
+    cardList.renderItems();
+  });
+
 api.loadUserInfo();
 
 popupOverlay.parentNode.appendChild(imagePopupContainer);
@@ -47,23 +67,23 @@ export default function handleCardClick(name, imageUrl) {
   popup.open(name, imageUrl);
 }
 
-const cardElements = [];
-for (const card of initialCards) {
-  let cardEl = new Card(card.name, card.link, cardSelector, handleCardClick);
-  cardEl = cardEl.generateCard();
-  cardElements.push(cardEl);
-}
+// const cardElements = [];
+// for (const card of initialCards) {
+//   let cardEl = new Card(card.name, card.link, cardSelector, handleCardClick);
+//   cardEl = cardEl.generateCard();
+//   cardElements.push(cardEl);
+// }
 
-const cardList = new Section(
-  {
-    data: cardElements,
-    renderer: (element) => {
-      cardList.addItem(element);
-    },
-  },
-  placesGridSelector
-);
-cardList.renderItems();
+// const cardList = new Section(
+//   {
+//     data: cardElements,
+//     renderer: (element) => {
+//       cardList.addItem(element);
+//     },
+//   },
+//   placesGridSelector
+// );
+// cardList.renderItems();
 
 const userInfo = new UserInfo({
   nameSelector: profileNameSelector,

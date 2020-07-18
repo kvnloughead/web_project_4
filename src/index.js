@@ -1,5 +1,6 @@
 import "./pages/index.css";
 
+import Api from "./components/Api.js";
 import Card from "./components/Card.js";
 import Section from "./components/Section.js";
 import PopupWithForm from "./components/PopupWithForm.js";
@@ -21,6 +22,17 @@ import {
   popupOverlay,
   imagePopupContainer,
 } from "./utils/constants.js";
+
+const api = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/group-2",
+  headers: {
+    authorization: "dc340326-95ec-4474-9060-e6102316f742",
+    "Content-Type": "application/json"
+  }
+});
+
+api.getInitialCards();
+api.loadUserInfo();
 
 popupOverlay.parentNode.appendChild(imagePopupContainer);
 const popup = new PopupWithImage(imagePopupSelector);

@@ -14,13 +14,14 @@ import {
   addBtn,
   profileNameSelector,
   profileJobSelector,
+  profileImageSelector,
+  profileImageElement,
   editForm,
   addForm,
   modalArgs,
   imagePopupSelector,
   popupOverlay,
   imagePopupContainer,
-  profileImageSelector,
 } from "./utils/constants.js";
 
 const api = new Api({
@@ -141,3 +142,7 @@ editBtn.addEventListener("click", () => {
 addBtn.addEventListener("click", () => {
   addModalPopup.open();
 });
+
+profileImageElement.addEventListener('click', () => {
+  console.log('clicked')
+})

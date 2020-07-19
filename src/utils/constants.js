@@ -5,6 +5,7 @@ export const addBtn = document.querySelector(".button_action_add");
 export const profileNameSelector = ".profile__name";
 export const profileJobSelector = ".profile__job";
 export const profileImageSelector = ".profile__image";
+export const profileImageElement = document.querySelector(profileImageSelector);
 export const editContainer = document.querySelector(
   ".popup__container_type_edit"
 );

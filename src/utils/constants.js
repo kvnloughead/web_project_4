@@ -14,6 +14,8 @@ export const addContainer = document.querySelector(
   ".popup__container_type_add"
 );
 export const addForm = addContainer.querySelector(".popup__form");
+export const avatarContainer = document.querySelector(".popup__container_type_avatar");
+export const avatarForm = avatarContainer.querySelector('.popup__form');
 
 export const imagePopupSelector = ".popup__image-container";
 export const popupOverlay = document.querySelector(".popup__overlay");

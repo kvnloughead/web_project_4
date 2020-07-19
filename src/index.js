@@ -18,11 +18,13 @@ import {
   profileImageElement,
   editForm,
   addForm,
+  avatarForm,
   modalArgs,
   imagePopupSelector,
   popupOverlay,
   imagePopupContainer,
 } from "./utils/constants.js";
+import Popup from "./components/Popup";
 
 const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/group-2",
@@ -73,35 +75,14 @@ popup.setEventListeners();
 
 const addFormValidator = new FormValidator(modalArgs, addForm);
 const editFormValidator = new FormValidator(modalArgs, editForm);
+const avatarFormValidator = new FormValidator(modalArgs, avatarForm);
 addFormValidator.enableValidation();
 editFormValidator.enableValidation();
+avatarFormValidator.enableValidation();
 
 export default function handleCardClick(name, imageUrl) {
   popup.open(name, imageUrl);
 }
-
-// const cardElements = [];
-// for (const card of initialCards) {
-//   let cardEl = new Card(card.name, card.link, cardSelector, handleCardClick);
-//   cardEl = cardEl.generateCard();
-//   cardElements.push(cardEl);
-// }
-
-// const cardList = new Section(
-//   {
-//     data: cardElements,
-//     renderer: (element) => {
-//       cardList.addItem(element);
-//     },
-//   },
-//   placesGridSelector
-// );
-// cardList.renderItems();
-
-// const userInfo = new UserInfo({
-//   nameSelector: profileNameSelector,
-//   jobSelector: profileJobSelector,
-// });
 
 const editModalPopup = new PopupWithForm(
   ".popup__container_type_edit",
@@ -111,13 +92,23 @@ const addModalPopup = new PopupWithForm(
   ".popup__container_type_add",
   addFormSubmitHandler
 );
+const changeAvatarPopup = new PopupWithForm(
+  ".popup__container_type_avatar",
+  changeAvatarSubmitHandler
+);
 editModalPopup.setEventListeners();
 addModalPopup.setEventListeners();
-
+changeAvatarPopup.setEventListeners();
 
 function editFormSubmitHandler(inputValues, evt) {
   evt.preventDefault();
-  userInfo.setUserInfo(inputValues);
+  api.changeUserInfo(inputValues)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      userInfo.setUserInfo(data);
+    })
   editModalPopup.close();
 }
 
@@ -134,6 +125,18 @@ function addFormSubmitHandler(inputValues, evt, selector) {
   addModalPopup.close();
 }
 
+function changeAvatarSubmitHandler(inputValues, evt) {
+  evt.preventDefault();
+  api.changeAvatar(inputValues.avatar)
+    .then((res) => {
+      return res.json();
+    })
+    .then(({ avatar }) => {
+      profileImageElement.src = avatar;
+      changeAvatarPopup.close();
+    })
+}
+
 
 editBtn.addEventListener("click", () => {
   editModalPopup.open(userInfo.getUserInfo());
@@ -144,5 +147,5 @@ addBtn.addEventListener("click", () => {
 });
 
 profileImageElement.addEventListener('click', () => {
-  console.log('clicked')
-})
+  changeAvatarPopup.open();
+});

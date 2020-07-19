@@ -49,6 +49,37 @@
       </div>
 
       <div class="popup__overlay"></div>
+      <div class="popup__container popup__container_type_avatar">
+        <button class="button button_action_close" type="reset"></button>
+        <h2 class="popup__title">Change profile picture</h2>
+        <form
+          id="avatar-form"
+          name="avatarForm"
+          class="popup__form"
+          action="#"
+          novalidate
+        >
+          <input
+            class="popup__input"
+            type="url"
+            id="avatar"
+            name="avatar"
+            placeholder="Enter link to image"
+            minlength="2"
+            required
+          />
+          <span class="popup__input-error" id="avatar-input-error"></span>
+         
+          <button
+            class="button button_action_submit button_inactive"
+            type="submit"
+            value="Save"
+          >
+            Save
+          </button>
+        </form>
+      </div>
+
       <div class="popup__container popup__container_type_edit">
         <button class="button button_action_close" type="reset"></button>
         <h2 class="popup__title">Edit profile</h2>

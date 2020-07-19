@@ -30,5 +30,32 @@ export default class Api {
       });
   }
 
+  changeAvatar(link) {
+    return fetch("https://around.nomoreparties.co/v1/group-2/users/me/avatar", {
+      method: "PATCH",
+      headers: {
+        authorization: "dc340326-95ec-4474-9060-e6102316f742",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        avatar: link
+      })
+    })
+  }
+
+  changeUserInfo({ name, job }) {
+    return fetch("https://around.nomoreparties.co/v1/group-2/users/me", {
+      method: "PATCH",
+      headers: {
+        authorization: "dc340326-95ec-4474-9060-e6102316f742",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: name,
+        about: job
+      })
+    });
+  }
+
   // other methods for working with the API
 }

@@ -14,8 +14,9 @@ export default class UserInfo {
   }
 
   setUserInfo(inputValues) {
+    console.log(inputValues)
     this._profileNameEl.textContent = inputValues.name;
-    this._profileJobEl.textContent = inputValues.job;
+    this._profileJobEl.textContent = inputValues.about;
     this._profileImageEl.src = inputValues.avatar;
   }
 }

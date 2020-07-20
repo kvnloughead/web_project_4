@@ -57,5 +57,26 @@ export default class Api {
     });
   }
 
-  // other methods for working with the API
+  addNewCard({ title, imageUrl }) {
+    return fetch("https://around.nomoreparties.co/v1/group-2/cards", {
+      method: "POST",
+      headers: {
+        authorization: "dc340326-95ec-4474-9060-e6102316f742",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: title,
+        link: imageUrl
+      })
+    });
+  }
+
+
+  addLike( ) {
+
+  }
+
+  removeLike() {
+    
+  }
 }

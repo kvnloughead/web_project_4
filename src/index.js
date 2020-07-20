@@ -24,25 +24,35 @@ import {
   popupOverlay,
   imagePopupContainer,
 } from "./utils/constants.js";
-import Popup from "./components/Popup";
 
 const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/group-2",
   headers: {
     authorization: "dc340326-95ec-4474-9060-e6102316f742",
-    "Content-Type": "application/json"
-  }
+    "Content-Type": "application/json",
+  },
 });
 
-api.getInitialCards()
+function handleLikeClick() {
+  
+}
+
+const cardList = api
+  .getInitialCards()
   .then((initialCards) => {
     const cardElements = [];
     for (const card of initialCards) {
-      let cardEl = new Card(card.name, card.link, cardSelector, handleCardClick);
+      let cardEl = new Card(
+        card.name,
+        card.link,
+        cardSelector,
+        card.likes,
+        handleCardClick,
+        handleLikeClick
+      );
       cardEl = cardEl.generateCard();
       cardElements.push(cardEl);
     }
-
     const cardList = new Section(
       {
         data: cardElements,
@@ -53,6 +63,7 @@ api.getInitialCards()
       placesGridSelector
     );
     cardList.renderItems();
+    return cardList;
   })
   .catch((err) => {
     console.log(err);
@@ -61,13 +72,12 @@ api.getInitialCards()
 const userInfo = new UserInfo({
   nameSelector: profileNameSelector,
   jobSelector: profileJobSelector,
-  imageSelector: profileImageSelector
+  imageSelector: profileImageSelector,
 });
 
-api.loadUserInfo()
-  .then((res) => {
-    userInfo.setUserInfo(res);
-  });
+api.loadUserInfo().then((res) => {
+  userInfo.setUserInfo(res);
+});
 
 popupOverlay.parentNode.appendChild(imagePopupContainer);
 const popup = new PopupWithImage(imagePopupSelector);
@@ -102,41 +112,47 @@ changeAvatarPopup.setEventListeners();
 
 function editFormSubmitHandler(inputValues, evt) {
   evt.preventDefault();
-  api.changeUserInfo(inputValues)
+  api
+    .changeUserInfo(inputValues)
     .then((res) => {
       return res.json();
     })
     .then((data) => {
       userInfo.setUserInfo(data);
-    })
+    });
   editModalPopup.close();
 }
 
 function addFormSubmitHandler(inputValues, evt, selector) {
   evt.preventDefault();
-  let newCard = new Card(
-    inputValues.title,
-    inputValues.imageUrl,
-    selector,
-    handleCardClick
-  );
-  newCard = newCard.generateCard();
-  cardList.addItem(newCard);
+  api
+    .addNewCard(inputValues)
+    .then((res) => {
+      return res.json();
+    })
+    .then(({ name, link }) => {
+      let newCard = new Card(name, link, selector, handleCardClick, handleLikeClick);
+      newCard = newCard.generateCard();
+      cardList.then((data) => {
+        data.addItem(newCard);
+        data.renderItems();
+      });
+    });
   addModalPopup.close();
 }
 
 function changeAvatarSubmitHandler(inputValues, evt) {
   evt.preventDefault();
-  api.changeAvatar(inputValues.avatar)
+  api
+    .changeAvatar(inputValues.avatar)
     .then((res) => {
       return res.json();
     })
     .then(({ avatar }) => {
       profileImageElement.src = avatar;
       changeAvatarPopup.close();
-    })
+    });
 }
-
 
 editBtn.addEventListener("click", () => {
   editModalPopup.open(userInfo.getUserInfo());
@@ -146,6 +162,6 @@ addBtn.addEventListener("click", () => {
   addModalPopup.open();
 });
 
-profileImageElement.addEventListener('click', () => {
+profileImageElement.addEventListener("click", () => {
   changeAvatarPopup.open();
 });

@@ -4,6 +4,7 @@ import Api from "./components/Api.js";
 import Card from "./components/Card.js";
 import Section from "./components/Section.js";
 import PopupWithForm from "./components/PopupWithForm.js";
+import PopupWithConfirm from "./components/PopupWithConfirm.js";
 import PopupWithImage from "./components/PopupWithImage.js";
 import FormValidator from "./components/FormValidator.js";
 import UserInfo from "./components/UserInfo.js";
@@ -19,6 +20,7 @@ import {
   editForm,
   addForm,
   avatarForm,
+  deleteForm,
   modalArgs,
   imagePopupSelector,
   popupOverlay,
@@ -33,9 +35,7 @@ const api = new Api({
   },
 });
 
-function handleLikeClick() {
-  
-}
+function handleLikeClick() {}
 
 const cardList = api
   .getInitialCards()
@@ -43,12 +43,14 @@ const cardList = api
     const cardElements = [];
     for (const card of initialCards) {
       let cardEl = new Card(
+        card._id,
         card.name,
         card.link,
         cardSelector,
         card.likes,
         handleCardClick,
-        handleLikeClick
+        handleLikeClick,
+        openDeleteModal,
       );
       cardEl = cardEl.generateCard();
       cardElements.push(cardEl);
@@ -80,18 +82,19 @@ api.loadUserInfo().then((res) => {
 });
 
 popupOverlay.parentNode.appendChild(imagePopupContainer);
-const popup = new PopupWithImage(imagePopupSelector);
-popup.setEventListeners();
+const imagePopup = new PopupWithImage(imagePopupSelector);
+imagePopup.setEventListeners();
 
 const addFormValidator = new FormValidator(modalArgs, addForm);
 const editFormValidator = new FormValidator(modalArgs, editForm);
 const avatarFormValidator = new FormValidator(modalArgs, avatarForm);
+const deleteFormValidator = new FormValidator(modalArgs, deleteForm)
 addFormValidator.enableValidation();
 editFormValidator.enableValidation();
 avatarFormValidator.enableValidation();
 
 export default function handleCardClick(name, imageUrl) {
-  popup.open(name, imageUrl);
+  imagePopup.open(name, imageUrl);
 }
 
 const editModalPopup = new PopupWithForm(
@@ -106,9 +109,26 @@ const changeAvatarPopup = new PopupWithForm(
   ".popup__container_type_avatar",
   changeAvatarSubmitHandler
 );
+const deletePopup = new PopupWithConfirm(
+  ".popup__container_type_delete",
+  deleteButtonSubmitHandler
+)
+
 editModalPopup.setEventListeners();
 addModalPopup.setEventListeners();
 changeAvatarPopup.setEventListeners();
+deletePopup.setEventListeners();
+
+function openDeleteModal(cardId, card) {
+  deletePopup.open(cardId, card);
+}
+
+function deleteButtonSubmitHandler(cardId, card) {
+  api.deleteCard(cardId);
+  deletePopup.close();
+  card.remove();
+  card = null;
+}
 
 function editFormSubmitHandler(inputValues, evt) {
   evt.preventDefault();
@@ -130,8 +150,17 @@ function addFormSubmitHandler(inputValues, evt, selector) {
     .then((res) => {
       return res.json();
     })
-    .then(({ name, link }) => {
-      let newCard = new Card(name, link, selector, handleCardClick, handleLikeClick);
+    .then(({ name, link, likes, _id }) => {
+      let newCard = new Card(
+        _id,
+        name,
+        link,
+        selector,
+        likes,
+        handleCardClick,
+        handleLikeClick,
+        openDeleteModal,
+      );
       newCard = newCard.generateCard();
       cardList.then((data) => {
         data.addItem(newCard);
@@ -165,3 +194,5 @@ addBtn.addEventListener("click", () => {
 profileImageElement.addEventListener("click", () => {
   changeAvatarPopup.open();
 });
+
+

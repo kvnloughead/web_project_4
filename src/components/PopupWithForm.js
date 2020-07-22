@@ -20,18 +20,18 @@ export default class PopupWithForm extends Popup {
   setEventListeners() {
     super.setEventListeners();
     this._popupContainer.addEventListener("submit", (evt) => {
-      this._handleFormSubmit(
-        this._getInputValues(),
-        evt,
-        "#card-template"
+        this._handleFormSubmit(
+          this._getInputValues(),
+          evt,
+          "#card-template"
       );
     });
   }
 
-  open(currentUserInfo) {
-    if (currentUserInfo) {
-      this._name.value = currentUserInfo.name;
-      this._job.value = currentUserInfo.job;
+  open(data, cardId, card) {
+    if (data) {
+      this._name.value = data.name;
+      this._job.value = data.job;
     }
     super.open();
   }

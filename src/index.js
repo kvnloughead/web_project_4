@@ -37,7 +37,17 @@ const api = new Api({
 
 function handleLikeClick() {}
 
-const cardList = api
+const userInfo = new UserInfo({
+  nameSelector: profileNameSelector,
+  jobSelector: profileJobSelector,
+  imageSelector: profileImageSelector,
+});
+
+api.loadUserInfo().then((res) => {
+  userInfo.setUserInfo(res);
+});
+
+const cardElements = api
   .getInitialCards()
   .then((initialCards) => {
     const cardElements = [];
@@ -48,13 +58,18 @@ const cardList = api
         card.link,
         cardSelector,
         card.likes,
+        card.owner._id,
+        userInfo._id,
         handleCardClick,
         handleLikeClick,
-        openDeleteModal,
+        openDeleteModal
       );
       cardEl = cardEl.generateCard();
       cardElements.push(cardEl);
     }
+    return cardElements;
+  })
+  .then((cardElements) => {
     const cardList = new Section(
       {
         data: cardElements,
@@ -67,19 +82,20 @@ const cardList = api
     cardList.renderItems();
     return cardList;
   })
+  .then((cardList) => {
+    const addModalPopup = new PopupWithForm(
+      ".popup__container_type_add",
+      addFormSubmitHandler,
+      cardList
+    );
+    addModalPopup.setEventListeners();
+    addBtn.addEventListener("click", () => {
+      addModalPopup.open();
+    });
+  })
   .catch((err) => {
     console.log(err);
   });
-
-const userInfo = new UserInfo({
-  nameSelector: profileNameSelector,
-  jobSelector: profileJobSelector,
-  imageSelector: profileImageSelector,
-});
-
-api.loadUserInfo().then((res) => {
-  userInfo.setUserInfo(res);
-});
 
 popupOverlay.parentNode.appendChild(imagePopupContainer);
 const imagePopup = new PopupWithImage(imagePopupSelector);
@@ -88,7 +104,6 @@ imagePopup.setEventListeners();
 const addFormValidator = new FormValidator(modalArgs, addForm);
 const editFormValidator = new FormValidator(modalArgs, editForm);
 const avatarFormValidator = new FormValidator(modalArgs, avatarForm);
-const deleteFormValidator = new FormValidator(modalArgs, deleteForm)
 addFormValidator.enableValidation();
 editFormValidator.enableValidation();
 avatarFormValidator.enableValidation();
@@ -101,10 +116,6 @@ const editModalPopup = new PopupWithForm(
   ".popup__container_type_edit",
   editFormSubmitHandler
 );
-const addModalPopup = new PopupWithForm(
-  ".popup__container_type_add",
-  addFormSubmitHandler
-);
 const changeAvatarPopup = new PopupWithForm(
   ".popup__container_type_avatar",
   changeAvatarSubmitHandler
@@ -112,10 +123,9 @@ const changeAvatarPopup = new PopupWithForm(
 const deletePopup = new PopupWithConfirm(
   ".popup__container_type_delete",
   deleteButtonSubmitHandler
-)
+);
 
 editModalPopup.setEventListeners();
-addModalPopup.setEventListeners();
 changeAvatarPopup.setEventListeners();
 deletePopup.setEventListeners();
 
@@ -143,29 +153,39 @@ function editFormSubmitHandler(inputValues, evt) {
   editModalPopup.close();
 }
 
-function addFormSubmitHandler(inputValues, evt, selector) {
+function addFormSubmitHandler(
+  inputValues,
+  evt,
+  selector,
+  addModalPopup,
+  cardList
+) {
   evt.preventDefault();
   api
     .addNewCard(inputValues)
     .then((res) => {
       return res.json();
     })
-    .then(({ name, link, likes, _id }) => {
+    .then(({ name, link, likes, _id, owner }) => {
       let newCard = new Card(
         _id,
         name,
         link,
         selector,
         likes,
+        owner._id,
+        userInfo._id,
         handleCardClick,
         handleLikeClick,
-        openDeleteModal,
+        openDeleteModal
       );
       newCard = newCard.generateCard();
-      cardList.then((data) => {
-        data.addItem(newCard);
-        data.renderItems();
-      });
+      cardList.addItem(newCard);
+      cardList.renderItems();
+      // cardList.then((data) => {
+      //   data.addItem(newCard);
+      //   data.renderItems();
+      // });
     });
   addModalPopup.close();
 }
@@ -187,12 +207,6 @@ editBtn.addEventListener("click", () => {
   editModalPopup.open(userInfo.getUserInfo());
 });
 
-addBtn.addEventListener("click", () => {
-  addModalPopup.open();
-});
-
 profileImageElement.addEventListener("click", () => {
   changeAvatarPopup.open();
 });
-
-

@@ -5,6 +5,8 @@ export default class Card {
     link,
     cardSelector,
     likes,
+    ownerId,
+    userId,
     clickHandler,
     likeClickHandler,
     deleteClickHandler,
@@ -16,6 +18,8 @@ export default class Card {
     this._handleCardClick = clickHandler;
     this._likes = likes;
     this._numLikes = this._likes.length;
+    this._ownerId = ownerId;
+    this._isOwned = this._ownerId === userId;
     this._handleLikeClick = likeClickHandler;
     this._deleteClickHandler = deleteClickHandler;
   }
@@ -29,8 +33,8 @@ export default class Card {
     this._imageEl = cardElement.querySelector(".place__image");
     this._nameEl = cardElement.querySelector(".place__name");
     this._likeBtnEl = cardElement.querySelector(".place__like-btn");
-    this._deleteBtnEl = cardElement.querySelector(".button_action_delete");
     this._likeCounterElem = cardElement.querySelector(".place__like-counter");
+    this._deleteBtnEl = cardElement.querySelector(".place__delete-btn");
     return cardElement;
   }
 
@@ -60,8 +64,12 @@ export default class Card {
     });
   }
 
+
   generateCard() {
     const card = this._getTemplate();
+    if (this._isOwned) {
+      this._deleteBtnEl.classList.remove('place__delete-btn_hidden');
+    }
     this._addContent();
     this._addEventListeners();
     return card;

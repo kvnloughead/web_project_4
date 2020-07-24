@@ -5,10 +5,8 @@ export default class Api {
   }
 
   getInitialCards() {
-    return fetch("https://around.nomoreparties.co/v1/group-2/cards", {
-      headers: {
-        authorization: "dc340326-95ec-4474-9060-e6102316f742"
-      }
+    return fetch(this.baseUrl + "/cards", {
+      headers: this.headers
     })
       .then(res => {
         if (res.ok) {
@@ -18,10 +16,8 @@ export default class Api {
   }
 
   loadUserInfo() {
-    return fetch("https://around.nomoreparties.co/v1/group-2/users/me", {
-      headers: {
-        authorization: "dc340326-95ec-4474-9060-e6102316f742"
-      }
+    return fetch(this.baseUrl + "/users/me", {
+      headers: this.headers
     })
       .then(res => {
         if (res.ok) {
@@ -31,12 +27,9 @@ export default class Api {
   }
 
   changeAvatar(link) {
-    return fetch("https://around.nomoreparties.co/v1/group-2/users/me/avatar", {
+    return fetch(this.baseUrl + "/users/me/avatar", {
       method: "PATCH",
-      headers: {
-        authorization: "dc340326-95ec-4474-9060-e6102316f742",
-        "Content-Type": "application/json"
-      },
+      headers: this.headers,
       body: JSON.stringify({
         avatar: link
       })
@@ -44,12 +37,9 @@ export default class Api {
   }
 
   changeUserInfo({ name, job }) {
-    return fetch("https://around.nomoreparties.co/v1/group-2/users/me", {
+    return fetch(this.baseUrl + "/users/me", {
       method: "PATCH",
-      headers: {
-        authorization: "dc340326-95ec-4474-9060-e6102316f742",
-        "Content-Type": "application/json"
-      },
+      headers: this.headers,
       body: JSON.stringify({
         name: name,
         about: job
@@ -58,12 +48,9 @@ export default class Api {
   }
 
   addNewCard({ title, imageUrl }) {
-    return fetch("https://around.nomoreparties.co/v1/group-2/cards", {
+    return fetch(this.baseUrl + "/cards", {
       method: "POST",
-      headers: {
-        authorization: "dc340326-95ec-4474-9060-e6102316f742",
-        "Content-Type": "application/json"
-      },
+      headers: this.headers,
       body: JSON.stringify({
         name: title,
         link: imageUrl
@@ -74,19 +61,32 @@ export default class Api {
   deleteCard(cardId) {
     return fetch(`https://around.nomoreparties.co/v1/group-2/cards/${cardId}`, {
       method: "DELETE",
-      headers: {
-        authorization: "dc340326-95ec-4474-9060-e6102316f742",
-        "Content-Type": "application/json"
-      }
+      headers: this.headers
     });
   }
+  
 
+  // addLike(cardId) {
+  //   return fetch(`https://around.nomoreparties.co/v1/group-2/cards/likes/${cardId}`, {
+  //     method: "PUT",
+  //     headers: this.headers
+  //   });
+  // }
 
-  addLike( ) {
-    
-  }
+  // removeLike(cardId) {
+  //   return fetch(`https://around.nomoreparties.co/v1/group-2/cards/likes/${cardId}`, {
+  //     method: "DELETE",
+  //     headers: this.headers
+  //   });
+  // }
 
-  removeLike() {
-
+  updateLikes(cardId, requestType) {
+    return fetch(`https://around.nomoreparties.co/v1/group-2/cards/likes/${cardId}`, {
+      method: requestType,
+      headers: this.headers
+    })
+    .then((res) => {
+      return res.json();
+    })
   }
 }

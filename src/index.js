@@ -35,7 +35,14 @@ const api = new Api({
   },
 });
 
-function handleLikeClick() {}
+function handleLikeClick(card, cardId, isLiked) {
+  const method = isLiked ? "DELETE" : "PUT";
+  api
+    .updateLikes(cardId, method)
+    .then((data) => {
+      card._likes = data.likes;
+    });
+}
 
 const userInfo = new UserInfo({
   nameSelector: profileNameSelector,

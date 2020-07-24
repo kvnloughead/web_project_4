@@ -17,11 +17,19 @@ export default class Card {
     this._cardSelector = cardSelector;
     this._handleCardClick = clickHandler;
     this._likes = likes;
-    this._numLikes = this._likes.length;
     this._ownerId = ownerId;
-    this._isOwned = this._ownerId === userId;
+    this._currentUserId = userId;
+    this._isOwned = this._ownerId === this._currentUserId; 
     this._handleLikeClick = likeClickHandler;
     this._deleteClickHandler = deleteClickHandler;
+  }
+
+  _isLikedByCurrentUser() {
+    for (let i = 0; i < this._likes.length; i++) {
+      if (this._likes[i]._id === this._currentUserId) {
+        return true;
+      }
+    } return false;
   }
 
   _getTemplate() {
@@ -41,11 +49,20 @@ export default class Card {
   _addContent() {
     this._imageEl.style.backgroundImage = `url(${this._link})`;
     this._nameEl.textContent = this._name;
-    this._likeCounterElem.textContent = this._numLikes;
+    this._likeCounterElem.textContent = this._likes.length;
+    if (this._isLikedByCurrentUser()) {
+      this._likeBtnEl.classList.add("place__like-btn_clicked");
+    }
   }
 
   _likeBtnHandler() {
     this._likeBtnEl.classList.toggle("place__like-btn_clicked");
+    if (this._isLikedByCurrentUser()) {
+      this._likeCounterElem.textContent = parseInt(this._likeCounterElem.textContent) - 1;
+    } else {
+      this._likeCounterElem.textContent = parseInt(this._likeCounterElem.textContent) + 1;
+    }
+    this._handleLikeClick(this, this._id, this._isLikedByCurrentUser());
   }
 
   _deleteBtnHandler() {

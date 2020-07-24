@@ -10,7 +10,7 @@ export default class UserInfo {
       name: this._profileNameEl.textContent,
       job: this._profileJobEl.textContent,
       imageLink: this._profileImageEl.src,
-      _id: this._id
+      _id: this._id,
     };
   }
 

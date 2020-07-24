@@ -9,7 +9,7 @@ export default class Card {
     userId,
     clickHandler,
     likeClickHandler,
-    deleteClickHandler,
+    deleteClickHandler
   ) {
     this._id = id;
     this._name = name;
@@ -19,7 +19,7 @@ export default class Card {
     this._likes = likes;
     this._ownerId = ownerId;
     this._currentUserId = userId;
-    this._isOwned = this._ownerId === this._currentUserId; 
+    this._isOwned = this._ownerId === this._currentUserId;
     this._handleLikeClick = likeClickHandler;
     this._deleteClickHandler = deleteClickHandler;
   }
@@ -29,7 +29,8 @@ export default class Card {
       if (this._likes[i]._id === this._currentUserId) {
         return true;
       }
-    } return false;
+    }
+    return false;
   }
 
   _getTemplate() {
@@ -58,9 +59,11 @@ export default class Card {
   _likeBtnHandler() {
     this._likeBtnEl.classList.toggle("place__like-btn_clicked");
     if (this._isLikedByCurrentUser()) {
-      this._likeCounterElem.textContent = parseInt(this._likeCounterElem.textContent) - 1;
+      this._likeCounterElem.textContent =
+        parseInt(this._likeCounterElem.textContent) - 1;
     } else {
-      this._likeCounterElem.textContent = parseInt(this._likeCounterElem.textContent) + 1;
+      this._likeCounterElem.textContent =
+        parseInt(this._likeCounterElem.textContent) + 1;
     }
     this._handleLikeClick(this, this._id, this._isLikedByCurrentUser());
   }
@@ -81,11 +84,10 @@ export default class Card {
     });
   }
 
-
   generateCard() {
     const card = this._getTemplate();
     if (this._isOwned) {
-      this._deleteBtnEl.classList.remove('place__delete-btn_hidden');
+      this._deleteBtnEl.classList.remove("place__delete-btn_hidden");
     }
     this._addContent();
     this._addEventListeners();

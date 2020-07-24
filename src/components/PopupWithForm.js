@@ -6,7 +6,11 @@ export default class PopupWithForm extends Popup {
     this._handleFormSubmit = handleFormSubmit;
     this._form = this._popupContainer.querySelector(".popup__form");
     this._inputList = this._popupContainer.querySelectorAll(".popup__input");
-    [ this._name, this._job ] = this._inputList;
+    this._submitBtn = this._popupContainer.querySelector(
+      ".button_action_submit"
+    );
+    this._buttonText = this._submitBtn.textContent;
+    [this._name, this._job] = this._inputList;
     this._cardList = cardList;
   }
 
@@ -18,15 +22,24 @@ export default class PopupWithForm extends Popup {
     return this._formValues;
   }
 
+  submissionPending() {
+    this._submitBtn.textContent = "Saving...";
+  }
+
+  submissionComplete() {
+    this._submitBtn.textContent = this._buttonText;
+  }
+
   setEventListeners() {
     super.setEventListeners();
     this._popupContainer.addEventListener("submit", (evt) => {
-        this._handleFormSubmit(
-          this._getInputValues(),
-          evt,
-          "#card-template",
-          this,
-          this._cardList
+      this.submissionPending();
+      this._handleFormSubmit(
+        this._getInputValues(),
+        evt,
+        "#card-template",
+        this,
+        this._cardList
       );
     });
   }

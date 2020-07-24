@@ -1,4 +1,7 @@
-.button_action_delete {
+.place__delete-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-image: url('../../../images/icons/trashcan.svg');
   background-color: rgba(0, 0, 0, 0);
   position: absolute;
@@ -8,4 +11,9 @@
   width: 19px;
   top: 25px;
   right: 16px;
+}
+
+.place__delete-btn:hover {
+  opacity: .6;
+  cursor: url('../../../images/icons/finger.svg'), auto;
 }

@@ -15,15 +15,18 @@
     </header>
     <main>
       <section class="profile">
-        <img
-          src="./images/cousteau.jpg"
-          alt="Portrait of Jacques Cousteau"
-          class="profile__image"
-        />
+        <div>
+          <img
+            src="#"
+            alt="Portrait of Jacques Cousteau"
+            class="profile__image"
+          />
+          <button class="button button_action_change-avatar"></button>
+        </div>
         <div class="profile__info">
           <div class="profile__text">
-            <h2 class="profile__name">Jacques Cousteau</h2>
-            <p class="profile__job">Explorer</p>
+            <h2 class="profile__name"></h2>
+            <p class="profile__job"></p>
           </div>
           <button class="button button_action_edit"></button>
         </div>
@@ -35,10 +38,13 @@
           <template id="card-template">
             <li class="place">
               <div class="place__image"></div>
-              <button class="button button_action_delete"></button>
+              <button class="place__delete-btn place__delete-btn_hidden"></button>
               <div class="place__footer">
                 <h2 class="place__name"></h2>
-                <button class="place__like-btn"></button>
+                <div class="place__like-container">
+                  <button class="place__like-btn"></button>
+                  <p class="place__like-counter"></p>
+                </div>
               </div>
             </li>
           </template>
@@ -46,6 +52,57 @@
       </div>
 
       <div class="popup__overlay"></div>
+      <div class="popup__container popup__container_type_delete">
+        <button class="button button_action_close" type="reset"></button>
+        <h2 class="popup__title">Are you sure?</h2>
+        <form
+          id="delete-form"
+          name="deleteForm"
+          class="popup__form"
+          action="#"
+          novalidate
+        >
+          <button
+            class="button button_action_submit"
+            type="submit"
+            value="Save"
+          >
+            Yes
+          </button>
+        </form>
+      </div>
+
+      <div class="popup__container popup__container_type_avatar">
+        <button class="button button_action_close" type="reset"></button>
+        <h2 class="popup__title">Change profile picture</h2>
+        <form
+          id="avatar-form"
+          name="avatarForm"
+          class="popup__form"
+          action="#"
+          novalidate
+        >
+          <input
+            class="popup__input"
+            type="url"
+            id="avatar"
+            name="avatar"
+            placeholder="Enter link to image"
+            minlength="2"
+            required
+          />
+          <span class="popup__input-error" id="avatar-input-error"></span>
+         
+          <button
+            class="button button_action_submit button_inactive"
+            type="submit"
+            value="Save"
+          >
+            Save
+          </button>
+        </form>
+      </div>
+
       <div class="popup__container popup__container_type_edit">
         <button class="button button_action_close" type="reset"></button>
         <h2 class="popup__title">Edit profile</h2>
@@ -64,7 +121,7 @@
             placeholder="Name"
             minlength="2"
             maxlength="40"
-            value="Jacques Cousteau"
+            value=""
             required
           />
           <span class="popup__input-error" id="name-input-error"></span>

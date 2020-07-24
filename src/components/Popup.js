@@ -1,7 +1,12 @@
 export default class Popup {
   constructor(popupSelector) {
     this._popupContainerClass = `${popupSelector.split("__")[0]}__${
+<<<<<<< HEAD
       popupSelector.split("_")[2]}`.slice(1);
+=======
+      popupSelector.split("_")[2]
+    }`.slice(1);
+>>>>>>> master
     this._popupOverlaySelector = ".popup__overlay";
     this._popupOverlayClass = this._popupOverlaySelector.slice(1);
     this._popupOverlay = document.querySelector(this._popupOverlaySelector);

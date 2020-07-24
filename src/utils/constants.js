@@ -4,6 +4,8 @@ export const editBtn = document.querySelector(".button_action_edit");
 export const addBtn = document.querySelector(".button_action_add");
 export const profileNameSelector = ".profile__name";
 export const profileJobSelector = ".profile__job";
+export const profileImageSelector = ".profile__image";
+export const profileImageElement = document.querySelector(profileImageSelector);
 export const editContainer = document.querySelector(
   ".popup__container_type_edit"
 );
@@ -12,6 +14,10 @@ export const addContainer = document.querySelector(
   ".popup__container_type_add"
 );
 export const addForm = addContainer.querySelector(".popup__form");
+export const avatarContainer = document.querySelector(".popup__container_type_avatar");
+export const avatarForm = avatarContainer.querySelector('.popup__form');
+export const deleteContainer = document.querySelector('.popup__container_type_delete');
+export const deleteForm = deleteContainer.querySelector('.popup__form');
 
 export const imagePopupSelector = ".popup__image-container";
 export const popupOverlay = document.querySelector(".popup__overlay");
@@ -36,29 +42,3 @@ export const modalArgs = {
   cardSelector: "#card-template",
 };
 
-export const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://code.s3.yandex.net/web-code/latemar.jpg",
-  },
-  {
-    name: "Vanois National Park",
-    link: "https://code.s3.yandex.net/web-code/vanois.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://code.s3.yandex.net/web-code/lago.jpg",
-  },
-];

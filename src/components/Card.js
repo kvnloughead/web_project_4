@@ -1,9 +1,36 @@
 export default class Card {
-  constructor(name, link, cardSelector, clickHandler) {
+  constructor(
+    id,
+    name,
+    link,
+    cardSelector,
+    likes,
+    ownerId,
+    userId,
+    clickHandler,
+    likeClickHandler,
+    deleteClickHandler
+  ) {
+    this._id = id;
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
     this._handleCardClick = clickHandler;
+    this._likes = likes;
+    this._ownerId = ownerId;
+    this._currentUserId = userId;
+    this._isOwned = this._ownerId === this._currentUserId;
+    this._handleLikeClick = likeClickHandler;
+    this._deleteClickHandler = deleteClickHandler;
+  }
+
+  _isLikedByCurrentUser() {
+    for (let i = 0; i < this._likes.length; i++) {
+      if (this._likes[i]._id === this._currentUserId) {
+        return true;
+      }
+    }
+    return false;
   }
 
   _getTemplate() {
@@ -15,22 +42,34 @@ export default class Card {
     this._imageEl = cardElement.querySelector(".place__image");
     this._nameEl = cardElement.querySelector(".place__name");
     this._likeBtnEl = cardElement.querySelector(".place__like-btn");
-    this._deleteBtnEl = cardElement.querySelector(".button_action_delete");
+    this._likeCounterElem = cardElement.querySelector(".place__like-counter");
+    this._deleteBtnEl = cardElement.querySelector(".place__delete-btn");
     return cardElement;
   }
 
   _addContent() {
     this._imageEl.style.backgroundImage = `url(${this._link})`;
     this._nameEl.textContent = this._name;
+    this._likeCounterElem.textContent = this._likes.length;
+    if (this._isLikedByCurrentUser()) {
+      this._likeBtnEl.classList.add("place__like-btn_clicked");
+    }
   }
 
   _likeBtnHandler() {
     this._likeBtnEl.classList.toggle("place__like-btn_clicked");
+    if (this._isLikedByCurrentUser()) {
+      this._likeCounterElem.textContent =
+        parseInt(this._likeCounterElem.textContent) - 1;
+    } else {
+      this._likeCounterElem.textContent =
+        parseInt(this._likeCounterElem.textContent) + 1;
+    }
+    this._handleLikeClick(this, this._id, this._isLikedByCurrentUser());
   }
 
   _deleteBtnHandler() {
-    this._placeEl.remove();
-    this._placeEl = null;
+    this._deleteClickHandler(this._id, this._placeEl);
   }
 
   _addEventListeners() {
@@ -47,6 +86,9 @@ export default class Card {
 
   generateCard() {
     const card = this._getTemplate();
+    if (this._isOwned) {
+      this._deleteBtnEl.classList.remove("place__delete-btn_hidden");
+    }
     this._addContent();
     this._addEventListeners();
     return card;

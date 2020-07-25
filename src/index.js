@@ -54,8 +54,7 @@ function handleCardClick(name, imageUrl) {
 }
 
 function handleLikeClick(card, cardId, isLiked) {
-  const method = isLiked ? "DELETE" : "PUT";
-  api.updateLikes(cardId, method).then((data) => {
+  api.updateLikes(cardId, isLiked).then((data) => {
     card._likes = data.likes;
   })
   .catch((err) => {

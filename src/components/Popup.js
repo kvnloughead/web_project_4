@@ -15,6 +15,7 @@ export default class Popup {
     );
   }
 
+
   open() {
     this._popupOverlay.classList.add(`${this._popupOverlayClass}_visible`);
     this._popupContainer.classList.add(`${this._popupContainerClass}_visible`);

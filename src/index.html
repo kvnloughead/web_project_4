@@ -21,16 +21,25 @@
             alt="Portrait of Jacques Cousteau"
             class="profile__image"
           />
-          <button class="button button_action_change-avatar"></button>
+          <button
+            class="button button_action_change-avatar"
+            aria-label="open-change-avatar-modal"
+          ></button>
         </div>
         <div class="profile__info">
           <div class="profile__text">
             <h2 class="profile__name"></h2>
             <p class="profile__job"></p>
           </div>
-          <button class="button button_action_edit"></button>
+          <button
+            class="button button_action_edit"
+            aria-label="open-edit-profile-modal"
+          ></button>
         </div>
-        <button class="button button_action_add"></button>
+        <button
+          class="button button_action_add"
+          aria-label="open-new-card-modal"
+        ></button>
       </section>
 
       <div class="places">
@@ -38,11 +47,17 @@
           <template id="card-template">
             <li class="place">
               <div class="place__image"></div>
-              <button class="place__delete-btn place__delete-btn_hidden"></button>
+              <button
+                class="place__delete-btn place__delete-btn_hidden"
+                aria-label="delete-card"
+              ></button>
               <div class="place__footer">
                 <h2 class="place__name"></h2>
                 <div class="place__like-container">
-                  <button class="place__like-btn"></button>
+                  <button
+                    class="place__like-btn"
+                    aria-label="like-or-unlike-card"
+                  ></button>
                   <p class="place__like-counter"></p>
                 </div>
               </div>
@@ -53,7 +68,11 @@
 
       <div class="popup__overlay"></div>
       <div class="popup__container popup__container_type_delete">
-        <button class="button button_action_close" type="reset"></button>
+        <button
+          class="button button_action_close"
+          type="reset"
+          aria-label="close-delete-modal"
+        ></button>
         <h2 class="popup__title">Are you sure?</h2>
         <form
           id="delete-form"
@@ -66,6 +85,7 @@
             class="button button_action_submit"
             type="submit"
             value="Save"
+            aria-label="confirm-delete-card"
           >
             Yes
           </button>
@@ -73,7 +93,11 @@
       </div>
 
       <div class="popup__container popup__container_type_avatar">
-        <button class="button button_action_close" type="reset"></button>
+        <button
+          class="button button_action_close"
+          type="reset"
+          aria-label="close-change-avatar-modal"
+        ></button>
         <h2 class="popup__title">Change profile picture</h2>
         <form
           id="avatar-form"
@@ -92,11 +116,12 @@
             required
           />
           <span class="popup__input-error" id="avatar-input-error"></span>
-         
+
           <button
             class="button button_action_submit button_inactive"
             type="submit"
             value="Save"
+            aria-label="submit-change-avatar"
           >
             Save
           </button>
@@ -104,7 +129,11 @@
       </div>
 
       <div class="popup__container popup__container_type_edit">
-        <button class="button button_action_close" type="reset"></button>
+        <button
+          class="button button_action_close"
+          type="reset"
+          aria-label="close-edit-profile-modal"
+        ></button>
         <h2 class="popup__title">Edit profile</h2>
         <form
           id="edit-form"
@@ -141,6 +170,7 @@
             class="button button_action_submit button_inactive"
             type="submit"
             value="Save"
+            aria-label="submit-edit-profile"
           >
             Save
           </button>
@@ -148,7 +178,11 @@
       </div>
 
       <div class="popup__container popup__container_type_add">
-        <button class="button button_action_close" type="reset"></button>
+        <button
+          class="button button_action_close"
+          type="reset"
+          aria-label="close-new-card-modal"
+        ></button>
         <h2 class="popup__title">New place</h2>
         <form
           id="add-form"
@@ -181,6 +215,7 @@
             class="button button_action_submit button_inactive"
             type="submit"
             value="Create"
+            aria-label="submit-new-card-modal"
           >
             Create
           </button>
@@ -190,7 +225,11 @@
       <div class="popup__overlay">
         <template id="image-popup-template">
           <figure class="popup__image-container popup__container_type_image">
-            <button class="button button_action_close" type="reset"></button>
+            <button
+              class="button button_action_close"
+              type="reset"
+              aria-label="close-image-popup"
+            ></button>
             <img src="#" alt="" class="popup__image" />
             <figcaption class="popup__image-caption"></figcaption>
           </figure>

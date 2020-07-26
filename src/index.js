@@ -193,8 +193,7 @@ function addFormSubmitHandler(
         openDeleteModal
       );
       newCard = newCard.generateCard();
-      cardList.addItem(newCard);
-      cardList.renderItems();
+      cardList.renderItems(newCard);
       addModalPopup.close();
     })
     .then(() => {

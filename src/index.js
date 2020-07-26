@@ -119,7 +119,8 @@ const avatarFormValidator = new FormValidator(modalArgs, avatarForm);
 addFormValidator.enableValidation();
 editFormValidator.enableValidation();
 avatarFormValidator.enableValidation();
-const cardElements = api
+
+api
   .getInitialCards()
   .then((initialCards) => {
     const cardElements = [];
@@ -141,10 +142,10 @@ const cardElements = api
     }
     return cardElements;
   })
-  .then((cardElements) => {
+  .then((data) => {
     const cardList = new Section(
       {
-        data: cardElements,
+        data: data,
         renderer: (element) => {
           cardList.addItem(element);
         },

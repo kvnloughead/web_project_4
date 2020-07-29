@@ -39,7 +39,7 @@ const userInfo = new UserInfo({
   jobSelector: profileJobSelector,
   imageSelector: profileImageSelector,
 });
-
+debugger;
 api
   .loadUserInfo()
   .then((data) => {
@@ -54,6 +54,7 @@ function handleCardClick(name, imageUrl) {
 }
 
 function handleLikeClick(card, cardId, isLiked) {
+  
   api.updateLikes(cardId, isLiked).then((data) => {
     card._likes = data.likes;
   })

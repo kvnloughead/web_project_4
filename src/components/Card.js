@@ -60,10 +60,11 @@ export default class Card {
   _likeBtnHandler() {
     this._likeBtnEl.classList.toggle("place__like-btn_clicked");
     if (this._isLikedByCurrentUser()) {
-      this._likeCounterElem.textContent = parseInt(--this._numLikes);
+      this._numLikes -= 1;
     } else {
-      this._likeCounterElem.textContent = parseInt(++this._numLikes);
+      this._numLikes += 1;
     }
+    this._likeCounterElem.textContent = this._numLikes;
     this._handleLikeClick(this, this._id, this._isLikedByCurrentUser());
   }
 

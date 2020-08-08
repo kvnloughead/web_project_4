@@ -17,6 +17,7 @@ export default class Card {
     this._cardSelector = cardSelector;
     this._handleCardClick = clickHandler;
     this._likes = likes;
+    this._numLikes = likes.length;
     this._ownerId = ownerId;
     this._currentUserId = userId;
     this._isOwned = this._ownerId === this._currentUserId;
@@ -59,12 +60,11 @@ export default class Card {
   _likeBtnHandler() {
     this._likeBtnEl.classList.toggle("place__like-btn_clicked");
     if (this._isLikedByCurrentUser()) {
-      this._likeCounterElem.textContent =
-        parseInt(this._likeCounterElem.textContent) - 1;
+      this._numLikes -= 1;
     } else {
-      this._likeCounterElem.textContent =
-        parseInt(this._likeCounterElem.textContent) + 1;
+      this._numLikes += 1;
     }
+    this._likeCounterElem.textContent = this._numLikes;
     this._handleLikeClick(this, this._id, this._isLikedByCurrentUser());
   }
 

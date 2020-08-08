@@ -71,17 +71,18 @@ export default class Api {
   }
 
   deleteCard(cardId) {
-    return fetch(`https://around.nomoreparties.co/v1/group-2/cards/${cardId}`, {
+    return fetch(this.baseUrl + `/cards/${cardId}`, {
       method: "DELETE",
       headers: this.headers,
     });
   }
 
-  updateLikes(cardId, requestType) {
+  updateLikes(cardId, isLiked) {  
+    const method = isLiked ? "DELETE" : "PUT";
     return fetch(
-      `https://around.nomoreparties.co/v1/group-2/cards/likes/${cardId}`,
+      this.baseUrl + `/cards/likes/${cardId}`,
       {
-        method: requestType,
+        method: method,
         headers: this.headers,
       }
     ).then((res) => {

@@ -39,6 +39,7 @@ const userInfo = new UserInfo({
   jobSelector: profileJobSelector,
   imageSelector: profileImageSelector,
 });
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 const editModalPopup = new PopupWithForm(
@@ -73,6 +74,9 @@ function addFormSubmitHandler(inputValues, evt, selector) {
 }
 
 =======
+=======
+debugger;
+>>>>>>> master
 api
   .loadUserInfo()
   .then((data) => {
@@ -87,8 +91,8 @@ function handleCardClick(name, imageUrl) {
 }
 
 function handleLikeClick(card, cardId, isLiked) {
-  const method = isLiked ? "DELETE" : "PUT";
-  api.updateLikes(cardId, method).then((data) => {
+  
+  api.updateLikes(cardId, isLiked).then((data) => {
     card._likes = data.likes;
   })
   .catch((err) => {
@@ -153,7 +157,8 @@ const avatarFormValidator = new FormValidator(modalArgs, avatarForm);
 addFormValidator.enableValidation();
 editFormValidator.enableValidation();
 avatarFormValidator.enableValidation();
-const cardElements = api
+
+api
   .getInitialCards()
   .then((initialCards) => {
     const cardElements = [];
@@ -175,10 +180,10 @@ const cardElements = api
     }
     return cardElements;
   })
-  .then((cardElements) => {
+  .then((data) => {
     const cardList = new Section(
       {
-        data: cardElements,
+        data: data,
         renderer: (element) => {
           cardList.addItem(element);
         },
@@ -227,8 +232,7 @@ function addFormSubmitHandler(
         openDeleteModal
       );
       newCard = newCard.generateCard();
-      cardList.addItem(newCard);
-      cardList.renderItems();
+      cardList.renderItems(newCard);
       addModalPopup.close();
     })
     .then(() => {
@@ -259,7 +263,6 @@ function changeAvatarSubmitHandler(inputValues, evt) {
     });
 }
 
->>>>>>> master
 editBtn.addEventListener("click", () => {
   editModalPopup.open(userInfo.getUserInfo());
 });

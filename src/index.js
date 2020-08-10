@@ -39,9 +39,7 @@ const userInfo = new UserInfo({
   jobSelector: profileJobSelector,
   imageSelector: profileImageSelector,
 });
-<<<<<<< HEAD
 
-<<<<<<< HEAD
 const editModalPopup = new PopupWithForm(
   ".popup__container_type_edit",
   editFormSubmitHandler
@@ -53,30 +51,6 @@ const addModalPopup = new PopupWithForm(
 editModalPopup.setEventListeners();
 addModalPopup.setEventListeners();
 
-
-function editFormSubmitHandler(inputValues, evt) {
-  evt.preventDefault();
-  userInfo.setUserInfo(inputValues);
-  editModalPopup.close();
-}
-
-function addFormSubmitHandler(inputValues, evt, selector) {
-  evt.preventDefault();
-  let newCard = new Card(
-    inputValues.title,
-    inputValues.imageUrl,
-    selector,
-    handleCardClick
-  );
-  newCard = newCard.generateCard();
-  cardList.addItem(newCard);
-  addModalPopup.close();
-}
-
-=======
-=======
-debugger;
->>>>>>> master
 api
   .loadUserInfo()
   .then((data) => {
@@ -100,10 +74,6 @@ function handleLikeClick(card, cardId, isLiked) {
   });
 }
 
-const editModalPopup = new PopupWithForm(
-  ".popup__container_type_edit",
-  editFormSubmitHandler
-);
 const changeAvatarPopup = new PopupWithForm(
   ".popup__container_type_avatar",
   changeAvatarSubmitHandler
@@ -113,7 +83,6 @@ const deletePopup = new PopupWithConfirm(
   deleteButtonSubmitHandler
 );
 
-editModalPopup.setEventListeners();
 changeAvatarPopup.setEventListeners();
 deletePopup.setEventListeners();
 

@@ -26,6 +26,9 @@ import {
   imagePopupContainer,
 } from "./utils/constants.js";
 
+
+
+
 const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/group-2",
   headers: {
